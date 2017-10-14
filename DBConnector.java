@@ -65,7 +65,23 @@ public class DBConnector
 
         try
         {
-            result = statment.executeQuery("select f.consumable_name from consumable f, category c where c.category_name=="+category);
+            result = statment.executeQuery("select c.consumable_name from consumable c, category cc where c.Category_ID=cc.Category_ID and cc.Cateogry_Name='"+category+"'");
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+
+        return result;
+    }
+
+    public ResultSet getCart(String id)
+    {
+        result = null;
+
+        try
+        {
+            result = statment.executeQuery("select c.consumable_name, l.quantity, c.consumable_price*l.quantity from consumable c, lineitem l where c.consumable_id=l.consumable_id and l.transaction_id='"+id+"'");
         }
         catch(Exception e)
         {
