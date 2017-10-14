@@ -33,7 +33,39 @@ public class DBConnector
 
         try
         {
-            result = statment.executeQuery("select name from category");
+            result = statment.executeQuery("select category_name from category");
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+
+        return result;
+    }
+
+    public ResultSet getUsers()
+    {
+        result = null;
+
+        try
+        {
+            result = statment.executeQuery("select user_name from user");
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+
+        return result;
+    }
+
+    public ResultSet getConsumable(String category)
+    {
+        result = null;
+
+        try
+        {
+            result = statment.executeQuery("select f.consumable_name from consumable f, category c where c.category_name=="+category);
         }
         catch(Exception e)
         {
