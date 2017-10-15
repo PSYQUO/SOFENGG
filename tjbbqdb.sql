@@ -248,13 +248,13 @@ CREATE TABLE `transaction` (
   `Customer_Number` int(11) DEFAULT NULL,
   `Trans_Type` varchar(45) NOT NULL,
   `Cash` float NOT NULL,
-  `Change` float NOT NULL,
+  `Change` float DEFAULT NULL,
   `Tax` float NOT NULL,
   `Subtotal` float NOT NULL,
   `Senior_Discount` float DEFAULT NULL,
   `Total` float NOT NULL,
   PRIMARY KEY (`Trans_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -263,6 +263,7 @@ CREATE TABLE `transaction` (
 
 LOCK TABLES `transaction` WRITE;
 /*!40000 ALTER TABLE `transaction` DISABLE KEYS */;
+INSERT INTO `transaction` VALUES (1,'2017-10-14 00:00:00',1,22,'dine-in',144,NULL,33,144,NULL,144),(2,'2017-10-14 00:00:00',1,23,'dine-in',3123,NULL,33,3123,NULL,3123),(3,'2017-12-14 00:00:00',1,24,'dine-in',1331,NULL,33,1331,NULL,1331),(4,'2017-12-14 00:00:00',6,1,'dine-in',2342,NULL,33,2342,NULL,2342),(5,'2018-01-02 00:00:00',6,2,'dine-in',2231,NULL,33,2231,NULL,2231),(6,'2018-01-02 00:00:00',6,3,'dine-in',3331,NULL,33,3331,NULL,3331),(7,'2018-01-02 00:00:00',6,4,'dine-in',604,NULL,33,604,NULL,604);
 /*!40000 ALTER TABLE `transaction` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -274,13 +275,13 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user` (
-  `User_ID` int(11) NOT NULL,
+  `User_ID` int(11) NOT NULL AUTO_INCREMENT,
   `User_Username` varchar(45) NOT NULL,
   `User_Name` varchar(45) NOT NULL,
   `User_Password` varchar(45) NOT NULL,
   `User_Role` varchar(45) NOT NULL,
   PRIMARY KEY (`User_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -289,6 +290,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (1,'jordan','jose','1234','Owner'),(2,'jolene','jolene','1234','Supervisor'),(3,'gavin','mark','1234','Cashier'),(4,'jason','clark','1234','Owner'),(5,'carlo','gian','1234','Supervisor'),(6,'nixon','nixon','1234','Cashier'),(7,'allen','patrick','1234','Owner'),(8,'stephen','stephen','1234','Supervisor'),(9,'sing','nyles','1234','Cashier'),(10,'glen','jasper','1234','Owner');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -301,4 +303,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-14 17:08:19
+-- Dump completed on 2017-10-15 22:14:51
