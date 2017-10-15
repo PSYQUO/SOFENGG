@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane fx:id="background" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ChoiceBox fx:id="comboUser" layoutX="226.0" layoutY="152.0" prefHeight="36.0" prefWidth="268.0" styleClass="dropDown" />
       <ImageView fx:id="imageviewLogo" fitHeight="75.0" fitWidth="280.0" layoutX="160.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true" />
-      <Label layoutX="67.0" layoutY="143.0" prefHeight="36.0" prefWidth="129.0" text="Name" />
+      <ChoiceBox fx:id="comboName" layoutX="310.0" layoutY="32.0" prefHeight="39.0" prefWidth="265.0" styleClass="dropDown" AnchorPane.rightAnchor="25.0" />
+      <Button fx:id="buttonInventory" layoutX="24.0" layoutY="244.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="130.0" prefWidth="130.0" styleClass="grayButton" text="Button" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="24.0" />
+      <Button fx:id="buttonFiles" layoutX="167.0" layoutY="99.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="130.0" prefWidth="130.0" styleClass="grayButton" text="Button" AnchorPane.topAnchor="244.0" />
+      <Button fx:id="buttonSettings" layoutX="167.0" layoutY="99.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="130.0" prefWidth="130.0" styleClass="grayButton" text="Button" AnchorPane.bottomAnchor="171.0" />
+      <Button fx:id="buttonAnalytics" layoutX="24.0" layoutY="99.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="130.0" prefWidth="130.0" styleClass="grayButton" text="Button" AnchorPane.leftAnchor="24.0" AnchorPane.topAnchor="99.0" />
+      <Button fx:id="buttonNewOrder" layoutX="310.0" layoutY="85.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="289.0" prefWidth="265.0" styleClass="greenButton" text="Button" AnchorPane.bottomAnchor="26.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="85.0" />
+      <ImageView fx:id="imageviewLogo" fitHeight="67.0" fitWidth="273.0" layoutX="27.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>
