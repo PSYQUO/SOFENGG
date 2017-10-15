@@ -4,6 +4,7 @@ public class DBConnector
 {
     private Connection connection;
     private Statement statment;
+    private PreparedStatement pstatement;
     private ResultSet result;
 
     private static String username = "root";
@@ -89,5 +90,107 @@ public class DBConnector
         }
 
         return result;
+    }
+
+    public ResultSet getRawItem(String id)
+    {
+        result = null;
+
+        try
+        {
+            result = statment.executeQuery("select rawitem_name, rawitem_quantity from rawitem");
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+
+        return result;
+    }
+
+    public ResultSet getXReadToday()
+    {
+        result = null;
+
+        try
+        {
+            result = statment.executeQuery("select u.user_name, sum(t.total) from user u, transaction t where u.User_ID=t.User_ID and t.Trans_DateTime=curdate() group by u.User_ID");
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+
+        return result;
+    }
+
+    public ResultSet getXReadDate(Date date)
+    {
+        result = null;
+
+        try
+        {
+            result = statment.executeQuery("select u.user_name, sum(t.total) from user u, transaction t where u.User_ID=t.User_ID and t.Trans_DateTime=='"+date+"' group by u.User_ID");
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+
+        return result;
+    }
+
+    public ResultSet getXReadRangeDate(Date date1, Date date2)
+    {
+        result = null;
+
+        try
+        {
+            result = statment.executeQuery("select u.user_name, sum(t.total) from user u, transaction t where u.User_ID=t.User_ID and t.Trans_DateTime>='"+date1+"' and t.Trans_DateTime<='"+date2+"' group by u.User_ID;");
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+
+        return result;
+    }
+
+    public boolean changePassword(String userID, String newPassword)
+    {
+        try
+        {
+            pstatement = connection.prepareStatement("UPDATE user SET User_Password= ? WHERE User_ID= ?");
+            pstatement.setString(1, newPassword);
+            pstatement.setInt(2, Integer.parseInt(userID));
+
+            pstatement.executeUpdate();
+            pstatement.close();
+            return true;
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+            return false;
+        }
+    }
+
+    public boolean changeRole(String userID, String newRole)
+    {
+        try
+        {
+            pstatement = connection.prepareStatement("UPDATE user SET User_Role= ? WHERE User_ID= ?");
+            pstatement.setString(1, newRole);
+            pstatement.setInt(2, Integer.parseInt(userID));
+
+            pstatement.executeUpdate();
+            pstatement.close();
+            return true;
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+            return false;
+        }
     }
 }
