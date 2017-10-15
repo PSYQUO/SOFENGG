@@ -193,4 +193,96 @@ public class DBConnector
             return false;
         }
     }
+
+    public boolean deleteConsumable(String consID)
+    {
+        try
+        {
+            pstatement = connection.prepareStatement("DELETE FROM consumable WHERE Consumable_ID= ?");
+            pstatement.setInt(1, Integer.parseInt(consID));
+
+            pstatement.executeUpdate();
+            pstatement.close();
+            return true;
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+            return false;
+        }
+    }
+
+    public boolean deleteTransaction(String transID)
+    {
+        try
+        {
+            pstatement = connection.prepareStatement("DELETE transaction WHERE Trans_ID= ?");
+            pstatement.setInt(1, Integer.parseInt(transID));
+
+            pstatement.executeUpdate();
+            pstatement.close();
+            return true;
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+            return false;
+        }
+    }
+
+    public boolean addRawItem(String rawName, String rawPrice, String rawQuantity)
+    {
+        try
+        {
+            pstatement = connection.prepareStatement("INSERT INTO rawitem (RawItem_Name, RawItem_Price, RawItem_Quantity) VALUES (?, ?, ?)");
+            pstatement.setString(1, rawName);
+            pstatement.setString(2, rawPrice);
+            pstatement.setString(3, rawQuantity);
+
+            pstatement.executeUpdate();
+            pstatement.close();
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+            return false;
+        }
+    }
+
+    public boolean updateRawItem(String rawID, String addQuantity, String remarks, Date date) //not sure
+    {
+        try
+        {
+            pstatement = connection.prepareStatement("UPDATE rawitem SET RawItem_Quantity=RawItem_Quantity+? WHERE RawItem_ID= ?");
+            pstatement.setString(1, rawID);
+            pstatement.setInt(2, addQuantity);
+
+            pstatement.executeUpdate();
+            pstatement.close();
+            return true;
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+            return false;
+        }
+
+        try
+        {
+            pstatement = connection.prepareStatement("INSERT INTO incoming (In_DateTime, In_Quantity, In_Remarks, RawItem_ID) VALUES (?, ?, ?, ?)");
+            
+            pstatement.setString(1, date);
+            pstatement.setString(2, addQuantity);
+            pstatement.setString(3, remarks);
+            pstatement.setString(4, rawID);
+
+            pstatement.executeUpdate();
+            pstatement.close();
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+            return false;
+        }
+    }
 }
