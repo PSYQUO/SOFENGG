@@ -255,7 +255,7 @@ public class DBConnector
         {
             pstatement = connection.prepareStatement("UPDATE rawitem SET RawItem_Quantity=RawItem_Quantity+? WHERE RawItem_ID= ?");
             pstatement.setString(1, rawID);
-            pstatement.setInt(2, addQuantity);
+            pstatement.setString(2, addQuantity);
 
             pstatement.executeUpdate();
             pstatement.close();
