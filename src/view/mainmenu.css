@@ -17,3 +17,38 @@
 .dropDown {
     -fx-background-color: rgb(52,152,219);
 }
+
+#buttonNewOrder {
+    -fx-background-image: url("resources/icons/neworder.png");
+    -fx-background-size: 60%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+#buttonInventory {
+    -fx-background-image: url("resources/icons/inventory.png");
+    -fx-background-size: 90%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+#buttonFiles {
+    -fx-background-image: url("resources/icons/files.png");
+    -fx-background-size: 90%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+#buttonAnalytics {
+    -fx-background-image: url("resources/icons/analytics.png");
+    -fx-background-size: 90%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+#buttonSettings {
+    -fx-background-image: url("resources/icons/settings.png");
+    -fx-background-size: 90%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
