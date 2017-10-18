@@ -10,8 +10,15 @@ public class hi{
         String s1 = String.format("%-15s %5s %15s\n", "----", "---", "-----");
         String order = String.format("%-15s %5s %15s\n", "Jordan Gana", "420", "99.99");
         String order2 = String.format("%-15s %5s %15s\n", "Mark Sanchez", "69", "69.69");
-        String output = h1 + h2 + h3 + h4 + s + s1 + order + order2 + l;
+       
         
+        String a1 = String.format("%31S\n", "Antoine IT Solutions Inc.");
+        String a2 = String.format("%32S\n", "Taft Avenue, Malate, Manila");
+        String a3 = String.format("%29S\n", "Date Issued 12/12/2017");
+
+        
+
+        String output = h1 + h2 + h3 + h4 + s + s1 + order + order2 + l + a1 + a2 + a3 + l;
         System.out.println(output);
     }
 }
