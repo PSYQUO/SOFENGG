@@ -13,6 +13,13 @@ public class RawItem {
         this.price = price;
     }
 
+    public RawItem(int rawItemId, String name, int quantity, double price) {
+        this.rawItemId = rawItemId;
+        this.name = name;
+        this.quantity = quantity;
+        this.price = price;
+    }
+
     public String getName() {
         return name;
     }

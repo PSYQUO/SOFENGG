@@ -21,6 +21,26 @@ public class Consumable {
         this.meal = meal;
     }
 
+    public Consumable(int consumableId, String name, String codeName, Category category, double price, List<RawItem> rawItem, Meal meal) {
+        this.consumableId = consumableId;
+        this.name = name;
+        this.codeName = codeName;
+        this.category = category;
+        this.price = price;
+        this.rawItems = rawItems;
+        this.meal = meal;
+    }
+    
+    public Consumable(String name, String codeName, Category category, double price, List<RawItem> rawItem, Meal meal) {
+        this.consumableId = -1;
+        this.name = name;
+        this.codeName = codeName;
+        this.category = category;
+        this.price = price;
+        this.rawItems = rawItems;
+        this.meal = meal;
+    }
+
     public String getName() {
         return name;
     }

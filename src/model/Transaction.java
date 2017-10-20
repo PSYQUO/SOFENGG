@@ -28,6 +28,19 @@ public class Transaction {
         this.lineItems = lineItems;
     }
 
+    public Transaction(int transactionId, LocalDateTime transactionDate, User cashier, TransactionMode mode, double cashReceived, double change, double tax, double discount, double total, List<LineItem> lineItems) {
+        this.transactionId = transactionId;
+        this.transactionDate = transactionDate;
+        this.cashier = cashier;
+        this.mode = mode;
+        this.cashReceived = cashReceived;
+        this.change = change;
+        this.tax = tax;
+        this.discount = discount;
+        this.total = total;
+        this.lineItems = lineItems;
+    }
+
     public LocalDateTime getTransactionDate() {
         return transactionDate;
     }

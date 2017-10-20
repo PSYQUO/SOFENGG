@@ -15,6 +15,14 @@ public class User {
         this.role = role;
     }
 
+    public User(int userId, String username, String userLoginName, String password, model.User.Role role) {
+        this.userId = userId;
+        this.username = username;
+        this.userLoginName = userLoginName;
+        this.password = password;
+        this.role = role;
+    }
+
     public String getusername() {
         return username;
     }
