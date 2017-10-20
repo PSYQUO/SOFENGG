@@ -3,7 +3,8 @@ public class hi{
     public static void main(String[] args){
         String h1 = String.format("%28S\n", "Tony Joe's Barbeque");
         String h2 = String.format("%35S\n", "Parkwood 2 Gate, Legaspi Street,");
-        String h3 = String.format("%28S\n", "Maybunga, Pasig City");
+        String h3 = String.format("%29S\n", "Maybunga, Pasig City");
+        String h33 = String.format("%29S\n", "Tel No: 0939-527-9331");
         String h4 = String.format("%32S\n\n", "VAT REG TIN: 2401-DLSU-MNL");
         String l = String.format("%35s\n", "-------------------------------------");
         String s = String.format("%-15s %5s %15s\n", "Item", "Qty", "Price");
@@ -18,7 +19,7 @@ public class hi{
 
         
 
-        String output = h1 + h2 + h3 + h4 + s + s1 + order + order2 + l + a1 + a2 + a3 + l;
+        String output = h1 + h2 + h3 + h33 + h4 + s + s1 + order + order2 + l + a1 + a2 + a3 + l;
         System.out.println(output);
     }
 }
