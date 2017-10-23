@@ -2,7 +2,26 @@ import java.util.*;
 public class Receipt{
     public static void main(String[] args){
         ArrayList<String> lines = new ArrayList<String>();
+        ArrayList<String> orders = new ArrayList<String>();
         String sep = "-------------------------------------";
+
+        lines.add(new ReceiptLine("-15S", "Kitchen slip").getLine1());
+        lines.add(new ReceiptLine("-15s", "Transaction Type: Dine-in").getLine1());
+        lines.add(new ReceiptLine("-15s", "Transaction No.: 12345").getLine1());
+        lines.add(new ReceiptLine("-15s", "Customer No.: 29").getLine1());
+        lines.add(new ReceiptLine("35S", sep).getLine1());
+        lines.add(new ReceiptLine("-15s", "21s", "Item", "Qty").getLine2());
+        lines.add(new ReceiptLine("-15s", "21s", "----", "---").getLine2());
+        lines.add(new ReceiptLine("-15s", "21s", "Jordan Gana", "420").getLine2());
+        lines.add(new ReceiptLine("-15s", "21s", "Mark Sanchez", "69").getLine2());
+        lines.add(new ReceiptLine("35S", sep).getLine1());
+        lines.add(new ReceiptLine("-15s", "Cashier: Juan Dela Cruz").getLine1());
+        lines.add(new ReceiptLine("-15s", "Date Time: 2018-1-1 12:00:00 PM").getLine1());
+
+        lines.add(new ReceiptLine("1s", " ").getLine1());
+        lines.add(new ReceiptLine("1s", " ").getLine1());
+        lines.add(new ReceiptLine("1s", " ").getLine1());
+        lines.add(new ReceiptLine("1s", " ").getLine1());
 
         lines.add(new ReceiptLine("28S", "Tony Joe's Barbeque").getLine1());
         lines.add(new ReceiptLine("35S", "Parkwood 2 Gate, Legaspi Street,").getLine1());
