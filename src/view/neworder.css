@@ -1,0 +1,84 @@
+.numberButtons {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #000000;
+    -fx-font-weight: bold;
+}
+
+#buttonBackspace {
+    -fx-background-color: #EF5350;
+    -fx-background-image: url("/resources/icons/ic_keyboard_return_white_48dp_1x.png");
+    -fx-background-size: 60%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+#buttonEnter {
+    -fx-background-color: #2ECC71;
+}
+
+CheckBox {
+    -fx-text-fill: #FFFFFF;
+}
+
+.labelChange {
+    -fx-text-fill: #FFEB3B;
+}
+
+BorderPane {
+    -fx-background-color: #2C3E50;
+}
+
+Label {
+    -fx-text-fill: #FFFFFF;
+}
+
+#comboName {
+    -fx-background-color: #3498DB;
+}
+
+#buttonOK {
+    -fx-background-color: #2ECC71;
+    -fx-text-fill: #FFFFFF;
+}
+
+.tab {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 18px;
+    -fx-background-color:#B7B7B7;
+    -fx-font-weight:bold;
+    -fx-padding: 0 15 0 15;
+}
+
+TabPane .tab-header-background {
+    -fx-background-color: transparent;
+}
+
+.tab-pane {
+  -fx-tab-min-height:50px;
+  -fx-tab-max-height:50px;
+}
+
+TabPane .tab .tab-label {
+    -fx-text-fill:#000000;
+}
+
+TabPane .tab:selected .tab-label {
+    -fx-text-fill:#FFFFFF;
+}
+
+TabPane .tab:selected {
+    -fx-background-color: #3498DB;
+}
+
+#buttonPaymentClose {
+    -fx-background-color: transparent;
+    -fx-text-fill:#FFFFFF;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+#buttonPaymentClose:hover {
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+    -fx-scale-z: 1.1;
+}
