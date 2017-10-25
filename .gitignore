@@ -1,0 +1,14 @@
+
+*.bin
+*.class
+*.gradle
+*.idea
+*.jar
+*.lock
+*.properties
+*.tar
+*.zip
+*build
+*src
+gradlew
+gradlew.bat
