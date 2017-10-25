@@ -40,9 +40,9 @@ public class Receipt{
         lines.add(new ReceiptLine("-15s", "5s", "15s", "Jordan Gana", "420", "390.11").getLine3());
         lines.add(new ReceiptLine("-15s", "5s", "15s", "Mark Sanchez", "69", "100.00").getLine3());
 
-        lines.add(new ReceiptLine("35S", sep).getLine1());
-        lines.add(new ReceiptLine("-15S", "21S", "Vatable", "420.42").getLine2());
-        lines.add(new ReceiptLine("-15S", "21S", "Vat 12%", "69.69").getLine2());
+        //lines.add(new ReceiptLine("35S", sep).getLine1());
+        //lines.add(new ReceiptLine("-15S", "21S", "Vatable", "420.42").getLine2());
+        //lines.add(new ReceiptLine("-15S", "21S", "Vat 12%", "69.69").getLine2());
 
         lines.add(new ReceiptLine("37s", "--------").getLine1());
         //lines.add(new ReceiptLine("-15S", "Item Sold 489").getLine1());
