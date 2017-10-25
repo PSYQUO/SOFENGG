@@ -3,6 +3,11 @@ public class ReceiptItem{
     private int qty;
     private double price;
 
+    public ReceiptItem(String name, int qty, double price){
+        this.name = name;
+        this.qty = qty;
+        this.price = price;
+    }
     public String kitchenItem(){
         return String.format("%-15s", "%21s", "Jordan Gana", "420");
     }

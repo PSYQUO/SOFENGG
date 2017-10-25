@@ -5,6 +5,10 @@ public class Footer{
     private String cashier;
     private String date;
     
+    public Footer(String cashier, String date){
+        this.cashier = cashier;
+        this.date = date;
+    }
     public String kitchenFooter(){
         ArrayList<String> lines = new ArrayList<String>();
         lines.add(String.format("%35S\n", sep));

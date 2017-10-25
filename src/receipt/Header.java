@@ -6,6 +6,11 @@ public class Header{
     private int transNo;
     private int custNo;
     
+    public Header(String type, int transNo, int custNo){
+        this.type = type;
+        this.transNo = transNo;
+        this.custNo = custNo;
+    }
     public String kitchenHeader(){
         ArrayList<String> lines = new ArrayList<String>();
         lines.add(String.format("%-15S\n", "Kitchen slip"));
