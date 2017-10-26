@@ -6,17 +6,19 @@ public class Items{
     private double change;
     private List<ReceiptItem> items;
 
-    public String listItems(String option){
+    public String customerItems(){
+        return "";
+    }
+    public String kitchenItems(){
         return "";
     }
     public String paymentInfo(){
         ArrayList<String> lines = new ArrayList<String>();
         lines.add(String.format("%37s\n", "--------"));
         //lines.add(String.format("-15S", "Item Sold 489"));
-        lines.add(String.format("%-15S", "%21S\n", "Total", total+""));
         lines.add(String.format("%1s\n", " "));
-        lines.add(String.format("%-15S", "%21S\n", "Amount Tendered", amount+""));
-        lines.add(String.format("%-15S", "%21S\n", "Change", change+""));
+        lines.add(String.format("%-15S%21S\n", "Amount Tendered", amount+""));
+        lines.add(String.format("%-15S%21S\n", "Change", change+""));
 
         String text = "";
         for (int i = 0; i < lines.size(); i++){

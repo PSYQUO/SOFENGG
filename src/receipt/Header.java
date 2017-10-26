@@ -47,7 +47,7 @@ public class Header{
     }
     
     public static void main(String[] args){
-        Header h = new Header();
+        Header h = new Header("", 1, 1);
         System.out.print(h.kitchenHeader());
         System.out.print(h.customerHeader());
     }
