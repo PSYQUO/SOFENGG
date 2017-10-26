@@ -4,13 +4,25 @@ public class Items{
     private double total;
     private double amount;
     private double change;
-    private List<ReceiptItem> items;
+    private ArrayList<ReceiptItem> items;
 
     public String customerItems(){
-        return "";
+        items = new ArrayList<ReceiptItem>();
+
+        String text = "";
+        for (int i = 0; i < items.size(); i++){
+            text = text + items.get(i);
+        }
+        return text;
     }
     public String kitchenItems(){
-        return "";
+        items = new ArrayList<ReceiptItem>();
+
+        String text = "";
+        for (int i = 0; i < items.size(); i++){
+            text = text + items.get(i);
+        }
+        return text;
     }
     public String paymentInfo(){
         ArrayList<String> lines = new ArrayList<String>();
