@@ -9,7 +9,7 @@
 *.tar
 *.zip
 *build
-*src
+*out
 SOFENGG.iml
 gradlew
 gradlew.bat
