@@ -3,7 +3,7 @@ QA REPORT
 
 Test ID: 
 
-Date Tested: 2017-10-28 03:52:08.450
+Date Tested: 2017-10-28 04:01:47.835
 
 Tested By: Jasper Pillejera
 
@@ -32,5 +32,5 @@ Confirmed By:
 
 QA Comments: 
 --------------ERROR SUMMARY--------------
-2017-10-28 03:52:08.450,Jasper Pillejera,User u = new User ("Jasper", "Jasper", "p@ssword", User.Role.OWNER);,Successful creation of a User object.,Failed creation of User object.,FAILED
+2017-10-28 04:01:47.835,Jasper Pillejera,User u = new User ("Jasper", "Jasper", "p@ssword", User.Role.OWNER);,Successful creation of a User object.,Failed creation of User object.,FAILED
 -------------------------------------------------
