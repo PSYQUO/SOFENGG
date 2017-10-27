@@ -1,0 +1,36 @@
+--------------ERROR REPORT--------------
+QA REPORT
+
+Test ID: 
+
+Date Tested: 2017-10-28 03:52:08.450
+
+Tested By: Jasper Pillejera
+
+Test Case Summary: Bug confirmation test case on creating an object of type User.
+
+Test Case Details: User.Role is private and object creation requires User.Role.
+
+Steps to reproduce error: 
+	Instantiate a User object with parameters: Jasper, Jasper, p@ssword, User.Role.OWNER
+
+Expected Output: Successful creation of a User object.
+
+Actual Output: Failed creation of User object.
+
+DEV REPORT
+
+Date Fixed: 
+
+Fixed By: 
+
+Dev Comments: 
+
+QA Confirmation
+
+Confirmed By: 
+
+QA Comments: 
+--------------ERROR SUMMARY--------------
+2017-10-28 03:52:08.450,Jasper Pillejera,User u = new User ("Jasper", "Jasper", "p@ssword", User.Role.OWNER);,Successful creation of a User object.,Failed creation of User object.,FAILED
+-------------------------------------------------
