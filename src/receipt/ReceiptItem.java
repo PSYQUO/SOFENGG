@@ -14,10 +14,4 @@ public class ReceiptItem{
     public String customerItem(){
         return String.format("%-15s%5s%16s", name, qty+"", price+"");
     }
-
-    public static void main(String[] args){
-        ReceiptItem r = new ReceiptItem("Jordan Gana", 44, 2333.444);
-        System.out.println(r.kitchenItem());
-        System.out.println(r.customerItem());
-    }
 }

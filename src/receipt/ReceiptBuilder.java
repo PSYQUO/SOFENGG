@@ -7,7 +7,7 @@ public class ReceiptBuilder{
     public ReceiptBuilder addHeader(Header header){
 
     }
-    public ReceiptBuilder addItem(Items item){
+    public ReceiptBuilder addItem(ReceiptItem item){
         
     }
     public ReceiptBuilder addPayment(double payment){

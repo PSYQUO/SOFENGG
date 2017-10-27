@@ -44,10 +44,4 @@ public class Footer{
         }
         return text;
     }
-
-    public static void main(String[] args){
-        Footer f = new Footer();
-        System.out.print(f.kitchenFooter());
-        System.out.print(f.customerFooter());
-    }
 }
