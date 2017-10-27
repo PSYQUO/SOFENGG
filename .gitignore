@@ -10,5 +10,6 @@
 *.zip
 *build
 *src
+SOFENGG.iml
 gradlew
 gradlew.bat
