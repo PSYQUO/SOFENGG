@@ -65,9 +65,14 @@ public abstract class Test {
 			pw.println ("QA Comments: ");
 			pw.println ();
 			pw.println ("------------------ERROR SUMMARY------------------");
-			pw.println (id + "," + tc.getDate () + "," + tc.getTester () + "," +
-				tc.getInput () + "," + tc.getExpected () + "," + 
-				tc.getActual () + "," + tc.getResult ());
+			if (tc.getError ().equals (""))
+				pw.println (id + "," + tc.getDate () + "," + tc.getTester () + "," +
+					tc.getInput () + "," + tc.getExpected () + "," + 
+					tc.getActual () + "," + tc.getResult ());
+			else 
+				pw.println (id + "," + tc.getDate () + "," + tc.getTester () + "," +
+						tc.getInput () + "," + tc.getExpected () + "," + 
+						tc.getError () + "," + tc.getResult ());
 			pw.println ("------------------END OF SUMMARY------------------");
 			pw.println ();
 			
@@ -116,7 +121,10 @@ public abstract class Test {
 			pw2.println ("**TESTER:** " + tc.getTester ());
 			pw2.println ("**INPUT:** " + tc.getInput ());
 			pw2.println ("**EXPECTED OUTPUT:** " + tc.getExpected ());
-			pw2.println ("**ACTUAL OUTPUT:** " + tc.getActual ());
+			if (tc.getError ().equals (""))
+				pw2.println ("**ACTUAL OUTPUT:** " + tc.getActual ());
+			else
+				pw2.println ("**ACTUAL OUTPUT:** " + tc.getError ());
 			pw2.println ("**RESULT:** " + tc.getResult ());
 			pw2.println ("# ------------------END OF SUMMARY------------------");
 			pw2.println ();
