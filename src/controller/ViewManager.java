@@ -30,7 +30,7 @@ public class ViewManager
         controllerList.add(controller);
     }
 
-    public void getScene()
+    public Scene getScene()
     {
         return scene;
     }

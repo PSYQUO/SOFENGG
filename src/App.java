@@ -1,4 +1,3 @@
-import controller.MainController;
 import controller.ViewManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -25,7 +24,7 @@ public class App extends Application
         Scene scene = new Scene(root);
 
         ViewManager viewManager = new ViewManager();
-        view
+
 
 
         primaryStage.setTitle("Tony Joe's POS System");
