@@ -8,10 +8,11 @@ public class DatabaseModel{
     private Statement stmt;
 
     public DatabaseModel(){
-        dbc = DBConnection.getConnection ();
+        
     }
 
     public ArrayList<Category> getCategories(){
+        dbc = DBConnection.getConnection ();
         ArrayList<Category> data = new ArrayList<Category>(); 
         try{
             ResultSet rs = dbc.executeQuery ("select category_name from category");
@@ -21,6 +22,15 @@ public class DatabaseModel{
             }
         } catch(Exception e){
             System.out.println(e);
+        } finally{
+            try
+            {
+                connection.close();
+            }
+            catch (SQLException e)
+            {
+                e.printStackTrace();
+            }
         }
         return data;
     }
