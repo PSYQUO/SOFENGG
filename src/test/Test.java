@@ -65,7 +65,7 @@ public abstract class Test {
 			pw.println ("QA Comments: ");
 			pw.println ();
 			pw.println ("------------------ERROR SUMMARY------------------");
-			pw.println (tc.getDate () + "," + tc.getTester () + "," +
+			pw.println (id + "," + tc.getDate () + "," + tc.getTester () + "," +
 				tc.getInput () + "," + tc.getExpected () + "," + 
 				tc.getActual () + "," + tc.getResult ());
 			pw.println ("------------------END OF SUMMARY------------------");
