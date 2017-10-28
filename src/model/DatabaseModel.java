@@ -34,4 +34,28 @@ public class DatabaseModel{
         }
         return data;
     }
+
+    public ArrayList<Category> getConsumableByCategory(String category){
+        dbc = DBConnection.getConnection ();
+        ArrayList<Category> data = new ArrayList<Category>(); 
+        try{
+            ResultSet rs = dbc.executeQuery ("select c.consumable_name from consumable c, category cc where c.Category_ID=cc.Category_ID and cc.Cateogry_Name='"+category+"'");
+            while(rs.next()){
+                Consumable c = new Consumable (rs.getString(1));
+                data.add(c);
+            }
+        } catch(Exception e){
+            System.out.println(e);
+        } finally{
+            try
+            {
+                dbc.close();
+            }
+            catch (SQLException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        return data;
+    }
 }
