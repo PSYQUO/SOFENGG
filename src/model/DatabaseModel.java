@@ -25,7 +25,7 @@ public class DatabaseModel{
         } finally{
             try
             {
-                connection.close();
+                dbc.close();
             }
             catch (SQLException e)
             {
