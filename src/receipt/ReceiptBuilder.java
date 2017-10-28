@@ -1,22 +1,32 @@
-public class ReceiptBuilder{
+public class ReceiptBuilder {
     private Receipt receipt;
+    private Items items;
 
-    public ReceiptBuilder(){
-        
+    public ReceiptBuilder() {
+        receipt = new Receipt();
+        items = new Items();
     }
-    public ReceiptBuilder addHeader(Header header){
 
+    public ReceiptBuilder addHeader(Header header) {
+        receipt.setHeader(header);
+        return this;
     }
-    public ReceiptBuilder addItem(ReceiptItem item){
-        
+
+    public ReceiptBuilder addItem(ReceiptItem item) {
+        items.addItem(item);
     }
-    public ReceiptBuilder addPayment(double payment){
+
+    // public ReceiptBuilder addPayment(double payment) {
         
+    // }
+
+    public ReceiptBuilder addFooter(Footer footer) {
+        receipt.setFooter(footer);
+        return this;
     }
-    public ReceiptBuilder addFooter(Footer footer){
-        
-    }
-    public Receipt build(){
-        
+
+    public Receipt build() {
+        receipt.setItems(items);
+        return receipt;
     }
 }
