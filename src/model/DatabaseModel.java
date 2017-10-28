@@ -12,13 +12,16 @@ public class DatabaseModel{
     }
 
     public ArrayList<Category> getCategories(){
-        ArrayList<Category> data = new ArrayList<Category>();
-
-        ResultSet rs = dbc.executeQuery ();
-        while(rs.next()){
-            Category c = new Category (rs.getString(1), rs.getString(2));
-            data.add(c);
+        ArrayList<Category> data = new ArrayList<Category>(); 
+        try{
+            ResultSet rs = dbc.executeQuery ("select category_name from category");
+            while(rs.next()){
+                Category c = new Category (Integer.valueOf(rs.getString(1)), rs.getString(2));
+                data.add(c);
+            }
+        } catch(Exception e){
+            System.out.println(e);
         }
+        return data;
     }
-
 }
