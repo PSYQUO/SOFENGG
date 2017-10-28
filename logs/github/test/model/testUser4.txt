@@ -1,0 +1,44 @@
+# ------------------ERROR REPORT------------------
+## QA REPORT
+
+Test ID: 4
+
+Date Tested: 2017-10-29 01:15:14.214
+
+Tested By: Stephen Hsiao
+
+Test Case Summary: Error in creating a User object.
+
+Test Case Details: Role has private access in User.
+
+Steps to reproduce error: 
+* Create new object with given parameters
+
+Expected Output: Proper initialization of User class.
+
+Actual Output: **COMPILE TIME ERROR** - - Failed creation of User
+
+## DEV REPORT
+
+Date Fixed: 
+
+Fixed By: 
+
+Dev Comments: 
+
+## QA Confirmation
+
+Confirmed By: 
+
+QA Comments: 
+
+# ------------------ERROR SUMMARY------------------
+**TEST ID:** 4
+**DATE:** 2017-10-29 01:15:14.214
+**TESTER:** Stephen Hsiao
+**INPUT:** User u = new User("Big Shaq", "Ting", "HesNotHot", User.Role.SUPERVISOR);
+**EXPECTED OUTPUT:** Proper initialization of User class.
+**ACTUAL OUTPUT:** COMPILE TIME ERROR
+**RESULT:** FAILED
+# ------------------END OF SUMMARY------------------
+

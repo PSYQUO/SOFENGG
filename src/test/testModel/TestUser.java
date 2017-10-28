@@ -5,11 +5,12 @@ import test.*;
 import java.time.*;
 
 public class TestUser extends Test {
-	
+
 	public void test () {
-		check0 ();
+		//check0 ();
+		check1();
 	}
-	
+
 	private void check0 () {
 		TestCase.TestCaseBuilder tcb = new TestCase.TestCaseBuilder ()
 			.setTester (TestCase.Tester.JASPER)
@@ -21,11 +22,32 @@ public class TestUser extends Test {
 			.setResult (TestCase.Result.FAILED)
 			.setActual ("Failed creation of User object.")
 			.setError (TestCase.ResultError.CTE);
-			
+
 		//User u = new User ("Jasper", "Jasper", "p@ssword", User.Role.OWNER);
 		try {
 			tests.add (tcb.build ());
 		} catch (Exception e) {}
 	}
-	
+
+	private void check1 ()
+	{
+		TestCase.TestCaseBuilder tcb = new TestCase.TestCaseBuilder()
+			.setTester(TestCase.Tester.STEPHEN)
+			.setSummary("Error in creating a User object.")
+			.setDetails("Role has private access in User.")
+			.setExpected("Proper initialization of User class.")
+			.setInput("User u = new User(\"Big Shaq\", \"Ting\", \"HesNotHot\", User.Role.SUPERVISOR);")
+			.addSteps("Create new object with given parameters")
+			.setResult(TestCase.Result.FAILED)
+			.setActual("Failed creation of User")
+			.setError(TestCase.ResultError.CTE);
+
+		//User u = new User("Big Shaq", "Ting", "HesNotHot", User.Role.SUPERVISOR);
+		try
+		{
+			tests.add(tcb.build());
+		}
+		catch(Exception e){}
+	}
+
 }
