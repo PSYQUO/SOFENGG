@@ -14,14 +14,14 @@
 
 #redBut{
 	-fx-background-image: url("resources/icons/del2.png");
-    -fx-background-size: 50%;
+    -fx-background-size: 30%;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
 
 #greenBut{
 	-fx-background-image: url("resources/icons/addStuff.png");
-    -fx-background-size: 50%;
+    -fx-background-size: 30%;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
