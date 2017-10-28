@@ -3,7 +3,7 @@
 
 Test ID: 4
 
-Date Tested: 2017-10-29 01:15:14.214
+Date Tested: 2017-10-29 01:37:44.222
 
 Tested By: Stephen Hsiao
 
@@ -34,7 +34,7 @@ QA Comments:
 
 # ------------------ERROR SUMMARY------------------
 **TEST ID:** 4
-**DATE:** 2017-10-29 01:15:14.214
+**DATE:** 2017-10-29 01:37:44.222
 **TESTER:** Stephen Hsiao
 **INPUT:** User u = new User("Big Shaq", "Ting", "HesNotHot", User.Role.SUPERVISOR);
 **EXPECTED OUTPUT:** Proper initialization of User class.
