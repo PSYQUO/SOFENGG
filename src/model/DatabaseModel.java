@@ -35,9 +35,9 @@ public class DatabaseModel{
         return data;
     }
 
-    public ArrayList<Category> getConsumableByCategory(String category){
+    public ArrayList<Consumable> getConsumableByCategory(String category){
         dbc = DBConnection.getConnection ();
-        ArrayList<Category> data = new ArrayList<Category>(); 
+        ArrayList<Consumable> data = new ArrayList<Consumable>(); 
         try{
             ResultSet rs = dbc.executeQuery ("select c.consumable_name from consumable c, category cc where c.Category_ID=cc.Category_ID and cc.Cateogry_Name='"+category+"'");
             while(rs.next()){
