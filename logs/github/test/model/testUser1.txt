@@ -33,11 +33,12 @@ Confirmed By:
 QA Comments: 
 
 # ------------------ERROR SUMMARY------------------
+**TEST ID:** 1
 **DATE:** 2017-10-28 04:01:47.835
 **TESTER:** Jasper Pillejera
 **INPUT:** User u = new User ("Jasper", "Jasper", "p@ssword", User.Role.OWNER);
 **EXPECTED OUTPUT:** Successful creation of a User object.
-**ACTUAL OUTPUT:** Failed creation of User object.
+**ACTUAL OUTPUT:** COMPILE TIME ERROR
 **RESULT:** FAILED
 # ------------------END OF SUMMARY------------------
 

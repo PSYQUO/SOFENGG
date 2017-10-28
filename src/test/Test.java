@@ -117,6 +117,7 @@ public abstract class Test {
 			pw2.println ("QA Comments: ");
 			pw2.println ();
 			pw2.println ("# ------------------ERROR SUMMARY------------------");
+			pw2.println ("**TEST ID:** " + id);
 			pw2.println ("**DATE:** " + tc.getDate ());
 			pw2.println ("**TESTER:** " + tc.getTester ());
 			pw2.println ("**INPUT:** " + tc.getInput ());
