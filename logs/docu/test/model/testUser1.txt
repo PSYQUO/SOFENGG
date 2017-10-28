@@ -1,7 +1,7 @@
---------------ERROR REPORT--------------
+------------------ERROR REPORT------------------
 QA REPORT
 
-Test ID: 
+Test ID: 1
 
 Date Tested: 2017-10-28 04:01:47.835
 
@@ -16,7 +16,7 @@ Steps to reproduce error:
 
 Expected Output: Successful creation of a User object.
 
-Actual Output: Failed creation of User object.
+Actual Output: COMPILE TIME ERROR - - Failed creation of User object.
 
 DEV REPORT
 
@@ -31,6 +31,8 @@ QA Confirmation
 Confirmed By: 
 
 QA Comments: 
---------------ERROR SUMMARY--------------
-2017-10-28 04:01:47.835,Jasper Pillejera,User u = new User ("Jasper", "Jasper", "p@ssword", User.Role.OWNER);,Successful creation of a User object.,Failed creation of User object.,FAILED
--------------------------------------------------
+
+------------------ERROR SUMMARY------------------
+2017-10-28 15:35:58.638,Jasper Pillejera,User u = new User ("Jasper", "Jasper", "p@ssword", User.Role.OWNER);,Successful creation of a User object.,Failed creation of User object.,FAILED
+------------------END OF SUMMARY------------------
+

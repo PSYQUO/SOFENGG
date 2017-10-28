@@ -12,6 +12,7 @@ public class TestCase {
 	private String actualOutput;
 	private Result result;
 	private String input;
+	private ResultError error;
 	
 	private TestCase (TestCaseBuilder tcb) {
 		date = tcb.date;
@@ -23,6 +24,7 @@ public class TestCase {
 		actualOutput = tcb.actualOutput;
 		result = tcb.result;
 		input = tcb.input;
+		error = tcb.error;
 		tcb = null;
 	}
 	
@@ -35,6 +37,7 @@ public class TestCase {
 	public String getActual () { return actualOutput; }
 	public String getResult () { return result.getResult (); }
 	public String getInput () { return input; }
+	public String getError () { return error.getError (); }
 	
 	public static class TestCaseBuilder {
 		private String date;
@@ -46,20 +49,21 @@ public class TestCase {
 		private String actualOutput;
 		private Result result;
 		private String input;
+		private ResultError error;
 		
 		public TestCaseBuilder () {
-			date = null;
-			tester = null;
-			summary = null;
-			details = null;
+			date = java.time.LocalDateTime.now ().toString ().replace ("T", " ");
+			tester = Tester.NONE;
+			summary = "";
+			details = "";
 			steps = new ArrayList<String> ();
-			expectedOutput = null;
-			actualOutput = null;
-			result = null;
-			input = null;
+			expectedOutput = "";
+			actualOutput = "";
+			result = Result.UNKNOWN;
+			input = "";
+			error = ResultError.NONE;
 		}
 		
-		public TestCaseBuilder setDate (String date) { this.date = date; return this;}
 		public TestCaseBuilder setTester (Tester tester) { this.tester = tester; return this;}
 		public TestCaseBuilder setSummary (String summary) { this.summary = summary; return this;}
 		public TestCaseBuilder setDetails (String details) { this.details = details; return this; }
@@ -74,27 +78,8 @@ public class TestCase {
 		public TestCaseBuilder setActual (String actual) { actualOutput = actual; return this; }
 		public TestCaseBuilder setResult (Result r) { result = r; return this; }
 		public TestCaseBuilder setInput (String input) { this.input = input; return this; }
-		
-		public TestCase build () throws Exception {
-			if (date == null)
-				throw new Exception ("date");
-			if (tester == null)
-				throw new Exception ("tester");
-			if (summary == null)
-				throw new Exception ("summary");
-			if (details == null)
-				throw new Exception ("details");
-			if (steps.isEmpty ())
-				throw new Exception ("steps");
-			if (expectedOutput == null)
-				throw new Exception ("expected");
-			if (actualOutput == null)
-				throw new Exception ("actual");
-			if (result == null)
-				throw new Exception ("result");
-			if (input == null)
-				throw new Exception ("input");
-			
+		public TestCaseBuilder setError (ResultError e) { this.error = e; return this; }
+		public TestCase build () {
 			return new TestCase (this);
 		}
 	}
@@ -115,11 +100,25 @@ public class TestCase {
 		}
 	}
 
+	public static enum ResultError {
+		NONE (""),
+		RTE ("RUNTIME ERROR"),
+		CTE ("COMPILE TIME ERROR"),
+		UNKNOWN ("UNKNOWN ERROR");
+		
+		private final String message;
+		
+		private ResultError (String s) { this.message = s; }
+
+		public String getError () { return message; }
+	}
+	
 	public static enum Tester {
 		JASPER ("Jasper Pillejera"),
 		STEPHEN ("Stephen Hsiao"),
 		NYLES ("Nyles Chan"),
-		ALL ("Nyles Chan, Stephen Hsiao, Jasper Pillejera");
+		ALL ("Nyles Chan, Stephen Hsiao, Jasper Pillejera"),
+		NONE ("");
 		
 		private final String name;
 		
