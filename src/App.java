@@ -25,8 +25,6 @@ public class App extends Application
 
         ViewManager viewManager = new ViewManager();
 
-
-
         primaryStage.setTitle("Tony Joe's POS System");
         primaryStage.setScene(scene);
         primaryStage.show();
