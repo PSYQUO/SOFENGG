@@ -7,7 +7,7 @@ public class User {
     private String password;
     private Role role;
 
-    public User(String username, String userLoginName, String password, model.User.Role role) {
+    public User(String username, String userLoginName, String password, Role role) {
         this.userId = -1;
         this.username = username;
         this.userLoginName = userLoginName;
@@ -15,12 +15,16 @@ public class User {
         this.role = role;
     }
 
-    public User(int userId, String username, String userLoginName, String password, model.User.Role role) {
+    public User(int userId, String username, String userLoginName, String password, Role role) {
         this.userId = userId;
         this.username = username;
         this.userLoginName = userLoginName;
         this.password = password;
         this.role = role;
+    }
+
+    public int getUserID(){
+        return userId;
     }
 
     public String getusername() {
@@ -46,20 +50,5 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public model.User.Role getRole() {
-        return role;
-    }
-
-    /* I think this must be logged or something. - Gian */
-    public void setRole(model.User.Role role) {
-        this.role = role;
-    }
-
-    public enum Role {
-        OWNER,
-        SUPERVISOR,
-        CASHIER
     }
 }
