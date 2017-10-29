@@ -1,5 +1,9 @@
 package model;
 
+/**
+ * TODO: Change to User and SuperUser
+ */
+
 public class Role{
     private int roleId;
     private String roleName;
