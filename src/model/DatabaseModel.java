@@ -26,6 +26,43 @@ public class DatabaseModel{
         return data;
     }
 
+    public Category searchCategory(int id){
+        ArrayList<Category> data = getCategories();
+        for(int i=0; i<data.size(); i++){
+            if(id == data.get(i).getCategoryId()){
+                return data.get(i);
+            }
+        }
+        return null;
+    }
+
+    public ArrayList<Role> getRoles(){
+        dbc = DBConnection.getConnection ();
+        ArrayList<Role> data = new ArrayList<Role>(); 
+        try{
+            ResultSet rs = dbc.executeQuery ("select * from role");
+            while(rs.next()){
+                Role r = new Role (Integer.valueOf(rs.getString(1)), rs.getString(2));
+                data.add(r);
+            }
+        } catch(Exception e){
+            System.out.println(e);
+        } finally{
+            dbc.closeConnection();
+        }
+        return data;
+    }
+
+    public Role searchRole(int id){
+        ArrayList<Role> data = getRoles();
+        for(int i=0; i<data.size(); i++){
+            if(id == data.get(i).getRoleID()){
+                return data.get(i);
+            }
+        }
+        return null;
+    }
+
     public ArrayList<RawItem> getRawItems(){
         dbc = DBConnection.getConnection ();
         ArrayList<RawItem> data = new ArrayList<RawItem>(); 
@@ -43,16 +80,23 @@ public class DatabaseModel{
         return data;
     }
 
-    /**
-     * TODO: NULLS
-     */
+    public RawItem searchRawItem(int id){
+        ArrayList<RawItem> data = getRawItems();
+        for(int i=0; i<data.size(); i++){
+            if(id == data.get(i).getRawItemID()){
+                return data.get(i);
+            }
+        }
+        return null;
+    }
+
     public ArrayList<User> getUsers(){
         dbc = DBConnection.getConnection ();
         ArrayList<User> data = new ArrayList<User>(); 
         try{
             ResultSet rs = dbc.executeQuery ("select * from user");
             while(rs.next()){
-                User u = new User (Integer.valueOf(rs.getString(1)), rs.getString(2), rs.getString(3), rs.getString(4), null);
+                User u = new User (Integer.valueOf(rs.getString(1)), rs.getString(2), rs.getString(3), rs.getString(4), searchRole(Integer.valueOf(rs.getString(5))));
                 data.add(u);
             }
         } catch(Exception e){
@@ -61,6 +105,16 @@ public class DatabaseModel{
             dbc.closeConnection();
         }
         return data;
+    }
+
+    public User searchUser(int id){
+        ArrayList<User> data = getUsers();
+        for(int i=0; i<data.size(); i++){
+            if(id == data.get(i).getUserID()){
+                return data.get(i);
+            }
+        }
+        return null;
     }
 
     /**
@@ -123,14 +177,14 @@ public class DatabaseModel{
         return data;
     }
 
-    public ArrayList<RawItem> getRawItems(){
+    public ArrayList<XRead> getXReadToday(){
         dbc = DBConnection.getConnection ();
-        ArrayList<RawItem> data = new ArrayList<RawItem>(); 
+        ArrayList<XRead> data = new ArrayList<XRead>(); 
         try{
-            ResultSet rs = dbc.executeQuery ("select * from rawitem");
+            ResultSet rs = dbc.executeQuery ("select u.*, sum(t.total) from user u, transaction t where u.User_ID=t.User_ID and t.Trans_DateTime=curdate() group by u.User_ID");
             while(rs.next()){
-                RawItem r = new RawItem (Integer.valueOf(rs.getString(1)), rs.getString(2), Integer.valueOf(rs.getString(4)), rs.getDouble(3));
-                data.add(r);
+                XRead x = new XRead (searchUser(Integer.valueOf(rs.getString(1))), rs.getDouble(8));
+                data.add(x);
             }
         } catch(Exception e){
             System.out.println(e);

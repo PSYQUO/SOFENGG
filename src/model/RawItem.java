@@ -20,6 +20,10 @@ public class RawItem {
         this.price = price;
     }
 
+    public int getRawItemID(){
+        return rawItemId;
+    }
+
     public String getName() {
         return name;
     }
