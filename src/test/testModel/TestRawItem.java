@@ -14,5 +14,6 @@ public class TestRawItem extends Test
   public void check0()
   {
     RawItem ri = new RawItem("patty", 100, 20.00);
+    System.out.print("RawItem works\n");
   }
 }

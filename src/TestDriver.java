@@ -3,15 +3,18 @@ import test.*;
 
 public class TestDriver
 {
-	public static void main (String[] args)
+	public static void UserCheck()
 	{
-		// Test t = new TestUser ();
-		// try {
-		// 	t.testAndGenerate ("model/testUser4.txt", 4);
-		// } catch (Exception e) {
-		// 	e.printStackTrace ();
-		// }
+		Test t = new TestUser ();
+		try {
+			t.testAndGenerate ("model/testUser4.txt", 4);
+		} catch (Exception e) {
+			e.printStackTrace ();
+		}
+	}
 
+	public static void RawItemCheck()
+	{
 		Test t = new TestRawItem();
 		try
 		{
@@ -19,5 +22,10 @@ public class TestDriver
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static void main (String[] args)
+	{
+		RawItemCheck();
 	}
 }
