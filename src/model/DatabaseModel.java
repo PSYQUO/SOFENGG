@@ -225,8 +225,8 @@ public class DatabaseModel
             ResultSet rs = dbc.executeQuery("select distinct * from lineitem l, consumable cc, category c where l.transaction_id=" + id + " and l.Consumable_ID=cc.Consumable_ID and cc.Category_ID=c.Category_ID;");
             while(rs.next())
             {
-                LineItem l = new LineItem(Integer.valueOf(rs.getString(1)), new Consumable(), Integer.valueOf(rs.getString(3)));
-                data.add(l);
+//                LineItem l = new LineItem(Integer.valueOf(rs.getString(1)), new Consumable(), Integer.valueOf(rs.getString(3)));
+//                data.add(l);
             }
         }
         catch(Exception e)
@@ -240,16 +240,16 @@ public class DatabaseModel
         return data;
     }
 
-    public ArrayList<XRead> getXReadToday()
+    public ArrayList<XReading> getXReadToday()
     {
         dbc = DBConnection.getConnection();
-        ArrayList<XRead> data = new ArrayList<XRead>();
+        ArrayList<XReading> data = new ArrayList<XReading>();
         try
         {
             ResultSet rs = dbc.executeQuery("select u.*, sum(t.total) from user u, transaction t where u.User_ID=t.User_ID and t.Trans_DateTime=curdate() group by u.User_ID");
             while(rs.next())
             {
-                XRead x = new XRead(searchUser(Integer.valueOf(rs.getString(1))), rs.getDouble(8));
+                XReading x = new XReading(searchUser(Integer.valueOf(rs.getString(1))), rs.getDouble(8));
                 data.add(x);
             }
         }
