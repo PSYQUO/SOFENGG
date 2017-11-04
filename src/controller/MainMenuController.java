@@ -1,19 +1,41 @@
 package controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
+import javax.swing.*;
 import java.io.IOException;
 
 public class MainMenuController extends Controller
 {
     @FXML
-    Button buttonNewOrder;
+    Button buttonNewOrder, buttonInventory, buttonSettings;
 
     public MainMenuController() throws IOException
     {
-        initialize(this, "/view/main-menu");
+        initialize(this, "/view/main-menu", true);
+    }
 
-        buttonNewOrder.setOnAction(e -> viewManager.switchViews("NewOrderController"));
+    @Override
+    public void load() throws ViewManagerException
+    {
+        if(checkInitialLoad(getClass().getSimpleName()))
+        {
+            buttonNewOrder.addEventHandler(ActionEvent.ACTION, e ->
+                    viewManager.switchViews("NewOrderController"));
+
+            buttonInventory.addEventHandler(ActionEvent.ACTION, e ->
+                    viewManager.switchViews("InventoryController"));
+
+            buttonSettings.addEventHandler(ActionEvent.ACTION, e ->
+                    viewManager.switchViews("SettingsController"));
+        }
+    }
+
+    @Override
+    public void clear()
+    {
+
     }
 }

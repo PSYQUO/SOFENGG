@@ -25,6 +25,16 @@ public class ViewManager
     {
         controllerList = new ArrayList<>();
         controllerList.add(controller);
+        try
+        {
+            controller.setViewManager(this);
+            controller.load();
+        }
+        catch(ViewManagerException e)
+        {
+            e.printStackTrace();
+        }
+
         scene = new Scene(controller.getRoot());
     }
 
@@ -65,7 +75,17 @@ public class ViewManager
         for(Controller c : controllerList)
         {
             if(classname.equals(c.getClass().getSimpleName()))
+            {
+                try
+                {
+                    c.load();
+                }
+                catch(ViewManagerException e)
+                {
+                    e.printStackTrace();
+                }
                 scene.setRoot(c.getRoot());
+            }
         }
     }
 }
