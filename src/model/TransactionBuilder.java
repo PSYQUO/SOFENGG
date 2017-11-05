@@ -3,7 +3,10 @@ package model;
 import java.util.List;
 import java.util.ArrayList;
 
+import java.time.LocalDateTime;
+
 import model.Transaction;
+import model.Transaction.TransactionMode;
 import model.LineItem;
 
 public class TransactionBuilder {
@@ -13,9 +16,13 @@ public class TransactionBuilder {
         transaction = new TransactionInBuilding();
     }
 
-    public void setTransactionID(int transactionID) {
-        transaction.setTransactionID(transactionID);
+    public TransactionBuilder(int transactionID) {
+        transaction = new TransactionInBuilding(transactionID);
     }
+
+    // public void setTransactionID(int transactionID) {
+    //     transaction.setTransactionID(transactionID);
+    // }
 
     public void setTransactionDate(LocalDateTime transactionDate) {
         transaction.setTransactionDate(transactionDate);
@@ -60,7 +67,7 @@ public class TransactionBuilder {
     public Transaction build() {
         double total = 0;
         for (LineItem li : transaction.getLineItems())
-            total += li.getPrice();
+            total += li.getConsumable().getPrice();
         transaction.setTotal(total);
 
         return transaction;
@@ -68,7 +75,15 @@ public class TransactionBuilder {
 
     private class TransactionInBuilding extends Transaction {
         public TransactionInBuilding() {
-            transactionID = -1;
+            super(-1);
+            cashReceived = -1;
+            change = -1;
+            lineItems = new ArrayList<LineItem>();
+            custNo = -1;
+        }
+        
+        public TransactionInBuilding(int transactionID) {
+            super(transactionID);
             cashReceived = -1;
             change = -1;
             lineItems = new ArrayList<LineItem>();

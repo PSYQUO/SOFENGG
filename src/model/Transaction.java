@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class Transaction {
-    public int transactionID;
+    public final int transactionID;
     protected LocalDateTime transactionDate;
     protected User cashier;
     protected TransactionMode mode;
@@ -16,7 +16,13 @@ public class Transaction {
     protected List<LineItem> lineItems;
     protected int custNo;
 
-    public Transaction() {}
+    public Transaction() {
+        transactionID = -1;
+    }
+
+    public Transaction(int transactionID) {
+        this.transactionID = transactionID;
+    }
 
     public Transaction(LocalDateTime transactionDate, User cashier, TransactionMode mode, double cashReceived, double change, double tax, double discount, double total, List<LineItem> lineItems, int custNo) {
         this.transactionID = -1;
@@ -89,9 +95,9 @@ public class Transaction {
         return custNo;
     }
 
-    protected void setTransactionID(int transactionID) {
-        this.transactionID = transactionID;
-    }
+    // protected void setTransactionID(int transactionID) {
+    //     this.transactionID = transactionID;
+    // }
 
     protected void setTransactionDate(LocalDateTime transactionDate) {
         this.transactionDate = transactionDate;
@@ -119,6 +125,10 @@ public class Transaction {
 
     protected void setDiscount(double discount) {
         this.discount = discount;
+    }
+
+    protected void setTotal(double total) {
+        this.total = total;
     }
 
     protected void addLineItem(LineItem lineItem) {
