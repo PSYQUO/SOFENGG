@@ -66,6 +66,11 @@ public class TransactionBuilder {
         return this;
     }
 
+    public TransactionBuilder removeLineItem(LineItem lineItem) {
+        transaction.removeLineItem(lineItem);
+        return this;
+    }
+
     public TransactionBuilder setLineItems(List<LineItem> lineItems) {
         transaction.setLineItems(lineItems);
         return this;

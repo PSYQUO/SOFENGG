@@ -103,6 +103,10 @@ public class Transaction {
     protected void addLineItem(LineItem lineItem) {
         lineItems.add(lineItem);
     }
+    
+    protected void removeLineItem(LineItem lineItem) {
+        lineItems.remove(lineItem);
+    }
 
     protected void setLineItems(List<LineItem> lineItems) {
         this.lineItems = lineItems;
