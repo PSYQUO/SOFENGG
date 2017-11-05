@@ -77,11 +77,15 @@ public class TransactionBuilder {
     }
 
     public Transaction build() {
-        if (total == -1) {
+        if (transaction.getTotal() == -1) {
             for (LineItem li : transaction.getLineItems())
                 total += li.getConsumable().getPrice();
             transaction.setTotal(total);
         }
+
+        // if (transaction.getChange() == -1 
+        //     && transaction.getTotal() != -1 && transaction.getCashReceived() != -1)
+        //     transaction.setChange(transaction.get)
 
         return transaction;
     }
