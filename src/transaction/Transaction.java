@@ -1,4 +1,4 @@
-package model;
+package transaction;
 
 import java.time.LocalDateTime;
 import java.util.List;
