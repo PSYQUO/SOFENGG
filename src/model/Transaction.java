@@ -24,34 +24,7 @@ public class Transaction {
         this.transactionID = transactionID;
     }
 
-    public Transaction(LocalDateTime transactionDate, User cashier, TransactionMode mode, double cashReceived, double change, double tax, double discount, double total, List<LineItem> lineItems, int custNo) {
-        this.transactionID = -1;
-        this.transactionDate = transactionDate;
-        this.cashier = cashier;
-        this.mode = mode;
-        this.cashReceived = cashReceived;
-        this.change = change;
-        this.discount = discount;
-        this.total = total;
-        this.lineItems = lineItems;
-        this.custNo = custNo;
-    }
-
-    public Transaction(int transactionID, LocalDateTime transactionDate, User cashier, TransactionMode mode, double cashReceived, double change, double discount, double total, List<LineItem> lineItems, int custNo) {
-        this.transactionID = transactionID;
-        this.transactionDate = transactionDate;
-        this.cashier = cashier;
-        this.mode = mode;
-        this.cashReceived = cashReceived;
-        this.change = change;
-        this.discount = discount;
-        this.total = total;
-        this.lineItems = lineItems;
-        this.custNo = custNo;
-    }
-
-    public int getTransactionID()
-    {
+    public int getTransactionID(){
         return transactionID;
     }
 

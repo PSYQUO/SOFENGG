@@ -18,53 +18,70 @@ public class TransactionBuilder {
 
     public TransactionBuilder(int transactionID) {
         transaction = new TransactionInBuilding(transactionID);
+        return this;
     }
 
-    public void setTransactionDate(LocalDateTime transactionDate) {
+    public TransactionBuilder setTransactionDate(LocalDateTime transactionDate) {
         transaction.setTransactionDate(transactionDate);
+        return this;
     }
 
-    public void setCashier(User cashier) {
+    public TransactionBuilder setCashier(User cashier) {
         transaction.setCashier(cashier);
+        return this;
     }
 
-    public void setMode(TransactionMode mode) {
+    public TransactionBuilder setMode(TransactionMode mode) {
         transaction.setMode(mode);
+        return this;
     }
 
-    public void setCashReceived(double cashReceived) {
+    public TransactionBuilder setCashReceived(double cashReceived) {
         transaction.setCashReceived(cashReceived);
+        return this;
     }
 
-    public void setChange(double change) {
+    public TransactionBuilder setChange(double change) {
         transaction.setChange(change);
+        return this;
     }
 
-    public void setTax(double tax) {
+    public TransactionBuilder setTax(double tax) {
         transaction.setTax(tax);
+        return this;
     }
 
-    public void setDiscount(double discount) {
+    public TransactionBuilder setDiscount(double discount) {
         transaction.setDiscount(discount);
+        return this;
+    }
+    
+    public TransactionBuilder setTotal(double total) {
+        transaction.setTotal(total);
+        return this;
     }
 
-    public void addLineItem(LineItem lineItem) {
+    public TransactionBuilder addLineItem(LineItem lineItem) {
         transaction.addLineItem(lineItem);
+        return this;
     }
 
-    public void setLineItems(List<LineItem> lineItems) {
+    public TransactionBuilder setLineItems(List<LineItem> lineItems) {
         transaction.setLineItems(lineItems);
+        return this;
     }
 
-    public void setCustNo(int custNo) {
+    public TransactionBuilder setCustNo(int custNo) {
         transaction.setCustNo(custNo);
+        return this;
     }
 
     public Transaction build() {
-        double total = 0;
-        for (LineItem li : transaction.getLineItems())
-            total += li.getConsumable().getPrice();
-        transaction.setTotal(total);
+        if (total == -1) {
+            for (LineItem li : transaction.getLineItems())
+                total += li.getConsumable().getPrice();
+            transaction.setTotal(total);
+        }
 
         return transaction;
     }
@@ -74,6 +91,7 @@ public class TransactionBuilder {
             super(-1);
             cashReceived = -1;
             change = -1;
+            total = -1;
             lineItems = new ArrayList<LineItem>();
             custNo = -1;
         }
@@ -82,6 +100,7 @@ public class TransactionBuilder {
             super(transactionID);
             cashReceived = -1;
             change = -1;
+            total = -1;
             lineItems = new ArrayList<LineItem>();
             custNo = -1;
         }
