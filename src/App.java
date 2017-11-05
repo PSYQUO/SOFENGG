@@ -9,9 +9,7 @@ public class App extends Application
 {
     public static void main(String[] args)
     {
-        TransactionBuilder builder = new TransactionBuilder(10);
-        System.out.println(builder.build().getTransactionID());
-        // launch(args);
+        launch(args);
     }
 
     /**
@@ -23,7 +21,7 @@ public class App extends Application
     {
         // Setup DBConnection
         DBConnection dbc = DBConnection.getInstance();
-        dbc.setConnection("tjbbqdb", "root", "p@ssword");
+        dbc.setConnection("tjbbqdb", "root", "password");
 
         // Setup Controllers and ViewManager
         MainMenuController mmc = new MainMenuController();

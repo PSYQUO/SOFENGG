@@ -95,10 +95,6 @@ public class Transaction {
         return custNo;
     }
 
-    // protected void setTransactionID(int transactionID) {
-    //     this.transactionID = transactionID;
-    // }
-
     protected void setTransactionDate(LocalDateTime transactionDate) {
         this.transactionDate = transactionDate;
     }

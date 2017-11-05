@@ -20,10 +20,6 @@ public class TransactionBuilder {
         transaction = new TransactionInBuilding(transactionID);
     }
 
-    // public void setTransactionID(int transactionID) {
-    //     transaction.setTransactionID(transactionID);
-    // }
-
     public void setTransactionDate(LocalDateTime transactionDate) {
         transaction.setTransactionDate(transactionDate);
     }
