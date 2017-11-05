@@ -2,12 +2,17 @@ import controller.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.DBConnection;
+import model.Transaction;
+import model.TransactionBuilder;
 
 public class App extends Application
 {
     public static void main(String[] args)
     {
-        launch(args);
+        TransactionBuilder builder = new TransactionBuilder();
+        builder.setTransactionID(10);
+        System.out.println(builder.build().getTransactionID());
+        // launch(args);
     }
 
     /**
@@ -19,7 +24,7 @@ public class App extends Application
     {
         // Setup DBConnection
         DBConnection dbc = DBConnection.getInstance();
-        dbc.setConnection("tjbbqdb", "root", "password");
+        dbc.setConnection("tjbbqdb", "root", "p@ssword");
 
         // Setup Controllers and ViewManager
         MainMenuController mmc = new MainMenuController();
