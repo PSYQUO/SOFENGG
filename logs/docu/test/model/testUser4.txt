@@ -3,7 +3,7 @@ QA REPORT
 
 Test ID: 4
 
-Date Tested: 2017-10-29 01:37:44.222
+Date Tested: 2017-11-03 18:30:28.525
 
 Tested By: Stephen Hsiao
 
@@ -33,6 +33,6 @@ Confirmed By:
 QA Comments: 
 
 ------------------ERROR SUMMARY------------------
-4,2017-10-29 01:37:44.222,Stephen Hsiao,User u = new User("Big Shaq", "Ting", "HesNotHot", User.Role.SUPERVISOR);,Proper initialization of User class.,COMPILE TIME ERROR,FAILED
+4,2017-11-03 18:30:28.525,Stephen Hsiao,User u = new User("Big Shaq", "Ting", "HesNotHot", User.Role.SUPERVISOR);,Proper initialization of User class.,COMPILE TIME ERROR,FAILED
 ------------------END OF SUMMARY------------------
 
