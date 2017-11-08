@@ -1,33 +1,33 @@
 package model;
 
-import java.util.List;
+import java.util.*;
 
 public class Consumable {
-    public int consumableID;
-    private String name;
-    private String codeName;
-    private Category category;
-    private double price;
-    private List<RawItem> rawItems;
-    private Meal meal;
+    protected int consumableID;
+    protected String name;
+    protected String codeName;
+    protected Category category;
+    protected double price;
+    protected ArrayList<Ingredient> ingredients;
+    protected Meal meal;
 
-    public Consumable(String name, String codeName, Category category, double price, List<RawItem> rawItem, Meal meal) {
+    public Consumable(String name, String codeName, Category category, double price, ArrayList<Ingredient> ingredients, Meal meal) {
         this.consumableID = -1;
         this.name = name;
         this.codeName = codeName;
         this.category = category;
         this.price = price;
-        this.rawItems = rawItems;
+        this.ingredients = ingredients;
         this.meal = meal;
     }
 
-    public Consumable(int consumableID, String name, String codeName, Category category, double price, List<RawItem> rawItem, Meal meal) {
+    public Consumable(int consumableID, String name, String codeName, Category category, double price, ArrayList<Ingredient> ingredients, Meal meal) {
         this.consumableID = consumableID;
         this.name = name;
         this.codeName = codeName;
         this.category = category;
         this.price = price;
-        this.rawItems = rawItems;
+        this.ingredients = ingredients;
         this.meal = meal;
     }
 
@@ -60,12 +60,12 @@ public class Consumable {
             this.price = price;
     }
 
-    public List<RawItem> getRawItems() {
-        return rawItems;
+    public ArrayList<Ingredient> getIngredients() {
+        return ingredients;
     }
 
-    public void setRawItems(List<RawItem> rawItems) {
-        this.rawItems = rawItems;
+    public void setIngredients(ArrayList<Ingredient> ingredients) {
+        this.ingredients = ingredients;
     }
 
     public Meal getMeal() {
