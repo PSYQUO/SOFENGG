@@ -15,6 +15,7 @@ public class RestoInfo
 
     public RestoInfo(String telephone, String address)
     {
+        this.restoID = -1;
         this.telephone = telephone;
         this.address = address;
     }
