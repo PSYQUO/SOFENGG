@@ -190,7 +190,7 @@ public class DatabaseModel
     }
 
     /**
-     * TODO: NULLS (meals)
+     * TODO: Consumable BUILDER
      */
     public ArrayList<Consumable> getConsumables()
     {
@@ -201,14 +201,28 @@ public class DatabaseModel
             ResultSet rs = dbc.executeQuery("select * from consumable c, category cc where c.Category_ID = cc.Category_ID");
             while(rs.next())
             {
-                Consumable c = new Consumable(
+                Consumable c;
+                if (rs.getString("meal_id").equals(""))
+                {
+                    c = new Consumable(
                         rs.getInt("Consumable_ID"),
                         rs.getString("Consumable_Name"),
                         rs.getString("Consumable_CodeName"),
                         searchCategory(rs.getInt("Category_ID")),
                         rs.getDouble("Consumable_Price"),
-                        searchIngredientByConsumableID(rs.getInt("consumable_id")),
-                        null);
+                        searchIngredientByConsumableID(rs.getInt("consumable_id")));
+                }
+                else
+                {
+                    c = new Consumable(
+                            rs.getInt("Consumable_ID"),
+                            rs.getString("Consumable_Name"),
+                            rs.getString("Consumable_CodeName"),
+                            searchCategory(rs.getInt("Category_ID")),
+                            rs.getDouble("Consumable_Price"),
+                            searchIngredientByConsumableID(rs.getInt("consumable_id")),
+                            new Meal(getMealContent(rs.getInt("meal_ID"))));
+                }
                 data.add(c);
             }
         }
@@ -842,5 +856,27 @@ public class DatabaseModel
             System.out.println(e);
         }
         return false;
+    }
+
+    public ArrayList<ConsumableQuantityPair> getMealContent(int mealID)
+    {
+        dbc = DBConnection.getInstance();
+        ArrayList<ConsumableQuantityPair> data = new ArrayList<ConsumableQuantityPair>();
+        try
+        {
+            ResultSet rs = dbc.executeQuery("select * from meal where meal_id="+mealID);
+            while(rs.next())
+            {
+                ConsumableQuantityPair c = new ConsumableQuantityPair(
+                    searchConsumable(rs.getInt("addons")), 
+                    rs.getInt("quantity"));
+                data.add(c);
+            }
+        }
+        catch(Exception e)
+        {
+            System.err.println(e);
+        }
+        return data;
     }
 }
