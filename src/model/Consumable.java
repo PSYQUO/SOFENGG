@@ -21,6 +21,15 @@ public class Consumable {
         this.meal = meal;
     }
 
+    public Consumable(String name, String codeName, Category category, double price, ArrayList<Ingredient> ingredients) {
+        this.consumableID = -1;
+        this.name = name;
+        this.codeName = codeName;
+        this.category = category;
+        this.price = price;
+        this.ingredients = ingredients;
+    }
+
     public Consumable(int consumableID, String name, String codeName, Category category, double price, ArrayList<Ingredient> ingredients, Meal meal) {
         this.consumableID = consumableID;
         this.name = name;
@@ -29,6 +38,15 @@ public class Consumable {
         this.price = price;
         this.ingredients = ingredients;
         this.meal = meal;
+    }
+
+    public Consumable(int consumableID, String name, String codeName, Category category, double price, ArrayList<Ingredient> ingredients) {
+        this.consumableID = consumableID;
+        this.name = name;
+        this.codeName = codeName;
+        this.category = category;
+        this.price = price;
+        this.ingredients = ingredients;
     }
 
     public int getConsumableID(){
