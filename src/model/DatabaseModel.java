@@ -879,4 +879,24 @@ public class DatabaseModel
         }
         return data;
     }
+
+    public RestoInfo getRestoInfo(int restoID)
+    {
+        dbc = DBConnection.getInstance();
+        try
+        {
+            ResultSet rs = dbc.executeQuery("select * from meal where meal_id="+mealID);
+            while(rs.next())
+            {
+                return new RestoInfo(
+                    rs.getString("telephone"), 
+                    rs.getString("address"));
+            }
+        }
+        catch(Exception e)
+        {
+            System.err.println(e);
+        }
+        return null;
+    }
 }
