@@ -190,7 +190,7 @@ public class DatabaseModel
     }
 
     /**
-     * TODO: NULLS
+     * TODO: Consumable BUILDER
      */
     public ArrayList<Consumable> getConsumables()
     {
@@ -201,14 +201,28 @@ public class DatabaseModel
             ResultSet rs = dbc.executeQuery("select * from consumable c, category cc where c.Category_ID = cc.Category_ID");
             while(rs.next())
             {
-                Consumable c = new Consumable(
+                Consumable c;
+                if (rs.getString("meal_id").equals(""))
+                {
+                    c = new Consumable(
                         rs.getInt("Consumable_ID"),
                         rs.getString("Consumable_Name"),
                         rs.getString("Consumable_CodeName"),
                         searchCategory(rs.getInt("Category_ID")),
                         rs.getDouble("Consumable_Price"),
-                        null,
-                        null);
+                        searchIngredientByConsumableID(rs.getInt("consumable_id")));
+                }
+                else
+                {
+                    c = new Consumable(
+                            rs.getInt("Consumable_ID"),
+                            rs.getString("Consumable_Name"),
+                            rs.getString("Consumable_CodeName"),
+                            searchCategory(rs.getInt("Category_ID")),
+                            rs.getDouble("Consumable_Price"),
+                            searchIngredientByConsumableID(rs.getInt("consumable_id")),
+                            new Meal(getMealContent(rs.getInt("meal_ID"))));
+                }
                 data.add(c);
             }
         }
@@ -220,7 +234,7 @@ public class DatabaseModel
     }
 
     /**
-     * TODO: NULLS
+     * TODO: NULLS (meals)
      */
     public Consumable searchConsumable(int id)
     {
@@ -236,7 +250,7 @@ public class DatabaseModel
                     rs.getString("Consumable_CodeName"),
                     searchCategory(rs.getInt("Category_ID")),
                     rs.getDouble("Consumable_Price"),
-                    null,
+                    searchIngredientByConsumableID(rs.getInt("consumable_id")),
                     null);
             }
         }
@@ -248,7 +262,7 @@ public class DatabaseModel
     }
 
     /**
-     * TODO: NULLS
+     * TODO: NULLS (meals)
      */
     public ArrayList<Consumable> searchConsumableByCategory(String category)
     {
@@ -265,7 +279,7 @@ public class DatabaseModel
                     rs.getString("Consumable_CodeName"),
                     searchCategory(rs.getInt("Category_ID")),
                     rs.getDouble("Consumable_Price"),
-                    null,
+                    searchIngredientByConsumableID(rs.getInt("consumable_id")),
                     null);
                 data.add(c);
             }
@@ -278,7 +292,7 @@ public class DatabaseModel
     }
 
     /**
-     * TODO: NULLS
+     * TODO: NULLS (meals)
      */
     public ArrayList<Consumable> searchConsumableByCategory(int id)
     {
@@ -295,7 +309,7 @@ public class DatabaseModel
                     rs.getString("Consumable_CodeName"),
                     searchCategory(rs.getInt("Category_ID")),
                     rs.getDouble("Consumable_Price"),
-                    null,
+                    searchIngredientByConsumableID(rs.getInt("consumable_id")),
                     null);
                 data.add(c);
             }
@@ -458,7 +472,7 @@ public class DatabaseModel
             {
                 TransactionBuilder builder = new TransactionBuilder(rs.getInt("transaction_id"));
                 builder.setTransactionDate(null)
-                       .setCashier(searchUser(rs.getInt("user_id")))  
+                       .setCashier(searchUser(rs.getInt("user_id")))
                        .setMode(null)
                        .setCashReceived(rs.getDouble("cash"))
                        .setTotal(rs.getDouble("total"))
@@ -488,7 +502,7 @@ public class DatabaseModel
             {
                 TransactionBuilder builder = new TransactionBuilder(rs.getInt("transaction_id"));
                 builder.setTransactionDate(null)
-                       .setCashier(searchUser(rs.getInt("user_id")))  
+                       .setCashier(searchUser(rs.getInt("user_id")))
                        .setMode(null)
                        .setCashReceived(rs.getDouble("cash"))
                        .setTotal(rs.getDouble("total"))
@@ -527,7 +541,7 @@ public class DatabaseModel
         return data;
     }
 
-    public ArrayList<Ingredient> searchIngredientsByConsumable(int id)
+    public ArrayList<Ingredient> searchIngredientByConsumableID(int id)
     {
         dbc = DBConnection.getInstance();
         ArrayList<Ingredient> data = new ArrayList<Ingredient>();
@@ -842,5 +856,47 @@ public class DatabaseModel
             System.out.println(e);
         }
         return false;
+    }
+
+    public ArrayList<ConsumableQuantityPair> getMealContent(int mealID)
+    {
+        dbc = DBConnection.getInstance();
+        ArrayList<ConsumableQuantityPair> data = new ArrayList<ConsumableQuantityPair>();
+        try
+        {
+            ResultSet rs = dbc.executeQuery("select * from meal where meal_id="+mealID);
+            while(rs.next())
+            {
+                ConsumableQuantityPair c = new ConsumableQuantityPair(
+                    searchConsumable(rs.getInt("addons")), 
+                    rs.getInt("quantity"));
+                data.add(c);
+            }
+        }
+        catch(Exception e)
+        {
+            System.err.println(e);
+        }
+        return data;
+    }
+
+    public RestoInfo getRestoInfo(int restoID)
+    {
+        dbc = DBConnection.getInstance();
+        try
+        {
+            ResultSet rs = dbc.executeQuery("select * from meal where meal_id="+mealID);
+            while(rs.next())
+            {
+                return new RestoInfo(
+                    rs.getString("telephone"), 
+                    rs.getString("address"));
+            }
+        }
+        catch(Exception e)
+        {
+            System.err.println(e);
+        }
+        return null;
     }
 }
