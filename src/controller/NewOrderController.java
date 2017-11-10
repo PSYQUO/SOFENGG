@@ -1,5 +1,6 @@
 package controller;
 
+import controller.ViewManager.ViewManagerException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -35,7 +36,7 @@ public class NewOrderController extends Controller
 
     public NewOrderController() throws IOException
     {
-        initialize(this, "/view/new-order", true);
+        initialize(this, "/view/new-order", "/view/new-order");
     }
 
     @Override
@@ -44,7 +45,10 @@ public class NewOrderController extends Controller
         if(checkInitialLoad(getClass().getSimpleName()))
         {
             buttonNewOrderClose.addEventHandler(ActionEvent.ACTION, e ->
-                    viewManager.switchViews("MainMenuController"));
+            {
+                viewManager.switchViews("MainMenuController");
+                clear();
+            });
 
             buttonOK.addEventHandler(ActionEvent.ACTION, e ->
             {
@@ -83,7 +87,10 @@ public class NewOrderController extends Controller
     @Override
     public void clear()
     {
-
+        flowpaneBudget.getChildren().clear();
+        flowpaneExtras.getChildren().clear();
+        flowpaneCombo.getChildren().clear();
+        flowpaneSandwich.getChildren().clear();
     }
 
     private void loadMeals()

@@ -1,19 +1,19 @@
 package model;
 
-import java.util.List;
+import java.util.*;
 
 public class Meal {
-    private List<Consumable> addOns;
-
-    public Meal(List<Consumable> addOns) {
+    private ArrayList<ConsumableQuantityPair> addOns;
+    
+    public Meal(ArrayList<ConsumableQuantityPair> addOns) {
         this.addOns = addOns;
     }
 
-    public List<Consumable> getAddOns() {
+    public ArrayList<ConsumableQuantityPair> getAddOns() {
         return addOns;
     }
 
-    public void setAddOns(List<Consumable> addOns) {
+    public void setAddOns(ArrayList<ConsumableQuantityPair> addOns) {
         this.addOns = addOns;
     }
 }

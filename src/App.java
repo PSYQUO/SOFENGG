@@ -1,4 +1,5 @@
 import controller.*;
+import controller.ViewManager.ViewManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.DBConnection;
@@ -13,8 +14,6 @@ public class App extends Application
     }
 
     /**
-     * TODO: Is the Title of the Stage correct? - patsy
-                I think it's good - gian
      * TODO: Might be a better way to decouple ViewManager and Controller classes - patsy
      */
     @Override
@@ -29,6 +28,7 @@ public class App extends Application
         NewOrderController noc = new NewOrderController();
         InventoryController ic = new InventoryController();
         SettingsController sc = new SettingsController();
+        FilesController fc = new FilesController();
 
         ViewManager vm = new ViewManager(mmc);
 
@@ -41,9 +41,15 @@ public class App extends Application
         vm.addController(sc);
         sc.setViewManager(vm);
 
+        vm.addController(fc);
+        sc.setViewManager(vm);
+
         primaryStage.setTitle("Tony Joe's POS System");
         primaryStage.setScene(vm.getScene());
         primaryStage.show();
+        primaryStage.setMinHeight(600);
+        primaryStage.setMinWidth(800);
+        primaryStage.setFullScreen(true);
     }
 
     @Override

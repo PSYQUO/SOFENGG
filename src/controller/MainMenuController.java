@@ -1,20 +1,20 @@
 package controller;
 
+import controller.ViewManager.ViewManagerException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
-import javax.swing.*;
 import java.io.IOException;
 
 public class MainMenuController extends Controller
 {
     @FXML
-    Button buttonNewOrder, buttonInventory, buttonSettings;
+    private Button buttonNewOrder, buttonInventory, buttonSettings, buttonFiles;
 
     public MainMenuController() throws IOException
     {
-        initialize(this, "/view/main-menu", true);
+        initialize(this, "/view/main-menu", "/view/main-menu");
     }
 
     @Override
@@ -30,6 +30,9 @@ public class MainMenuController extends Controller
 
             buttonSettings.addEventHandler(ActionEvent.ACTION, e ->
                     viewManager.switchViews("SettingsController"));
+
+            buttonFiles.addEventHandler(ActionEvent.ACTION, e ->
+                    viewManager.switchViews("FilesController"));
         }
     }
 
