@@ -3,8 +3,8 @@ package model;
 import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import model.Transaction.Transaction;
-import model.Transaction.TransactionBuilder;
+import model.transaction.Transaction;
+import model.transaction.TransactionBuilder;
 
 public class DatabaseModel
 {
@@ -221,7 +221,7 @@ public class DatabaseModel
                             searchCategory(rs.getInt("Category_ID")),
                             rs.getDouble("Consumable_Price"),
                             searchIngredientByConsumableID(rs.getInt("consumable_id")),
-                            new Meal(getMealContent(rs.getInt("meal_ID"))));
+                            new Meal(rs.getInt("meal_id"), getMealContent(rs.getInt("meal_ID"))));
                 }
                 data.add(c);
             }
@@ -694,6 +694,38 @@ public class DatabaseModel
         return false;
     }
 
+    /**
+     * TODO: NULLS (DATE), subtotal
+     */
+    public boolean addTransaction(Transaction newTransaction)
+    {
+        try
+        {
+            dbc = DBConnection.getInstance();
+            dbc.prepareStatement("INSERT INTO transaction (Transaction_DateTime, User_ID, Customer_Number, Transaction_Type, Cash, Change, Subtotal, Senior_Discount, Total) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            dbc.setString(1, null);
+            dbc.setInt(2, newTransaction.getCashier().getUserID());
+            dbc.setInt(3, newTransaction.getCustNo());
+            dbc.setString(4, newTransaction.getMode().toString());
+            dbc.setDouble(5, newTransaction.getCashReceived());
+            dbc.setDouble(6, newTransaction.getChange());
+            dbc.setDouble(7, newTransaction.getTotal()); //must be subtotal
+            dbc.setDouble(8, newTransaction.getDiscount());
+            dbc.setDouble(9, newTransaction.getTotal());
+
+            if(dbc.executeUpdate() == 1)
+            {
+                return true;
+            }
+            dbc.closePreparedStatement();
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+        return false;
+    }
+
     public boolean deleteCategory(Category category)
     {
         try
@@ -885,7 +917,7 @@ public class DatabaseModel
         dbc = DBConnection.getInstance();
         try
         {
-            ResultSet rs = dbc.executeQuery("select * from meal where meal_id="+mealID);
+            ResultSet rs = dbc.executeQuery("select * from resto_info where resto_id="+restoID);
             while(rs.next())
             {
                 return new RestoInfo(
@@ -898,5 +930,149 @@ public class DatabaseModel
             System.err.println(e);
         }
         return null;
+    }
+
+    public boolean deleteTransaction(Transaction transaction)
+    {
+        try
+        {
+            dbc = DBConnection.getInstance();
+            dbc.prepareStatement("DELETE FROM transaction WHERE transaction_ID=?");
+            dbc.setInt(1, transaction.getTransactionID());
+
+            if(dbc.executeUpdate() == 1)
+            {
+                return true;
+            }
+            dbc.closePreparedStatement();
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    public boolean addConsumable(Consumable newConsumable)
+    {
+        try
+        {
+            dbc = DBConnection.getInstance();
+            dbc.prepareStatement("INSERT INTO consumable (Consumable_Name, Consumable_CodeName, Consumable_Price, Meal_ID, Category_ID) VALUES (?, ?, ?, ?, ?)");
+            dbc.setString(1, newConsumable.getName());
+            dbc.setString(2, newConsumable.getCodeName());
+            dbc.setDouble(3, newConsumable.getPrice());
+            dbc.setInt(4, newConsumable.getMeal().getMealID());
+            dbc.setInt(5, newConsumable.getCategory().getCategoryID());
+
+            if(dbc.executeUpdate() == 1)
+            {
+                return true;
+            }
+            dbc.closePreparedStatement();
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    /**
+     * TODO
+     */
+    public boolean addMeal(Consumable newConsumable)
+    {
+        try
+        {
+            dbc = DBConnection.getInstance();
+            dbc.prepareStatement("");
+            // insert code
+
+            if(dbc.executeUpdate() == 1)
+            {
+                return true;
+            }
+            dbc.closePreparedStatement();
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    /**
+     * TODO
+     */
+    public boolean addLineItem(Transaction transaction, Consumable consumable) // 1:1
+    {
+        try
+        {
+            dbc = DBConnection.getInstance();
+            dbc.prepareStatement("");
+            // insert code
+
+            if(dbc.executeUpdate() == 1)
+            {
+                return true;
+            }
+            dbc.closePreparedStatement();
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    /**
+     * TODO
+     */
+    public boolean addIngredients(Consumable consumable, Ingredient ingredient) // 1:1
+    {
+        try
+        {
+            dbc = DBConnection.getInstance();
+            dbc.prepareStatement("");
+            // insert code
+
+            if(dbc.executeUpdate() == 1)
+            {
+                return true;
+            }
+            dbc.closePreparedStatement();
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    /**
+     * delete exactly one (1) ingridient for consumable
+     */
+    public boolean deleteIngredient(Consumable consumable, Ingredient ingredient)
+    {
+        try
+        {
+            dbc = DBConnection.getInstance();
+            dbc.prepareStatement("DELETE FROM ingredient WHERE Consumable_ID=? and RawItem_ID=? and Quantity=?");
+            dbc.setInt(1, consumable.getConsumableID());
+            dbc.setInt(2, ingredient.getRawItem().getRawItemID());
+            dbc.setInt(3, ingredient.getQuantity());
+
+            if(dbc.executeUpdate() == 1)
+            {
+                return true;
+            }
+            dbc.closePreparedStatement();
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+        return false;
     }
 }
