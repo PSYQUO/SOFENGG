@@ -3,7 +3,7 @@ package model;
 import java.util.*;
 
 public class Consumable {
-    private int consumableID;
+    public int consumableID;
     private String name;
     private String codeName;
     private Category category;
