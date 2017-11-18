@@ -24,7 +24,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Button id="changeMainPassword" fx:id="buttonChangePassword" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="buttons" text="CHANGE PASSWORD" textFill="#2c4050">
+                  <Button id="buttonMainPassword" fx:id="buttonChangePassword" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="buttons" text="CHANGE PASSWORD" textFill="#2c4050">
                      <font>
                         <Font size="85.0" />
                      </font></Button>
@@ -81,17 +81,17 @@
                         <Font size="60.0" />
                      </font>
                   </Label>
-                  <PasswordField fx:id="pwfieldOldPassword" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.rowIndex="1">
+                  <PasswordField id="oldPassword" fx:id="pwfieldOldPassword" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.rowIndex="1">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </PasswordField>
-                  <PasswordField fx:id="pwfieldOldPassword1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.rowIndex="3">
+                  <PasswordField id="newPassword" fx:id="pwfieldOldPassword1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.rowIndex="3">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </PasswordField>
-                  <PasswordField fx:id="pwfieldOldPassword2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.rowIndex="5">
+                  <PasswordField id="confirmPassword" fx:id="pwfieldOldPassword2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.rowIndex="5">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -124,7 +124,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <TextField fx:id="textfieldBackupLocation" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="C://user/document/notporn/porn.mp4" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <TextField id="backupLocation" fx:id="textfieldBackupLocation" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="C://user/document/notporn/porn.mp4" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font size="40.0" />
                      </font></TextField>
