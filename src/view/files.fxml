@@ -164,7 +164,7 @@
       </TabPane>
       <Label layoutX="18.0" layoutY="14.0" text="Files" textFill="#35dee8e3" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="20.0">
          <font>
-            <Font name="System Bold" size="85.0" />
+            <Font name="System Bold" size="36.0" />
          </font>
       </Label>
       <Button id="buttonBack" fx:id="buttonBack" layoutX="515.0" layoutY="20.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="200.0" styleClass="buttonBack" stylesheets="@inv_most_wastage_analytics.css" text="Back" textFill="WHITE" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">

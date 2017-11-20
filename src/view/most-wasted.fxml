@@ -29,7 +29,7 @@
          <top>
             <VBox maxHeight="1.7976931348623157E308" prefWidth="100.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label text="Most Wasted Items" textFill="WHITE">
+                  <Label text="Most Wasted Items" textFill="#35dee8">
                      <font>
                         <Font name="System Bold" size="36.0" />
                      </font>
