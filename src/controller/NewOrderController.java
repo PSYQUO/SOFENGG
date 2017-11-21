@@ -85,8 +85,7 @@ public class NewOrderController extends Controller
     private int customerNo;
     private String transactionMode;
     private User cashier;
-    private List<LineItem> lineItems;
-    private DoubleProperty changeProperty;
+    private List<LineItem> lineItems; // Line items of the current order
 
     public NewOrderController() throws IOException
     {
@@ -98,10 +97,12 @@ public class NewOrderController extends Controller
     {
         if(checkInitialLoad(getClass().getSimpleName()))
         {
+            // Temporary hard-coded data
             transactionId = 10;
             customerNo = 2;
             transactionMode = Transaction.MODE_DINE_IN;
             cashier = new User("Bob", "bobthebuilder", "builder", null);
+
             lineItems = new ArrayList<LineItem>();
             transactionBuilder = new TransactionBuilder(transactionId);
             receiptBuilder = new ReceiptBuilder();
@@ -111,26 +112,26 @@ public class NewOrderController extends Controller
                               .setCashier(cashier)
                               .setDate(LocalDateTime.now());
 
-            receiptTextArea = new TextArea();
-            receiptTextArea.setMaxWidth(Double.MAX_VALUE);
-            receiptTextArea.setMaxHeight(Double.MAX_VALUE);
-
-            changeProperty = new SimpleDoubleProperty();
-            // changeProperty.setValue(transactionBuilder.build().getTotal() - Double.parseDouble(textfieldPayment.getText()));
-            // labelChange.textProperty().bind(changeProperty.asString());
-            // labelChange.textProperty().bind(textfieldPayment.textProperty() - transactionBuilder.build().getTotal());
-
             // Attach event handlers for each button in the numpad
             for (Node n : gridpaneNumpad.getChildren()) {
                 Button b = (Button) n;
                 b.addEventHandler(ActionEvent.ACTION, e ->
                 {
+                    // Remove the 0 to clear the field for user input.
                     if (textfieldPayment.getText().equals("0"))
                         textfieldPayment.setText("");
+
+                    // Add to the payment input the value of the button's texts.
                     textfieldPayment.setText(textfieldPayment.getText() + b.getText());
+
+                    // Get the current total of the transaction.
                     double total = transactionBuilder.build().getTotal();
+
+                    // Apply the senior citizen discount if selected.
                     if (checkboxSenior.isSelected())
                         total -= total * 0.20;
+
+                    // Calculate the change given a payment and a total.
                     double change = Double.parseDouble(textfieldPayment.getText()) - total;
                     labelChange.setText(change + "");
                 });
@@ -138,29 +139,37 @@ public class NewOrderController extends Controller
 
             checkboxSenior.addEventHandler(ActionEvent.ACTION, e ->
             {
-                // double total = transactionBuilder.build().getTotal();
+                // Get the current total of the transaction.
                 double total = transactionBuilder.build().getTotal();
+                
+                // Apply the senior citizen discount if selected.
                 if (checkboxSenior.isSelected())
                     total -= total * 0.20;
-                // double change = Double.parseDouble(textfieldPayment.getText()) - total;
+                
+                // Calculate the change given a payment and a total.
                 labelChange.setText((Double.parseDouble(textfieldPayment.getText()) - total) + "");
                 labelTotal.setText(total + "");
             });
 
+            // The x button
             buttonBack.addEventHandler(ActionEvent.ACTION, e ->
             {
                 viewManager.switchViews("MainMenuController");
                 clear();
             });
 
+            // Display the payment screen after ordering is finished.
             buttonOK.addEventHandler(ActionEvent.ACTION, e ->
             {
                 labelTotal.setText("");
                 textfieldPayment.setText("0");
                 Transaction tempTransaction = transactionBuilder.build();
+
+                // If the total is not invalid/null/uninitialized, display the total.
                 if (tempTransaction.getTotal() != -1)
                     labelTotal.setText(tempTransaction.getTotal() + "");
 
+                // Calculate the change given a payment and a total.
                 double change = Double.parseDouble(textfieldPayment.getText()) - tempTransaction.getTotal();
                 labelChange.setText(change + "");
 
@@ -169,27 +178,16 @@ public class NewOrderController extends Controller
                 borderpaneNewOrder.setDisable(true);
             });
 
+            // Finalize transaction.
             buttonEnter.addEventHandler(ActionEvent.ACTION, e ->
             {
                 double change = Double.parseDouble(labelChange.getText());
                 if (change < 0)
-                    return;
+                    return; // If change is negative, cancel further computations.
 
                 transactionBuilder.setCashReceived(Double.parseDouble(textfieldPayment.getText()));
                 transactionBuilder.setChange(Double.parseDouble(labelChange.getText()));
                 transactionBuilder.setCustomerNo(spinnerCustNo.getValue());
-
-                /**
-                 * Dummy Values
-                 */
-                transactionBuilder.addLineItem(new LineItem(1, new Consumable("Nixon", "nix", null, 4.20, null), 420));
-                transactionBuilder.addLineItem(new LineItem(1, new Consumable("Jordan", "nix", null, 69.69, null), 69));
-
-                receiptBuilder.clear();
-                Receipt receipt = receiptBuilder.processTransaction(transactionBuilder.build()).build();
-
-                System.out.println(receipt.customerReceipt());
-                System.out.println(receipt.kitchenReceipt());
 
                 // TODO: at this point papasok na sa DB dapat
 
@@ -215,21 +213,27 @@ public class NewOrderController extends Controller
 
             });
 
+            // Backspace for payment input.
             buttonBackspace.addEventHandler(ActionEvent.ACTION, e ->
             {
+                // Override backspace function with set text to 0 if the current text is 1 character.
                 if (textfieldPayment.getText().length() == 1)
                     textfieldPayment.setText("0");
                 else
                     textfieldPayment.setText(
                         textfieldPayment.getText().substring(0, textfieldPayment.getText().length() - 1));
 
+                // Get the current total of the transaction.
                 double total = transactionBuilder.build().getTotal();
                 if (checkboxSenior.isSelected())
                     total -= total * 0.20;
+                
+                // Calculate the change given a payment and a total.
                 double change = Double.parseDouble(textfieldPayment.getText()) - total;
                 labelChange.setText(change + "");
             });
 
+            // Cancel payment input
             buttonPaymentClose.addEventHandler(ActionEvent.ACTION, e ->
             {
                 borderpanePayment.setDisable(true);
@@ -274,32 +278,22 @@ public class NewOrderController extends Controller
         {
             NewOrderButton nob = new NewOrderButton(c.getName(), c.getPrice());
             
-            /* Disables the button when there are not enough ingredients. */
+            // Disables the button when there are not enough ingredients.
             List<Ingredient> ingredients = dbm.searchIngredientByConsumableID(c.consumableID);
             for (Ingredient i : ingredients) {
                 if (i.getRawItem().getQuantity() < i.getQuantity())
                     nob.setDisable(true);
             }
 
+            // When an order button is clicked.
             nob.addEventHandler(ActionEvent.ACTION, e ->
             {
                 transactionBuilder.addLineItem(new LineItem(transactionId, c, 1));
-
-                // Receipt building begin
-                // receiptBuilder.clear();
-                // receiptBuilder.processTransaction(transactionBuilder.build());
-
-                // receipt = receiptBuilder.build();
-                // Receipt building end
-
-                // Update receipt sidepane
-                // receiptTextArea.setText(receipt.customerReceipt());
-                // vboxReceipt.getChildren().clear();
-                // vboxReceipt.getChildren().add(receiptTextArea);
             });
 
             String category = c.getCategory().getCategoryName();
 
+            // Segregate the food items by category tabs.
             if(category.equals("Budget Meal"))
                 flowpaneBudget.getChildren().add(nob);
             else if(category.equals("Combo Meal"))
