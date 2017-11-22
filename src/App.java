@@ -6,6 +6,7 @@ import model.DBConnection;
 
 public class App extends Application
 {
+
     public static void main(String[] args)
     {
         launch(args);
@@ -19,7 +20,7 @@ public class App extends Application
     {
         // Setup DBConnection
         DBConnection dbc = DBConnection.getInstance();
-        dbc.setConnection("tjbbqdb", "root", "password");
+        dbc.setConnection("tjbbqdb", "root", "root");
 
         // Setup Controllers and ViewManager
         MainMenuController mmc = new MainMenuController();
