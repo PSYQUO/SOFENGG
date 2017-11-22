@@ -9,7 +9,7 @@
 *.properties
 *.tar
 *.zip
-
+*bin
 *build
 *out
 src/Test.java
