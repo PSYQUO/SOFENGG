@@ -1,3 +1,6 @@
+AnchorPane {
+    -fx-background-color: rgb(44, 64, 80);
+}
 #background {
     -fx-background-color: rgb(44, 64, 80);
 }
@@ -40,7 +43,7 @@
 
 
 .tab {
-    -fx-text-fill: #FFFFFF;
+    -fx-color: #FFFFFF;
     -fx-font-size: 18px;
     -fx-background-color:#B7B7B7;
     -fx-font-weight:bold;
@@ -66,4 +69,8 @@ TabPane .tab:selected .tab-label {
 
 TabPane .tab:selected {
     -fx-background-color: #3498DB;
+}
+.tab-pane > .tab-header-area > .headers-region > .tab {
+    -fx-border-color: #2C3E50;
+    -fx-border-width: 5px; 
 }

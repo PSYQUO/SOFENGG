@@ -19,22 +19,18 @@ public class NewOrderButton extends Button {
         setPrice(price);
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public NewOrderButton(Consumable c) {
+        setConsumable(c);
+        setAppearance();
         refreshText();
     }
 
-    public Double getPrice() {
-        return price;
+    public void setConsumable(Consumable c) {
+        consumable = c;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
-        refreshText();
+    public Consumable getConsumable() {
+        return consumable;
     }
 
     public void refreshText() {

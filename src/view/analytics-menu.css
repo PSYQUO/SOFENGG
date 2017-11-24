@@ -1,0 +1,10 @@
+#background {
+    -fx-background-color: RGB(44, 64, 80);
+}
+
+.analButtons {
+    -fx-background-color: rgb(46,204,113);
+    -fx-font-size: 50px;
+    -fx-font-color:white;
+    -fx-font-weight:bold;
+}
