@@ -1055,7 +1055,7 @@ public class DatabaseModel
 
     public void addMeals(Consumable consumable, ArrayList<ConsumableQuantityPair> cqps) // many
     {
-        for(int i=0; i<cqps.size(); i++)
+        for(int i = 0; i < cqps.size(); i++)
         {
             addMeal(consumable, cqps.get(i));
         }
@@ -1126,7 +1126,7 @@ public class DatabaseModel
     /**
      * delete all line item for 1 transaction
      */
-     public boolean deleteLineItems(Transaction transaction)
+    public boolean deleteLineItems(Transaction transaction)
     {
         try
         {
@@ -1145,5 +1145,43 @@ public class DatabaseModel
             System.out.println(e);
         }
         return false;
+    }
+
+    public boolean bawasInventory3(Ingredient ing, int q)
+    {
+        try
+        {
+            dbc = DBConnection.getInstance();
+            dbc.prepareStatement("UPDATE rawitem SET rawitem_quantity=rawitem_quantity-? WHERE rawitem_ID=?");
+            dbc.setInt(1, ing.getQuantity()*q);
+            dbc.setInt(2, ing.getRawItem().getRawItemID());
+
+            if(dbc.executeUpdate() == 1)
+            {
+                return true;
+            }
+            dbc.closePreparedStatement();
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    public void bawasInventory2(Consumable c, int q)
+    {
+        for(int i = 0; i < c.getIngredients().size(); i++)
+        {
+            bawasInventory3(c.getIngredients().get(i), q);
+        }
+    }
+
+    public void bawasInventory(ArrayList<LineItem> lis)
+    {
+        for(int i = 0; i < lis.size(); i++)
+        {
+            bawasInventory2(lis.get(i).getConsumable(), lis.get(i).getQuantity());
+        }
     }
 }
