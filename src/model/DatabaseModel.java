@@ -1181,7 +1181,11 @@ public class DatabaseModel
     {
         for(int i = 0; i < lis.size(); i++)
         {
-            bawasInventory2(lis.get(i).getConsumable(), lis.get(i).getQuantity());
+            //bawasInventory2(lis.get(i).getConsumable(), lis.get(i).getQuantity());
+            for(int j = 0; j < lis.get(i).getConsumable().getIngredients().size(); j++)
+            {
+                bawasInventory3(lis.get(i).getConsumable().getIngredients().get(j), lis.get(i).getQuantity());
+            }
         }
     }
 }
