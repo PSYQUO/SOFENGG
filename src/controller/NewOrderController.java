@@ -102,6 +102,7 @@ public class NewOrderController extends Controller
     
     private DecimalFormat df = new DecimalFormat("0.00");
     private DialogFactory dialogFactory = new DialogFactory();
+    private Dialog transactionCompleteDialog;
 
     public NewOrderController() throws IOException
     {
@@ -134,8 +135,12 @@ public class NewOrderController extends Controller
 
         if(checkInitialLoad(getClass().getSimpleName()))
         {
+            // transactionCompleteDialog = dialogFactory.create(DialogMessageType.TRANSACTION_COMPLETE);
+            // transactionCompleteDialog.initOwner(borderpanePayment.getScene().getWindow());
 
-            textfieldPayment.setDisable(true);
+            textfieldPayment.setEditable(false);
+            textfieldPayment.setMouseTransparent(true);
+            textfieldPayment.setFocusTraversable(false);
 
             // Attach event handlers for each button in the numpad
             for (Node n : gridpaneNumpad.getChildren()) {
@@ -255,9 +260,9 @@ public class NewOrderController extends Controller
                 System.out.println(receipt.kitchenReceipt());
 
                 // TODO: Dapat after nito magpapakita yung "Transaction complete!"
-                Dialog d = dialogFactory.create(DialogMessageType.TRANSACTION_COMPLETE);
-                d.initOwner(borderpanePayment.getScene().getWindow());
-                d.showAndWait();
+                transactionCompleteDialog = dialogFactory.create(DialogMessageType.TRANSACTION_COMPLETE);
+                transactionCompleteDialog.initOwner(borderpanePayment.getScene().getWindow());
+                transactionCompleteDialog.showAndWait();
 
                 borderpanePayment.setDisable(true);
                 borderpanePayment.setVisible(false);
