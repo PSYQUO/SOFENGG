@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.Dialog;
 
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -29,6 +30,8 @@ import model.User;
 
 import view.NewOrderButton;
 import view.LineItemBox;
+import view.dialog.DialogFactory;
+import view.dialog.DialogMessageType;
 
 import receipt.Receipt;
 import receipt.ReceiptHeader;
@@ -98,6 +101,7 @@ public class NewOrderController extends Controller
     private DoubleProperty changeProperty;
     
     private DecimalFormat df = new DecimalFormat("0.00");
+    private DialogFactory dialogFactory = new DialogFactory();
 
     public NewOrderController() throws IOException
     {
@@ -251,6 +255,9 @@ public class NewOrderController extends Controller
                 System.out.println(receipt.kitchenReceipt());
 
                 // TODO: Dapat after nito magpapakita yung "Transaction complete!"
+                Dialog d = dialogFactory.create(DialogMessageType.TRANSACTION_COMPLETE);
+                d.initOwner(borderpanePayment.getScene().getWindow());
+                d.showAndWait();
 
                 borderpanePayment.setDisable(true);
                 borderpanePayment.setVisible(false);
@@ -294,13 +301,6 @@ public class NewOrderController extends Controller
                 textfieldPayment.clear(); // remove textfield content
             });
 
-            // ActionEvent cancelOrderHandler = ActionEvent.ACTION, e ->
-            // {
-                // TODO
-                // Get the LineItem assigned to the event source button
-                // Remove the LineItem from the current list of line items
-                // lineItems.remove();
-            // }
         }
 
         loadMeals();
