@@ -31,19 +31,16 @@ import view.NewOrderButton;
 import view.LineItemBox;
 
 import receipt.Receipt;
-import receipt.ReceiptHeader;
-import receipt.ReceiptFooter;
 import receipt.ReceiptBuilder;
+import receipt.ReceiptPrinter;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.text.DecimalFormat;
 
 import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 
 public class NewOrderController extends Controller
 {
@@ -247,8 +244,15 @@ public class NewOrderController extends Controller
                 // }
                 receiptBuilder.clear();
                 Receipt receipt = receiptBuilder.processTransaction(transactionBuilder.build()).build();
-                System.out.println(receipt.customerReceipt());
-                System.out.println(receipt.kitchenReceipt());
+                //System.out.println(receipt.customerReceipt());
+                //System.out.println(receipt.kitchenReceipt());
+
+                System.out.println(receipt.customerReceipt()+"\n"+receipt.kitchenReceipt());
+                ReceiptPrinter rp = new ReceiptPrinter();
+                //rp.printReceipt(receipt.customerReceipt());
+                rp.printReceipt(receipt.customerReceipt()+"\n"+receipt.kitchenReceipt());
+
+
 
                 // TODO: Dapat after nito magpapakita yung "Transaction complete!"
 
