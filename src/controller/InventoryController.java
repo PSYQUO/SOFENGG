@@ -9,7 +9,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.DatabaseModel;
-import model.RawItem;
+import model.food.RawItem;
 
 import java.io.IOException;
 
