@@ -1,0 +1,126 @@
+D:\Github Repositories\SOFENGG>run
+src\controller\viewmanager\ViewManagerException.java:3: warning: [serial] serial
+izable class ViewManagerException has no definition of serialVersionUID
+public class ViewManagerException extends Exception
+       ^
+src\model\food\LineItem.java:7: warning: [overrides] Class LineItem overrides eq
+uals, but neither it nor any superclass overrides hashCode method
+public class LineItem {
+       ^
+src\view\dialog\DialogFactory.java:17: warning: [rawtypes] found raw type: Dialo
+g
+    public Dialog create() {
+           ^
+  missing type arguments for generic class Dialog<R>
+  where R is a type-variable:
+    R extends Object declared in class Dialog
+src\view\dialog\DialogFactory.java:28: warning: [rawtypes] found raw type: Dialo
+g
+    public Dialog create(DialogMessageType type) {
+           ^
+  missing type arguments for generic class Dialog<R>
+  where R is a type-variable:
+    R extends Object declared in class Dialog
+src\view\dialog\DialogFactory.java:60: warning: [rawtypes] found raw type: Dialo
+g
+    public Dialog createConfirmationDialog(String message) {
+           ^
+  missing type arguments for generic class Dialog<R>
+  where R is a type-variable:
+    R extends Object declared in class Dialog
+src\view\dialog\DialogFactory.java:77: warning: [rawtypes] found raw type: Dialo
+g
+    public Dialog createConfirmationDialog(DialogMessageType type) {
+           ^
+  missing type arguments for generic class Dialog<R>
+  where R is a type-variable:
+    R extends Object declared in class Dialog
+src\view\dialog\DialogFactory.java:113: warning: [rawtypes] found raw type: Dial
+og
+    public Dialog createWarningDialog(String message) {
+           ^
+  missing type arguments for generic class Dialog<R>
+  where R is a type-variable:
+    R extends Object declared in class Dialog
+src\view\dialog\DialogFactory.java:130: warning: [rawtypes] found raw type: Dial
+og
+    public Dialog createWarningDialog(DialogMessageType type) {
+           ^
+  missing type arguments for generic class Dialog<R>
+  where R is a type-variable:
+    R extends Object declared in class Dialog
+src\view\dialog\DialogFactory.java:160: warning: [rawtypes] found raw type: Dial
+og
+    public Dialog createInformationDialog(String message) {
+           ^
+  missing type arguments for generic class Dialog<R>
+  where R is a type-variable:
+    R extends Object declared in class Dialog
+src\view\dialog\DialogFactory.java:177: warning: [rawtypes] found raw type: Dial
+og
+    public Dialog createInformationDialog(DialogMessageType type) {
+           ^
+  missing type arguments for generic class Dialog<R>
+  where R is a type-variable:
+    R extends Object declared in class Dialog
+src\view\dialog\DialogFactory.java:202: warning: [rawtypes] found raw type: Dial
+og
+        dialog = new Dialog();
+                     ^
+  missing type arguments for generic class Dialog<R>
+  where R is a type-variable:
+    R extends Object declared in class Dialog
+src\view\dialog\DialogFactory.java:225: warning: [rawtypes] found raw type: Dial
+og
+    private Dialog dialog;
+            ^
+  missing type arguments for generic class Dialog<R>
+  where R is a type-variable:
+    R extends Object declared in class Dialog
+src\view\dialog\I_DialogFactory.java:6: warning: [rawtypes] found raw type: Dial
+og
+    Dialog create();
+    ^
+  missing type arguments for generic class Dialog<R>
+  where R is a type-variable:
+    R extends Object declared in class Dialog
+src\view\dialog\PasswordDialogFactory.java:20: warning: [rawtypes] found raw typ
+e: Dialog
+    public Dialog create() {
+           ^
+  missing type arguments for generic class Dialog<R>
+  where R is a type-variable:
+    R extends Object declared in class Dialog
+src\view\dialog\PasswordDialogFactory.java:30: warning: [rawtypes] found raw typ
+e: Dialog
+        dialog = new Dialog();
+                     ^
+  missing type arguments for generic class Dialog<R>
+  where R is a type-variable:
+    R extends Object declared in class Dialog
+src\view\dialog\PasswordDialogFactory.java:69: warning: [rawtypes] found raw typ
+e: Dialog
+    private Dialog dialog;
+            ^
+  missing type arguments for generic class Dialog<R>
+  where R is a type-variable:
+    R extends Object declared in class Dialog
+16 warnings
+Dec 11, 2017 10:12:25 PM javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 8.0.111 by JavaFX runt
+ime of version 8.0.91
+Dec 11, 2017 10:12:25 PM javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 9.0.1 by JavaFX runtim
+e of version 8.0.91
+Dec 11, 2017 10:12:25 PM javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 8.0.141 by JavaFX runt
+ime of version 8.0.91
+Dec 11, 2017 10:12:25 PM javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 8.0.111 by JavaFX runt
+ime of version 8.0.91
+Dec 11, 2017 10:12:25 PM javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 8.0.111 by JavaFX runt
+ime of version 8.0.91
+Dec 11, 2017 10:12:25 PM javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 8.0.111 by JavaFX runt
+ime of version 8.0.91
