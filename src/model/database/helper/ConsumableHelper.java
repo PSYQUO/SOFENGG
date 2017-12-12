@@ -68,11 +68,11 @@ public class ConsumableHelper extends DatabaseHelper implements DataAccessObject
      * @return      A list of all Consumable records in the database.
      */
     public List<Consumable> getAllItems() {
-        String query = "SELECT " + Consumable.COLUMN_ID + ","
-                                 + Consumable.COLUMN_NAME + ","
-                                 + Consumable.COLUMN_CODENAME + ","
-                                 + Consumable.COLUMN_PRICE + ","
-                                 + Consumable.COLUMN_MEAL + ","
+        String query = "SELECT " + Consumable.COLUMN_ID + ", "
+                                 + Consumable.COLUMN_NAME + ", "
+                                 + Consumable.COLUMN_CODENAME + ", "
+                                 + Consumable.COLUMN_PRICE + ", "
+                                 + Consumable.COLUMN_MEAL + ", "
                                  + Consumable.COLUMN_CATEGORY
                                  + " FROM " + Consumable.TABLE_NAME + ";";
 
@@ -80,7 +80,7 @@ public class ConsumableHelper extends DatabaseHelper implements DataAccessObject
 		List<Consumable> consumables = null;
 
 		try {
-			if (rs.next ()) {
+			while (rs.next()) {
                 int id = rs.getInt(Consumable.COLUMN_ID);
                 String name = rs.getString(Consumable.COLUMN_NAME);
                 String codeName = rs.getString(Consumable.COLUMN_CODENAME);

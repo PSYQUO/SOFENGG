@@ -45,8 +45,10 @@ public class MySQLDatabase extends DatabaseManager {
 		try {
 			preparedStatement = connection.prepareStatement (query);
 
-			for (int i = 0; i < contentValues.length; i++) {
-				preparedStatement.setObject (i + 1, contentValues[i]);
+			if (contentValues != null) {
+				for (int i = 0; i < contentValues.length; i++) {
+					preparedStatement.setObject (i + 1, contentValues[i]);
+				}
 			}
 
 			rs = preparedStatement.executeQuery ();

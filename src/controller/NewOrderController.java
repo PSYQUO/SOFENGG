@@ -34,6 +34,12 @@ import receipt.Receipt;
 import receipt.ReceiptBuilder;
 import receipt.ReceiptPrinter;
 
+import model.database.helper.ConsumableHelper;
+import model.database.DatabaseManager;
+import model.database.DatabaseHelper;
+import model.database.MySQLDatabase;
+import model.food.Category;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
@@ -329,8 +335,17 @@ public class NewOrderController extends Controller
         DatabaseModel dbm = new DatabaseModel();
         ArrayList<Consumable> consumablesList = dbm.getConsumables();
 
+        // DatabaseManager databaseManager = MySQLDatabase.getInstance();
+        // databaseManager.setConnection("127.0.0.1", "3306", "tjbbqdb", "root", "p@ssword");
+
+        // DatabaseHelper.setDatabaseManager(databaseManager);
+
+        // ConsumableHelper consumableHelper = new ConsumableHelper();
+        // List<Consumable> consumablesList = consumableHelper.getAllItems();
+
         for(Consumable c : consumablesList)
         {
+            // c.setCategory(new Category(1, "Budget Meal"));
             NewOrderButton nob = new NewOrderButton(c);
             
             // Disables the button when there are not enough ingredients.
