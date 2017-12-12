@@ -125,8 +125,14 @@ public class ConsumableHelper extends DatabaseHelper implements DataAccessObject
      */
     @Override
     public int deleteItem(int id) {
-
+        String query = "DELETE FROM " + Consumable.TABLE_NAME + 
+                            " WHERE " + Consumable.COLUMN_ID + " = ?;";
+        
+        if(database.executeUpdate(query, new Object[] {id}) == 1)
+        {
+            return 1;
+        }
+        
         return -1;
     }
-
 }
