@@ -3,6 +3,9 @@ package model.database.helper;
 import java.util.List;
 import java.util.ArrayList;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import model.database.DatabaseHelper;
 import model.database.DataAccessObject;
 
@@ -20,7 +23,8 @@ public class ConsumableHelper extends DatabaseHelper implements DataAccessObject
      * @return              A boolean that is true if the operation is successful.
      */
     public boolean addItem(Consumable item) {
-        
+
+        return false;
     }
 
     /**
@@ -44,12 +48,12 @@ public class ConsumableHelper extends DatabaseHelper implements DataAccessObject
 
 		try {
 			if (rs.next ()) {
-                int id = rs.getInt(Consumable.COLUMN_ID);
+                int consumableId = rs.getInt(Consumable.COLUMN_ID);
                 String name = rs.getString(Consumable.COLUMN_NAME);
                 String codeName = rs.getString(Consumable.COLUMN_CODENAME);
                 double price = rs.getDouble(Consumable.COLUMN_PRICE);
 
-                consumable = new Consumable(id, name, codeName, null, price, null);
+                consumable = new Consumable(consumableId, name, codeName, null, price, null);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace ();
@@ -72,7 +76,7 @@ public class ConsumableHelper extends DatabaseHelper implements DataAccessObject
                                  + Consumable.COLUMN_CATEGORY
                                  + " FROM " + Consumable.TABLE_NAME + ";";
 
-		ResultSet rs = database.executeQuery (query, new Object[] {id});
+		ResultSet rs = database.executeQuery (query, null);
 		List<Consumable> consumables = null;
 
 		try {
@@ -82,7 +86,7 @@ public class ConsumableHelper extends DatabaseHelper implements DataAccessObject
                 String codeName = rs.getString(Consumable.COLUMN_CODENAME);
                 double price = rs.getDouble(Consumable.COLUMN_PRICE);
 
-                consumable = new Consumable(id, name, codeName, null, price, null);
+                Consumable consumable = new Consumable(id, name, codeName, null, price, null);
                 
                 if (consumables == null) {
                     consumables = new ArrayList<Consumable>();
@@ -106,6 +110,7 @@ public class ConsumableHelper extends DatabaseHelper implements DataAccessObject
      */
     public int editItem(int id, Consumable item) {
 
+        return -1;
     }
     
     /**
@@ -116,6 +121,7 @@ public class ConsumableHelper extends DatabaseHelper implements DataAccessObject
      */
     public int deleteItem(int id) {
 
+        return -1;
     }
 
 }

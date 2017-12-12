@@ -17,8 +17,8 @@ public abstract class DatabaseHelper {
      * 
      * @param database  Creates a common parent for database access.
      */
-    public static void setDatabaseManager(DatabaseManager database) {
-        this.database = database;
+    public static void setDatabaseManager(DatabaseManager newDatabase) {
+        database = newDatabase;
     }
 
 }
