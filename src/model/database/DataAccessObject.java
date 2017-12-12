@@ -8,7 +8,7 @@ import java.util.List;
 public interface DataAccessObject<T> {
 
     /**
-     * Inserts an item to the database.
+     * Inserts an item into the database.
      * 
      * @param T     A generic entity in the database.
      * @return      A boolean that is true if adding is successful.

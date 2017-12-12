@@ -17,11 +17,12 @@ import model.food.Consumable;
 public class ConsumableHelper extends DatabaseHelper implements DataAccessObject<Consumable> {
 
     /**
-     * Inserts a Consumable record to the database.
+     * Inserts a Consumable record into the database.
      * 
      * @param Consumable    The representation of a food item. 
      * @return              A boolean that is true if the operation is successful.
      */
+    @Override
     public boolean addItem(Consumable item) {
 
         return false;
@@ -33,6 +34,7 @@ public class ConsumableHelper extends DatabaseHelper implements DataAccessObject
      * @param id    Refers to a specific record in a database table.
      * @return      The representation of an item/ingredient in stock in the inventory.
      */
+    @Override
     public Consumable getItem(int id) {
         String query = "SELECT " + Consumable.COLUMN_ID + ","
                                  + Consumable.COLUMN_NAME + ","
@@ -67,6 +69,7 @@ public class ConsumableHelper extends DatabaseHelper implements DataAccessObject
      * 
      * @return      A list of all Consumable records in the database.
      */
+    @Override
     public List<Consumable> getAllItems() {
         String query = "SELECT " + Consumable.COLUMN_ID + ", "
                                  + Consumable.COLUMN_NAME + ", "
@@ -108,6 +111,7 @@ public class ConsumableHelper extends DatabaseHelper implements DataAccessObject
      * @param Consumable    The representation of a food item.
      * @return              The number of rows affected by the operation.
      */
+    @Override
     public int editItem(int id, Consumable item) {
 
         return -1;
@@ -119,6 +123,7 @@ public class ConsumableHelper extends DatabaseHelper implements DataAccessObject
      * @param Consumable    The representation of a food item. 
      * @return              The number of rows affected by the operation.
      */
+    @Override
     public int deleteItem(int id) {
 
         return -1;

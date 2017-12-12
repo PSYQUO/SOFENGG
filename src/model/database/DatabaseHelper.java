@@ -13,7 +13,7 @@ public abstract class DatabaseHelper {
     protected static DatabaseManager database;
 
     /**
-     * Sets the current database to be used.
+     * Sets the current database to be used. Invoke sparingly.
      * 
      * @param database  Creates a common parent for database access.
      */
