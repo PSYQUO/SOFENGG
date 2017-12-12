@@ -1,4 +1,6 @@
-package database;
+package model.database;
+
+import model.database.DatabaseManager;
 
 /**
  * Provides access to a database to give way for data operations.

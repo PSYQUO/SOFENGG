@@ -1,4 +1,6 @@
-package database;
+package model.database;
+
+import java.util.List;
 
 /**
  * Used to access the database through specific data operations.
@@ -20,6 +22,13 @@ public interface DataAccessObject<T> {
      * @return      A generic entity in the database.
      */
     T getItem(int id);
+    
+    /**
+     * Retrieves all items from the database.
+     * 
+     * @return      A list of all records of a specific type in the database.
+     */
+    List<T> getAllItems();
     
     /**
      * Updates an item in the database.

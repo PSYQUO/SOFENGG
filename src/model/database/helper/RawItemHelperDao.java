@@ -1,4 +1,12 @@
-package database.helper;
+package model.database.helper;
+
+import java.util.List;
+import java.util.ArrayList;
+
+import model.database.DatabaseHelper;
+import model.database.DataAccessObject;
+
+import model.food.RawItem;
 
 /**
  * Used to access the RawItem database table through specific data operations.
@@ -12,7 +20,7 @@ public class RawItemHelper extends DatabaseHelper implements DataAccessObject<Ra
      * @return          A boolean that is true if the operation is successful.
      */
     boolean addItem(RawItem item) {
-
+        
     }
 
     /**
@@ -25,6 +33,15 @@ public class RawItemHelper extends DatabaseHelper implements DataAccessObject<Ra
 
     }
     
+    /**
+     * Retrieves all RawItem records from the database.
+     * 
+     * @return      A list of all RawItem records in the database.
+     */
+    List<RawItem> getAllItems() {
+
+    }
+
     /**
      * Updates a RawItem record in the database with a specific id.
      * 
