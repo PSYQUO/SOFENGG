@@ -64,7 +64,38 @@ public class ConsumableHelper extends DatabaseHelper implements DataAccessObject
      * @return      A list of all Consumable records in the database.
      */
     public List<Consumable> getAllItems() {
+        String query = "SELECT " + Consumable.COLUMN_ID + ","
+                                 + Consumable.COLUMN_NAME + ","
+                                 + Consumable.COLUMN_CODENAME + ","
+                                 + Consumable.COLUMN_PRICE + ","
+                                 + Consumable.COLUMN_MEAL + ","
+                                 + Consumable.COLUMN_CATEGORY
+                                 + " FROM " + Consumable.TABLE_NAME + ";";
 
+		ResultSet rs = database.executeQuery (query, new Object[] {id});
+		List<Consumable> consumables = null;
+
+		try {
+			if (rs.next ()) {
+                int id = rs.getInt(Consumable.COLUMN_ID);
+                String name = rs.getString(Consumable.COLUMN_NAME);
+                String codeName = rs.getString(Consumable.COLUMN_CODENAME);
+                double price = rs.getDouble(Consumable.COLUMN_PRICE);
+
+                consumable = new Consumable(id, name, codeName, null, price, null);
+                
+                if (consumables == null) {
+                    consumables = new ArrayList<Consumable>();
+                }
+                else {
+                    consumables.add(consumable);
+                }
+			}
+		} catch (SQLException e) {
+			e.printStackTrace ();
+		}
+
+		return consumables;
     }
 
     /**
