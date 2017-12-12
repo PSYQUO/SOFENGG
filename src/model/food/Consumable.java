@@ -10,6 +10,15 @@ import java.util.*;
  * to separate different classes of food or meals.
  */
 public class Consumable {
+
+    public static final String TABLE_NAME = "Consumable";
+    public static final String COLUMN_ID = "Consumable_ID";
+    public static final String COLUMN_NAME = "Consumable_Name";
+    public static final String COLUMN_CODENAME = "Consumable_CodeName";
+    public static final String COLUMN_CATEGORY = "Category_ID";
+    public static final String COLUMN_PRICE = "Consumable_Price";
+    public static final String COLUMN_MEAL = "Meal_ID";
+
     public int consumableID;
     private String name;
     private String codeName;

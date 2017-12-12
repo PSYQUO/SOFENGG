@@ -19,7 +19,7 @@ public class RawItemHelper extends DatabaseHelper implements DataAccessObject<Ra
      * @param RawItem   The representation of an item/ingredient in stock in the inventory.
      * @return          A boolean that is true if the operation is successful.
      */
-    boolean addItem(RawItem item) {
+    public boolean addItem(RawItem item) {
         
     }
 
@@ -29,7 +29,7 @@ public class RawItemHelper extends DatabaseHelper implements DataAccessObject<Ra
      * @param id    Refers to a specific record in a database table.
      * @return      The representation of an item/ingredient in stock in the inventory.
      */
-    RawItem getItem(int id) {
+    public RawItem getItem(int id) {
 
     }
     
@@ -38,7 +38,7 @@ public class RawItemHelper extends DatabaseHelper implements DataAccessObject<Ra
      * 
      * @return      A list of all RawItem records in the database.
      */
-    List<RawItem> getAllItems() {
+    public List<RawItem> getAllItems() {
 
     }
 
@@ -48,7 +48,7 @@ public class RawItemHelper extends DatabaseHelper implements DataAccessObject<Ra
      * @param RawItem   The representation of an item/ingredient in stock in the inventory.
      * @return          The number of rows affected by the operation.
      */
-    int editItem(int id, RawItem item) {
+    public int editItem(int id, RawItem item) {
 
     }
     
@@ -58,7 +58,7 @@ public class RawItemHelper extends DatabaseHelper implements DataAccessObject<Ra
      * @param RawItem   The representation of an item/ingredient in stock in the inventory.
      * @return          The number of rows affected by the operation.
      */
-    int deleteItem(int id) {
+    public int deleteItem(int id) {
 
     }
 

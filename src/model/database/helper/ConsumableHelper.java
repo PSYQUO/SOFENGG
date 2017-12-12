@@ -19,7 +19,7 @@ public class ConsumableHelper extends DatabaseHelper implements DataAccessObject
      * @param Consumable    The representation of a food item. 
      * @return              A boolean that is true if the operation is successful.
      */
-    boolean addItem(Consumable item) {
+    public boolean addItem(Consumable item) {
         
     }
 
@@ -29,8 +29,33 @@ public class ConsumableHelper extends DatabaseHelper implements DataAccessObject
      * @param id    Refers to a specific record in a database table.
      * @return      The representation of an item/ingredient in stock in the inventory.
      */
-    Consumable getItem(int id) {
+    public Consumable getItem(int id) {
+        String query = "SELECT " + Consumable.COLUMN_ID + ","
+                                 + Consumable.COLUMN_NAME + ","
+                                 + Consumable.COLUMN_CODENAME + ","
+                                 + Consumable.COLUMN_PRICE + ","
+                                 + Consumable.COLUMN_MEAL + ","
+                                 + Consumable.COLUMN_CATEGORY
+                                 + " FROM " + Consumable.TABLE_NAME 
+                                 + " WHERE " + Consumable.COLUMN_ID + " = ?;";
 
+		ResultSet rs = database.executeQuery (query, new Object[] {id});
+		Consumable consumable = null;
+
+		try {
+			if (rs.next ()) {
+                int id = rs.getInt(Consumable.COLUMN_ID);
+                String name = rs.getString(Consumable.COLUMN_NAME);
+                String codeName = rs.getString(Consumable.COLUMN_CODENAME);
+                double price = rs.getDouble(Consumable.COLUMN_PRICE);
+
+                consumable = new Consumable(id, name, codeName, null, price, null);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace ();
+		}
+
+		return consumable;
     }
     
     /**
@@ -38,7 +63,7 @@ public class ConsumableHelper extends DatabaseHelper implements DataAccessObject
      * 
      * @return      A list of all Consumable records in the database.
      */
-    List<Consumable> getAllItems() {
+    public List<Consumable> getAllItems() {
 
     }
 
@@ -48,7 +73,7 @@ public class ConsumableHelper extends DatabaseHelper implements DataAccessObject
      * @param Consumable    The representation of a food item.
      * @return              The number of rows affected by the operation.
      */
-    int editItem(int id, Consumable item) {
+    public int editItem(int id, Consumable item) {
 
     }
     
@@ -58,7 +83,7 @@ public class ConsumableHelper extends DatabaseHelper implements DataAccessObject
      * @param Consumable    The representation of a food item. 
      * @return              The number of rows affected by the operation.
      */
-    int deleteItem(int id) {
+    public int deleteItem(int id) {
 
     }
 
