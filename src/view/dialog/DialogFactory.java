@@ -5,6 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -13,6 +14,8 @@ import javafx.stage.StageStyle;
 public class DialogFactory implements I_DialogFactory {
     // location of the CSS for entire layout
     private static final String STYLESHEET_LOCATION = "/view/dialogs.css";
+    private static final String INFO_ICON_LOCATION = "/view/resources.icons/info.png";
+    private static final String CHECK_ICON_LOCATION = "/view/resources.icons/checkCircle.png";
     private Stage stage;
 
     public DialogFactory(Stage stage)
@@ -67,7 +70,7 @@ public class DialogFactory implements I_DialogFactory {
     public Dialog createConfirmationDialog(String message) {
         initialize();
         this.message.setText(message);
-        // TODO add (i) graphic
+        this.dialog.setGraphic(new ImageView(INFO_ICON_LOCATION));
 
         // Add buttons
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL, ButtonType.OK);
@@ -98,12 +101,15 @@ public class DialogFactory implements I_DialogFactory {
             case PASSWORD_CHANGE:
                 message.setText("Are you sure you want to change your password?");
                 break;
+            case APP_BACK:
+                message.setText("Are you sure you want to go back?");
+                break;
             case APP_EXIT:
                 message.setText("Are you sure you want to exit the application?");
                 break;
         }
 
-        // TODO add (i) graphic
+        this.dialog.setGraphic(new ImageView(INFO_ICON_LOCATION));
 
         // Add buttons
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL, ButtonType.OK);
@@ -120,7 +126,7 @@ public class DialogFactory implements I_DialogFactory {
     public Dialog createWarningDialog(String message) {
         initialize();
         this.message.setText(message);
-        // TODO add (i) graphic
+        this.dialog.setGraphic(new ImageView(INFO_ICON_LOCATION));
 
         // Add buttons
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
@@ -167,7 +173,7 @@ public class DialogFactory implements I_DialogFactory {
     public Dialog createInformationDialog(String message) {
         initialize();
         this.message.setText(message);
-        // TODO add (i) graphic
+        this.dialog.setGraphic(new ImageView(CHECK_ICON_LOCATION));
 
         // Add buttons
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
@@ -191,7 +197,7 @@ public class DialogFactory implements I_DialogFactory {
                 break;
         }
 
-        // TODO add (i) graphic to ImageView
+        this.dialog.setGraphic(new ImageView(CHECK_ICON_LOCATION));
 
         // Add buttons
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
