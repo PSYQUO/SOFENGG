@@ -14,8 +14,8 @@ import javafx.stage.StageStyle;
 public class DialogFactory implements I_DialogFactory {
     // location of the CSS for entire layout
     private static final String STYLESHEET_LOCATION = "/view/dialogs.css";
-    private static final String INFO_ICON_LOCATION = "/view/resources.icons/info.png";
-    private static final String CHECK_ICON_LOCATION = "/view/resources.icons/checkCircle.png";
+    private static final String INFO_ICON_LOCATION = "/view/resources/icons/info.png";
+    private static final String CHECK_ICON_LOCATION = "/view/resources/icons/checkCircle.png";
     private Stage stage;
 
     public DialogFactory(Stage stage)
@@ -70,7 +70,7 @@ public class DialogFactory implements I_DialogFactory {
     public Dialog createConfirmationDialog(String message) {
         initialize();
         this.message.setText(message);
-        this.dialog.setGraphic(new ImageView(INFO_ICON_LOCATION));
+        graphic.setImage(new ImageView(INFO_ICON_LOCATION).getImage());
 
         // Add buttons
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL, ButtonType.OK);
@@ -109,7 +109,7 @@ public class DialogFactory implements I_DialogFactory {
                 break;
         }
 
-        this.dialog.setGraphic(new ImageView(INFO_ICON_LOCATION));
+        graphic.setImage(new ImageView(INFO_ICON_LOCATION).getImage());
 
         // Add buttons
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL, ButtonType.OK);
@@ -126,7 +126,7 @@ public class DialogFactory implements I_DialogFactory {
     public Dialog createWarningDialog(String message) {
         initialize();
         this.message.setText(message);
-        this.dialog.setGraphic(new ImageView(INFO_ICON_LOCATION));
+        graphic.setImage(new ImageView(INFO_ICON_LOCATION).getImage());
 
         // Add buttons
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
@@ -156,7 +156,7 @@ public class DialogFactory implements I_DialogFactory {
                 break;
         }
 
-        // TODO add (i) graphic
+        graphic.setImage(new ImageView(INFO_ICON_LOCATION).getImage());
 
         // Add buttons
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
@@ -173,7 +173,7 @@ public class DialogFactory implements I_DialogFactory {
     public Dialog createInformationDialog(String message) {
         initialize();
         this.message.setText(message);
-        this.dialog.setGraphic(new ImageView(CHECK_ICON_LOCATION));
+        graphic.setImage(new ImageView(INFO_ICON_LOCATION).getImage());
 
         // Add buttons
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
@@ -197,7 +197,7 @@ public class DialogFactory implements I_DialogFactory {
                 break;
         }
 
-        this.dialog.setGraphic(new ImageView(CHECK_ICON_LOCATION));
+        graphic.setImage(new ImageView(CHECK_ICON_LOCATION).getImage());
 
         // Add buttons
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
@@ -232,7 +232,9 @@ public class DialogFactory implements I_DialogFactory {
         vboxContent.setPadding(new Insets(30, 10, 10, 10));
 
         // Add the content
-        // TODO insert ImageView as a space for graphics
+        graphic = new ImageView();
+        graphic.setFitHeight(200);
+        graphic.setFitWidth(200);
         vboxContent.getChildren().addAll(message);
         dialog.getDialogPane().setContent(vboxContent);
     }
