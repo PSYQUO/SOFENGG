@@ -1,43 +1,41 @@
 package model.database.helper;
 
-import java.util.List;
-import java.util.ArrayList;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 import model.database.DatabaseHelper;
-import model.database.DataAccessObject;
-
-import model.food.Category;
 import model.food.Consumable;
 import model.food.ConsumableQuantityPair;
 import model.food.Meal;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Used to access the Incoming database table through specific data operations.
  */
-public class MealHelper extends DatabaseHelper implements DataAccessObject<Meal> {
-    
+public class MealHelper extends DatabaseHelper {
+
+    // Constants referring to the database table columns.
     public final String TABLE_NAME = "Meal";
     public final String COLUMN_MEAL_ID = "Meal_ID";
     public final String COLUMN_ADDONS = "AddOns";
     public final String COLUMN_QUANTITY = "In_Quantity";
 
-    @Override
-    public boolean addItem(Meal item) {
-        // Do not use
-        return false;
-    }
-
-    public boolean addItem(Meal item, ConsumableQuantityPair consumableQuantityPair) {
+    /**
+     * Inserts a Meal into the database.
+     *
+     * @param consumable  The category to be inserted.
+     * @param consumableQuantityPair  The category to be inserted.
+     * @return          Returns true if adding is successful.
+     */
+    public boolean addMeal(Consumable consumable, ConsumableQuantityPair consumableQuantityPair) {
         String query = "INSERT INTO " + TABLE_NAME
                      + " (" + COLUMN_MEAL_ID + ", "
                             + COLUMN_ADDONS + ", "
                             + COLUMN_QUANTITY + ") "
                             + "VALUES (? ? ?);";
 
-        int mealId = item.getMealID();
+        int mealId = consumable.getMeal().getMealID();
 
         Integer addon = null;
         Integer quantity = null;
@@ -59,16 +57,6 @@ public class MealHelper extends DatabaseHelper implements DataAccessObject<Meal>
         int result = database.executeUpdate(query, new Object[] { mealId, addon, quantity });
 
         return result != -1;
-    }
-
-//    public final String TABLE_NAME = "Meal";
-//    public final String COLUMN_MEAL_ID = "Meal_ID";
-//    public final String COLUMN_ADDONS = "AddOns";
-//    public final String COLUMN_QUANTITY = "In_Quantity";
-    @Override
-    public Meal getItem(int id) {
-        // Do not use
-        return null;
     }
 
     public List<ConsumableQuantityPair> getConsumablesByMeal(int id) {
@@ -102,8 +90,7 @@ public class MealHelper extends DatabaseHelper implements DataAccessObject<Meal>
         return consumableQuantityPairList;
     }
 
-    @Override
-    public List<Meal> getAllItems() {
+    public List<Meal> getAllMeals() {
         String query = "SELECT " + COLUMN_MEAL_ID + ", "
                                  + COLUMN_ADDONS + ", "
                                  + COLUMN_QUANTITY
@@ -134,8 +121,7 @@ public class MealHelper extends DatabaseHelper implements DataAccessObject<Meal>
         return meals;
     }
 
-    @Override
-    public int editItem(int id, Meal item) {
+//    public int editMeal(int id, Meal item) {
 //        String query = "UPDATE " + TABLE_NAME + " "
 //                     + "SET " + COLUMN_QUANTITY + " = ? "
 //                     + "WHERE " + COLUMN_MEAL_ID + " = ?, " + COLUMN_ADDONS + " = ?;";
@@ -154,11 +140,10 @@ public class MealHelper extends DatabaseHelper implements DataAccessObject<Meal>
 //        int result = database.executeUpdate(query, new Object[] { name, id });
 //
 //        return result;
-        return -1;
-    }
+//        return -1;
+//    }
 
-    @Override
-    public int deleteItem(int id) {
+    public int deleteMeal(int id) {
         String query = "DELETE FROM " + TABLE_NAME + " "
                      + "WHERE " + COLUMN_MEAL_ID + " = ?;";
 
