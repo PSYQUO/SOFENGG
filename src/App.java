@@ -98,6 +98,12 @@ public class App extends Application
         {
             DBConnection dbc = DBConnection.getInstance();
             dbc.setConnection(database, username, password);
+
+            // TODO: Initialize new database setup.
+            // DatabaseManager databaseManager = MySQLDatabase.getInstance();
+            // databaseManager.setConnection("127.0.0.1", "3306", database, username, password);
+
+            // DatabaseHelper.setDatabaseManager(databaseManager);
         }
         else
             System.err.println("Database connection was not set. Check dbconfig.ini at the default package.");
@@ -108,5 +114,9 @@ public class App extends Application
     {
         DBConnection dbc = DBConnection.getInstance();
         dbc.closeConnection();
+
+        // TODO: Implement new database close operation.
+//         DatabaseManager databaseManager = MySQLDatabase.getInstance();
+//         databaseManager.close();
     }
 }

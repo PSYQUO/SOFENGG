@@ -91,7 +91,7 @@ public class IngredientHelper extends DatabaseHelper implements DataAccessObject
                 int Cid = rs.getInt(COLUMN_CONSUMABLE_ID);
                 int Rid = rs.getInt(COLUMN_RAWITEM_ID);
                 int q = rs.getInt(COLUMN_QUANTITY);
-
+                // TODO: Build RawItem object
                 Ingredient ingredient = new Ingredient(null, q);
 
                 if (ingredients == null) {

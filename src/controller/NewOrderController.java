@@ -237,14 +237,25 @@ public class NewOrderController extends Controller
 
                 // TODO: at this point papasok na sa DB dapat
 
+                // TODO: Implement transactionHelper.addTransaction(Transaction transaction).
                 // dbm.addTransaction(transactionBuilder.build());
 
                 // Decrease the inventory stocks after the transaction.
                 // RawItem rawItem;
+                // TODO: Do lazy initialization on Transaction for LineItems.
+                // TODO: Implement lineItemHelper.getLineItemByTransactions(Transaction transaction).
                 // for (LineItem li : transaction.getLineItems()) {
+                //      TODO: Do lazy initialization on LineItem for Consumable.
+                //      TODO: Implement consumableHelper.getConsumable(int id).
+                //
+                //      TODO: Do lazy initialization on Consumable for Ingredient.
+                //      TODO: Implement ingredientHelper.getIngredientsByConsumable(Consumable consumable).
                 //     for (Ingredient i : li.getConsumable().getIngredients()) {
+                //          TODO: Do lazy initialization on Ingredient for RawItem.
+                //          TODO: Implement rawItemHelper.getRawItem(int id).
                 //         rawItem = dbm.searchRawItem(i.getRawItem().rawItemID);
                 //         rawItem.setQuantity(rawItem.getQuantity() - i.getQuantity());
+                //          TODO: Implement rawItemHelper.editRawItem(RawItem rawItem).
                 //         dbm.updateRawItem(rawItem);
                 //     }
                 // }
@@ -332,39 +343,28 @@ public class NewOrderController extends Controller
 //      flowpaneSandwich (para sa Sandwich, Appetizer, Pasta 'to)
 //      flowpaneExtras (Extras)
 
+        // TODO: Implement new database loading.
+        // DatabaseManager databaseManager = MySQLDatabase.getInstance();
+        // ConsumableHelper consumableHelper = new ConsumableHelper();
         DatabaseModel dbm = new DatabaseModel();
+
+        // TODO: Implement consumableHelper.getAllConsumables().
+        // List<Consumable> consumablesList = consumableHelper.getAllConsumables();
         ArrayList<Consumable> consumablesList = dbm.getConsumables();
 
-        // DatabaseManager databaseManager = MySQLDatabase.getInstance();
-        // databaseManager.setConnection("127.0.0.1", "3306", "tjbbqdb", "root", "p@ssword");
-
-        // DatabaseHelper.setDatabaseManager(databaseManager);
-
-        // ConsumableHelper consumableHelper = new ConsumableHelper();
-        // List<Consumable> consumablesList = consumableHelper.getAllItems();
-        
-        // Consumable consumable = new Consumable("wat", "GG", new Category(3, "Budget Meal"), 5.55, new ArrayList<Ingredient>());
-
-        // DatabaseManager databaseManager = MySQLDatabase.getInstance();
-        // databaseManager.setConnection("127.0.0.1", "3306", "tjbbqdb", "root", "p@ssword");
-
-        // DatabaseHelper.setDatabaseManager(databaseManager);
-
-        // ConsumableHelper consumableHelper = new ConsumableHelper();
-        // List<Consumable> consumablesList = consumableHelper.getAllItems();
-        // boolean result = consumableHelper.addItem(consumable);
-        // consumableHelper.getItem()
-
-        // consumableHelper.deleteItem(111);
 
         for(Consumable c : consumablesList)
         {
-            // c.setCategory(new Category(1, "Budget Meal"));
+            // TODO: Do lazy initialization on Consumable for Category and Meal.
+            // TODO: Implement categoryHelper.getCategory(int id).
+            // TODO: Implement mealHelper.getMeal(int id).
             NewOrderButton nob = new NewOrderButton(c);
             
             // Disables the button when there are not enough ingredients.
+            // TODO: Implement ingredientHelper.getIngredientsByConsumable(Consumable consumable).
             List<Ingredient> ingredients = dbm.searchIngredientByConsumableID(c.consumableID);
             for (Ingredient i : ingredients) {
+                // TODO: Do lazy intialization on Ingredient for the RawItem.
                 if (i.getRawItem().getQuantity() < i.getQuantity())
                     nob.setDisable(true);
             }
@@ -378,6 +378,8 @@ public class NewOrderController extends Controller
                 refreshSummary();
             });
 
+            // TODO: Do lazy intialization on Consumable for the Category.
+            // TODO: Implement categoryHelper.getCategory(int id).
             String category = c.getCategory().getCategoryName();
 
             // Segregate the food items by category tabs.
