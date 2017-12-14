@@ -10,6 +10,8 @@ import model.database.DatabaseHelper;
 import model.database.DataAccessObject;
 
 import model.food.Category;
+import model.food.Consumable;
+import model.food.Meal;
 
 /**
  * Used to access the Category database table through specific data operations.
@@ -22,26 +24,89 @@ public class CategoryHelper extends DatabaseHelper implements DataAccessObject<C
 
     @Override
     public boolean addItem(Category item) {
-        return false;
+        String query = "INSERT INTO " + TABLE_NAME
+                + " (" + COLUMN_NAME + " "
+                       + "VALUES (?);";
+
+        String name = item.getCategoryName();
+
+        int result = database.executeUpdate(query, new Object[] { name });
+
+        return result != -1;
     }
 
     @Override
     public Category getItem(int id) {
-        return null;
+        String query = "SELECT " + COLUMN_ID + ", "
+                                 + COLUMN_NAME + " "
+                                 + " FROM " + TABLE_NAME
+                                 + " WHERE " + COLUMN_ID + " = ?;";
+
+        ResultSet rs = database.executeQuery(query, new Object[] {id});
+        Category category = null;
+
+        try {
+            if (rs.next ()) {
+                int consumableId = rs.getInt(COLUMN_ID);
+                String name = rs.getString(COLUMN_NAME);
+                category = new Category(consumableId, name);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace ();
+        }
+
+        return category;
     }
 
     @Override
     public List<Category> getAllItems() {
-        return null;
+        String query = "SELECT " + COLUMN_ID + ", "
+                                 + COLUMN_NAME + " "
+                                 + "FROM " + TABLE_NAME + ";";
+
+        ResultSet rs = database.executeQuery(query, null);
+        List<Category> categories = null;
+
+        try {
+            while (rs.next ()) {
+                int consumableId = rs.getInt(COLUMN_ID);
+                String name = rs.getString(COLUMN_NAME);
+                Category category = new Category(consumableId, name);
+
+                if (categories == null) {
+                    categories = new ArrayList<>();
+                }
+                else {
+                    categories.add(category);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace ();
+        }
+
+        return categories;
     }
 
     @Override
     public int editItem(int id, Category item) {
-        return 0;
+        String query = "UPDATE " + TABLE_NAME + " "
+                     + "SET " + COLUMN_NAME + " = ? "
+                     + "WHERE " + COLUMN_ID + " = ?;";
+
+        String name = item.getCategoryName();
+
+        int result = database.executeUpdate(query, new Object[] { name, id });
+
+        return result;
     }
 
     @Override
     public int deleteItem(int id) {
-        return 0;
+        String query = "DELETE FROM " + TABLE_NAME + " "
+                     + "WHERE " + COLUMN_ID + " = ?;";
+
+        int result = database.executeUpdate(query, new Object[] {id});
+
+        return result;
     }
 }
