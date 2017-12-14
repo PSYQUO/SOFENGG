@@ -10,7 +10,6 @@ import javafx.scene.layout.BorderPane;
 import model.DatabaseModel;
 import model.food.RawItem;
 
-import javax.swing.*;
 import java.io.IOException;
 
 public class InventoryController extends Controller
@@ -135,15 +134,17 @@ public class InventoryController extends Controller
         switch(state)
         {
             case "TO_IN":
-                borderpaneOutgoing.setVisible(false);
                 borderpaneIncoming.setVisible(true);
                 borderpaneIncoming.setDisable(false);
+                borderpaneOutgoing.setVisible(false);
+                borderpaneOutgoing.setDisable(true);
                 tableviewInventory.setDisable(true);
                 break;
-            case"TO_OUT":
-                borderpaneIncoming.setVisible(false);
+            case "TO_OUT":
                 borderpaneOutgoing.setVisible(true);
                 borderpaneOutgoing.setDisable(false);
+                borderpaneIncoming.setVisible(false);
+                borderpaneIncoming.setDisable(true);
                 tableviewInventory.setDisable(true);
                 break;
             case "TO_TABLE":
