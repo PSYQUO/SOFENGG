@@ -163,9 +163,8 @@ public class IngredientHelper extends DatabaseHelper {
     public int editIngredient(Consumable consumable, RawItemQuantityPair rawItemQuantityPair) {
         // Prepare the query.
         String query = "UPDATE " + TABLE_NAME + " "
-                     + "SET " + COLUMN_RAWITEM_ID + " = ?, "
-                              + COLUMN_QUANTITY + " = ? "
-                              + "WHERE " + COLUMN_CONSUMABLE_ID + " = ?;";
+                     + "SET " + COLUMN_QUANTITY + " = ? "
+                              + "WHERE " + COLUMN_CONSUMABLE_ID + " = ? AND " + COLUMN_RAWITEM_ID + " = ?;";
 
         // Prepare the variables for binding.
         Integer consumableId = null;
@@ -180,7 +179,7 @@ public class IngredientHelper extends DatabaseHelper {
         int quantity = rawItemQuantityPair.getQuantity();
 
         // Execute the query and store the result.
-        int result = database.executeUpdate(query, new Object[] { rawItemId, quantity, consumableId });
+        int result = database.executeUpdate(query, new Object[] { quantity, consumableId, rawItemId });
 
         // Return the number of records affected by the update operation.
         return result;
