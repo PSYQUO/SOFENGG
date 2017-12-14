@@ -99,7 +99,7 @@ public class CategoryHelper extends DatabaseHelper implements DataAccessObject<C
     @Override
     public int deleteItem(int id) {
         String query = "DELETE FROM " + TABLE_NAME + " "
-                + "WHERE " + COLUMN_ID + " = ?;";
+                     + "WHERE " + COLUMN_ID + " = ?;";
 
         int result = database.executeUpdate(query, new Object[] {id});
 
