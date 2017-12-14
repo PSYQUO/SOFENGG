@@ -5,7 +5,7 @@ Button {
 #Sandwiches { 
     -fx-background-color: #3498db; 
     -fx-text-fill: #ffffff; 
-    -fx-font-size: 28px; 
+    -fx-font-size: 23px; 
 } 
  
 #Sandwiches:pressed { 
@@ -15,7 +15,7 @@ Button {
 #Appetizer { 
     -fx-background-color: #e74c3c; 
     -fx-text-fill: #ffffff; 
-    -fx-font-size: 28px; 
+    -fx-font-size: 23px; 
 } 
  
 #Appetizer:pressed { 
@@ -25,7 +25,7 @@ Button {
 #BudgetMeal { 
     -fx-background-color: #3498db; 
     -fx-text-fill: #ffffff; 
-    -fx-font-size: 28px; 
+    -fx-font-size: 23px; 
 } 
  
 #BudgetMeal:pressed { 
@@ -35,7 +35,7 @@ Button {
 #ComboMeal { 
     -fx-background-color: #3498db; 
     -fx-text-fill: #ffffff; 
-    -fx-font-size: 28px; 
+    -fx-font-size: 23px; 
 } 
  
 #ComboMeal:pressed { 
