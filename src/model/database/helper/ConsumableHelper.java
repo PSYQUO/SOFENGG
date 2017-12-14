@@ -18,15 +18,23 @@ import model.food.Category;
  * Used to access the Consumable database table through specific data operations.
  */
 public class ConsumableHelper extends DatabaseHelper implements DataAccessObject<Consumable> {
+    
+    public final String TABLE_NAME = "Consumable";
+    public final String COLUMN_ID = "Consumable_ID";
+    public final String COLUMN_NAME = "Consumable_Name";
+    public final String COLUMN_CODENAME = "Consumable_CodeName";
+    public final String COLUMN_CATEGORY = "Category_ID";
+    public final String COLUMN_PRICE = "Consumable_Price";
+    public final String COLUMN_MEAL = "Meal_ID";
 
     @Override
     public boolean addItem(Consumable item) {
-        String query = "INSERT INTO " + Consumable.TABLE_NAME 
-                     + " (" + Consumable.COLUMN_NAME + ", "
-                            + Consumable.COLUMN_CODENAME + ", "
-                            + Consumable.COLUMN_PRICE + ", "
-                            + Consumable.COLUMN_MEAL + ", "
-                            + Consumable.COLUMN_CATEGORY + ") "
+        String query = "INSERT INTO " + TABLE_NAME 
+                     + " (" + COLUMN_NAME + ", "
+                            + COLUMN_CODENAME + ", "
+                            + COLUMN_PRICE + ", "
+                            + COLUMN_MEAL + ", "
+                            + COLUMN_CATEGORY + ") "
                             + "VALUES (?, ?, ?, ?, ?);";
 
         System.out.println(query);
