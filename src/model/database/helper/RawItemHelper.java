@@ -12,6 +12,12 @@ package model.database.helper;
   * Used to access the RawItem database table through specific data operations.
   */
  public class RawItemHelper extends DatabaseHelper implements DataAccessObject<RawItem> {
+    
+    public static final String TABLE_NAME = "RawItem";
+    public static final String COLUMN_ID = "RawItem_ID";
+    public static final String COLUMN_NAME = "RawItem_Name";
+    public static final String COLUMN_PRICE = "RawItem_Price";
+    public static final String COLUMN_QUANTITY = "RawItem_Quantity";
 
      /**
       * Inserts a RawItem record to the database.
@@ -20,10 +26,10 @@ package model.database.helper;
       * @return          A boolean that is true if the operation is successful.
       */
      public boolean addItem(RawItem item) {
-         String query = "INSERT INTO " + RawItem.TABLE_NAME 
-                     + " (" + RawItem.COLUMN_NAME + ", "
-                            + RawItem.COLUMN_PRICE + ", "
-                            + RawItem.COLUMN_QUANTITY + ") "
+         String query = "INSERT INTO " + TABLE_NAME 
+                     + " (" + COLUMN_NAME + ", "
+                            + COLUMN_PRICE + ", "
+                            + COLUMN_QUANTITY + ") "
                             + "VALUES (?, ?, ?);";
 
         System.out.println(query);
@@ -44,20 +50,20 @@ package model.database.helper;
       * @return      The representation of an item/ingredient in stock in the inventory.
       */
      public RawItem getItem(int id) {
-         String query = "SELECT " + RawItem.COLUMN_NAME + ", "
-                                 + RawItem.COLUMN_PRICE + ", "
-                                 + RawItem.COLUMN_QUANTITY
-                                 + " FROM " + RawItem.TABLE_NAME 
-                                 + " WHERE " + RawItem.COLUMN_ID + " = ?;";
+         String query = "SELECT " + COLUMN_NAME + ", "
+                                 + COLUMN_PRICE + ", "
+                                 + COLUMN_QUANTITY
+                                 + " FROM " + TABLE_NAME 
+                                 + " WHERE " + COLUMN_ID + " = ?;";
 
 		ResultSet rs = database.executeQuery(query, new Object[] {id});
 		RawItem rawItem = null;
 
 		try {
 			if (rs.next ()) {
-                String name = rs.getString(RawItem.COLUMN_NAME);
-                int quantity = rs.getString(RawItem.COLUMN_QUANTITY);
-                double price = rs.getDouble(RawItem.COLUMN_PRICE);
+                String name = rs.getString(COLUMN_NAME);
+                int quantity = rs.getString(COLUMN_QUANTITY);
+                double price = rs.getDouble(COLUMN_PRICE);
 
                 rawItem = new RawItem(id, name, quantity, price);
 			}
@@ -74,21 +80,21 @@ package model.database.helper;
       * @return      A list of all RawItem records in the database.
       */
      public List<RawItem> getAllItems() {
-         String query = "SELECT " + RawItem.COLUMN_ID + ", "
-                                 + RawItem.COLUMN_NAME + ", "
-                                 + RawItem.COLUMN_PRICE + ", "
-                                 + RawItem.COLUMN_QUANTITY
-                                 + " FROM " + RawItem.TABLE_NAME + ";";
+         String query = "SELECT " + COLUMN_ID + ", "
+                                 + COLUMN_NAME + ", "
+                                 + COLUMN_PRICE + ", "
+                                 + COLUMN_QUANTITY
+                                 + " FROM " + TABLE_NAME + ";";
 
 		ResultSet rs = database.executeQuery (query, null);
 		List<RawItem> rawItems = null;
 
 		try {
 			while (rs.next()) {
-                int id = rs.getInt(RawItem.COLUMN_ID);
-                String name = rs.getString(RawItem.COLUMN_NAME);
-                int quantity = rs.getString(RawItem.COLUMN_QUANTITY);
-                double price = rs.getDouble(RawItem.COLUMN_PRICE);
+                int id = rs.getInt(COLUMN_ID);
+                String name = rs.getString(COLUMN_NAME);
+                int quantity = rs.getString(COLUMN_QUANTITY);
+                double price = rs.getDouble(COLUMN_PRICE);
 
                 RawItem rawitem = new RawItem(id, name, quantity, price);
                 
@@ -113,11 +119,11 @@ package model.database.helper;
       * @return          The number of rows affected by the operation.
       */
      public int editItem(int id, RawItem item) {
-         String query = "UPDATE " + RawItem.TABLE_NAME + " "
-                      + "SET " + RawItem.COLUMN_NAME + " = ?, "
-                              + RawItem.COLUMN_PRICE + " = ?, "
-                              + RawItem.COLUMN_QUANTITY + " = ?, "
-                              + "WHERE " + RawItem.COLUMN_ID + " = ?;";
+         String query = "UPDATE " + TABLE_NAME + " "
+                      + "SET " + COLUMN_NAME + " = ?, "
+                              + COLUMN_PRICE + " = ?, "
+                              + COLUMN_QUANTITY + " = ?, "
+                              + "WHERE " + COLUMN_ID + " = ?;";
                             
         String name = item.getName();
         int quantity = item.getQuantity();
@@ -135,8 +141,8 @@ package model.database.helper;
       * @return          The number of rows affected by the operation.
       */
      public int deleteItem(int id) {
-         String query = "DELETE FROM " + RawItem.TABLE_NAME + " "
-                      + "WHERE " + RawItem.COLUMN_ID + " = ?;";
+         String query = "DELETE FROM " + TABLE_NAME + " "
+                      + "WHERE " + COLUMN_ID + " = ?;";
         
         int result = database.executeUpdate(query, new Object[] {id});
         
