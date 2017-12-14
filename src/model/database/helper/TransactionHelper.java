@@ -1,19 +1,16 @@
 package model.database.helper;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.ArrayList;
+import model.User;
+import model.database.DatabaseHelper;
+import model.transaction.Transaction;
+import model.transaction.TransactionBuilder;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import model.User;
-import model.database.DatabaseHelper;
-import model.database.DataAccessObject;
-
-import model.transaction.Transaction;
-import model.transaction.TransactionBuilder;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Used to access the Transaction database table through specific data operations.

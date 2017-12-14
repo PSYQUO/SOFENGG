@@ -1,7 +1,6 @@
 package model.database.helper;
 
 import model.Incoming;
-import model.database.DataAccessObject;
 import model.database.DatabaseHelper;
 import model.food.RawItem;
 
@@ -15,8 +14,9 @@ import java.util.List;
 /**
  * Used to access the Incoming database table through specific data operations.
  */
-public class IncomingHelper extends DatabaseHelper implements DataAccessObject<Incoming> {
-    
+public class IncomingHelper extends DatabaseHelper {
+
+    // Constants referring to the database table columns.
     public final String TABLE_NAME = "Incoming";
     public final String COLUMN_ID = "In_ID";
     public final String COLUMN_RAWITEM_ID = "RawItem_ID";
@@ -24,8 +24,14 @@ public class IncomingHelper extends DatabaseHelper implements DataAccessObject<I
     public final String COLUMN_QUANTITY = "In_Quantity";
     public final String COLUMN_DATETIME = "In_DateTime";
 
-    @Override
-    public boolean addItem(Incoming item) {
+    /**
+     * Inserts a Category into the database.
+     *
+     * @param incoming  The Incoming to be inserted.
+     * @return          Returns true if adding is successful.
+     */
+    public boolean addIncoming(Incoming incoming) {
+        // Prepare the query.
         String query = "INSERT INTO " + TABLE_NAME
                      + " (" + COLUMN_DATETIME + ", "
                             + COLUMN_QUANTITY + ", "
@@ -33,29 +39,37 @@ public class IncomingHelper extends DatabaseHelper implements DataAccessObject<I
                             + COLUMN_RAWITEM_ID + ") "
                             + "VALUES (?, ?, ?, ?)";
 
-        LocalDateTime date = item.getInDate();
+        // Prepare the variables for binding.
+        LocalDateTime date = incoming.getInDate();
         Timestamp timestamp = Timestamp.valueOf(date); // TODO Check if this works.
 
-        int quantity = item.getQuantity();
-
-        String remarks = item.getRemarks();
+        int quantity = incoming.getQuantity();
+        String remarks = incoming.getRemarks();
 
         Integer rawItemId = null;
-        if (item.getRawItem() != null) {
-            rawItemId = item.getRawItem().getRawItemID();
+        if (incoming.getRawItem() != null) {
+            rawItemId = incoming.getRawItem().getRawItemID();
         }
         else {
             System.err.println("WARNING: RawItem is NULL!");
             return false;
         }
 
+        // Execute the query and store the result.
         int result = database.executeUpdate(query, new Object[] { timestamp, quantity, remarks, rawItemId });
 
+        // Return the result. Adding is successful if result != -1.
         return result != -1;
     }
 
-    @Override
-    public Incoming getItem(int id) {
+    /**
+     * Retrieve an Incoming from the database.
+     *
+     * @param id    An id that refers to the desired Incoming in the database.
+     * @return      The desired Incoming. Returns null if the Incoming is not found.
+     */
+    public Incoming getIncoming(int id) {
+        // Prepare the query.
         String query = "SELECT " + COLUMN_REMARKS + ", "
                                  + COLUMN_QUANTITY + ", "
                                  + COLUMN_DATETIME
@@ -64,11 +78,15 @@ public class IncomingHelper extends DatabaseHelper implements DataAccessObject<I
                                  + " FROM " + TABLE_NAME
                                  + " WHERE " + COLUMN_ID + " = ?;";
 
+        // Execute the query and store the result.
         ResultSet rs = database.executeQuery(query, new Object[] {id});
+
+        // Declare object to be returned.
         Incoming incoming = null;
 
         try {
             if (rs.next ()) {
+                // Retrieve Incoming components from the result.
 //                int columnId = rs.getInt(COLUMN_ID);
                 int rawItemId = rs.getInt(COLUMN_RAWITEM_ID);
                 String remarks = rs.getString(COLUMN_REMARKS);
@@ -77,17 +95,24 @@ public class IncomingHelper extends DatabaseHelper implements DataAccessObject<I
 
                 RawItem rawItem = new RawItem(rawItemId, null, -1, -1);
 
+                // Create an Incoming object from the components.
                 incoming = new Incoming(inDate, quantity, remarks, rawItem);
             }
         } catch (SQLException e) {
             e.printStackTrace ();
         }
 
+        // Return the desired Incoming. NOTE: Can be null.
         return incoming;
     }
 
-    @Override
-    public List<Incoming> getAllItems() {
+    /**
+     * Retrieves a list of all Incomings from the database.
+     *
+     * @return  A list of all Incomings from the database.
+     */
+    public List<Incoming> getAllIncomings() {
+        // Prepare the query.
         String query = "SELECT " + COLUMN_REMARKS + ", "
                                  + COLUMN_QUANTITY + ", "
                                  + COLUMN_DATETIME
@@ -95,11 +120,15 @@ public class IncomingHelper extends DatabaseHelper implements DataAccessObject<I
 //        COLUMN_ID + ", "
 //                + COLUMN_RAWITEM_ID + ", "
 
+        // Execute the query and store the result.
         ResultSet rs = database.executeQuery(query, null);
+
+        // Declare list to be returned.
         List<Incoming> incomings = new ArrayList<>();
 
         try {
             while (rs.next ()) {
+                // Retrieve Incoming components from the result.
 //                int columnId = rs.getInt(COLUMN_ID);
                 int rawItemId = rs.getInt(COLUMN_RAWITEM_ID);
                 String remarks = rs.getString(COLUMN_REMARKS);
@@ -108,8 +137,10 @@ public class IncomingHelper extends DatabaseHelper implements DataAccessObject<I
 
                 RawItem rawItem = new RawItem(rawItemId, null, -1, -1);
 
+                // Create a Category object from the components.
                 Incoming incoming = new Incoming(inDate, quantity, remarks, rawItem);
 
+                // Initialize the list if null. Else, add the newly created Incoming to the list.
                 if (incomings == null) {
                     incomings = new ArrayList<>();
                 }
@@ -121,45 +152,63 @@ public class IncomingHelper extends DatabaseHelper implements DataAccessObject<I
             e.printStackTrace ();
         }
 
+        // Return the list of Incomings. NOTE: Can be null.
         return incomings;
     }
 
-    @Override
-    public int editItem(int id, Incoming item) {
+    /**
+     * Updates an Incoming in the database with a specific id.
+     *
+     * @param incoming  The category to be edited.
+     * @return          The number of records affected by the update operation.
+     */
+    public int editIncoming(Incoming incoming) {
+        // Prepare the query.
         String query = "UPDATE " + TABLE_NAME + " "
                      + "SET " + COLUMN_DATETIME + " = ?, "
                               + COLUMN_QUANTITY + " = ?, "
                               + COLUMN_REMARKS + " = ? "
                               + "WHERE " + COLUMN_ID + " = ?;";
 
-        LocalDateTime date = item.getInDate();
+        // Prepare the variables for binding.
+        LocalDateTime date = incoming.getInDate();
         Timestamp timestamp = Timestamp.valueOf(date); // TODO Check if this works.
 
-        int quantity = item.getQuantity();
+        int quantity = incoming.getQuantity();
 
-        String remarks = item.getRemarks();
+        String remarks = incoming.getRemarks();
 
         Integer rawItemId = null;
-        if (item.getRawItem() != null) {
-            rawItemId = item.getRawItem().getRawItemID();
+        if (incoming.getRawItem() != null) {
+            rawItemId = incoming.getRawItem().getRawItemID();
         }
         else {
             System.err.println("WARNING: RawItem is NULL!");
             return -1;
         }
 
+        // Execute the query and store the result.
         int result = database.executeUpdate(query, new Object[] { timestamp, quantity, remarks, rawItemId });
 
+        // Return the number of records affected by the update operation.
         return result;
     }
 
-    @Override
-    public int deleteItem(int id) {
+    /**
+     * Deletes a Category in the database with a specific id.
+     *
+     * @param id    An id referring to the Category to be deleted from the database.
+     * @return      The number of records affected by the delete operation.
+     */
+    public int deleteIncoming(int id) {
+        // Prepare the query.
         String query = "DELETE FROM " + TABLE_NAME + " "
                      + "WHERE " + COLUMN_ID + " = ?;";
 
+        // Execute the query and store the result.
         int result = database.executeUpdate(query, new Object[] {id});
 
+        // Return the number of records affected by the delete.
         return result;
     }
 

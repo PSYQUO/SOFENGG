@@ -91,6 +91,9 @@ public class NewOrderController extends Controller
     private ReceiptBuilder receiptBuilder;
     private TransactionBuilder transactionBuilder;
 
+    // TODO: Declare DatabaseHelper
+    // private DatabaseHelper databaseHelper;
+
     private Receipt receipt;
 
     private int transactionId;
@@ -236,14 +239,23 @@ public class NewOrderController extends Controller
                 transactionBuilder.setChange(Double.parseDouble(labelChange.getText()));
 
                 // TODO: at this point papasok na sa DB dapat
+                // Transaction transaction = transactionBuilder.build();
 
                 // TODO: Implement transactionHelper.addTransaction(Transaction transaction).
+                // databaseHelper =  new TransactionHelper();
+                // databaseHelper.addTransaction(transaction);
+
                 // dbm.addTransaction(transactionBuilder.build());
 
                 // Decrease the inventory stocks after the transaction.
                 // RawItem rawItem;
                 // TODO: Do lazy initialization on Transaction for LineItems.
+                // if (transaction.getLineItems() == null) {
                 // TODO: Implement lineItemHelper.getLineItemByTransactions(Transaction transaction).
+                //      databaseHelper = new LineItemHelper();
+                //      databaseHelper.getLineItemsByTransaction(transaction);
+                //
+                // }
                 // for (LineItem li : transaction.getLineItems()) {
                 //      TODO: Do lazy initialization on LineItem for Consumable.
                 //      TODO: Implement consumableHelper.getConsumable(int id).
