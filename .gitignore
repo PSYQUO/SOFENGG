@@ -1,15 +1,12 @@
-*.bat
 *.DS_Store
-*.bin
-*.class
 *.gradle
+*.class
 *.idea
 *.jar
 *.lock
 *.properties
 *.tar
 *.zip
-*bin
 *build
 *out
 *.dia~

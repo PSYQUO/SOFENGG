@@ -1,0 +1,165 @@
+src\controller\viewmanager\ViewManagerException.java:3: warning: [serial] serial
+izable class ViewManagerException has no definition of serialVersionUID
+public class ViewManagerException extends Exception
+       ^
+src\model\food\LineItem.java:7: warning: [overrides] Class LineItem overrides eq
+uals, but neither it nor any superclass overrides hashCode method
+public class LineItem {
+       ^
+src\controller\InventoryController.java:34: warning: [rawtypes] found raw type:
+Spinner
+    private Spinner spinnerQuantityIncoming, spinnerQuantityOutgoing;
+            ^
+  missing type arguments for generic class Spinner<T>
+  where T is a type-variable:
+    T extends Object declared in class Spinner
+src\controller\InventoryController.java:34: warning: [rawtypes] found raw type:
+Spinner
+    private Spinner spinnerQuantityIncoming, spinnerQuantityOutgoing;
+            ^
+  missing type arguments for generic class Spinner<T>
+  where T is a type-variable:
+    T extends Object declared in class Spinner
+src\controller\MainMenuController.java:26: warning: [rawtypes] found raw type: C
+hoiceBox
+    private ChoiceBox comboName;
+            ^
+  missing type arguments for generic class ChoiceBox<T>
+  where T is a type-variable:
+    T extends Object declared in class ChoiceBox
+src\controller\MainMenuController.java:78: warning: [unchecked] unchecked call t
+o setConverter(StringConverter<T>) as a member of the raw type ChoiceBox
+        comboName.setConverter(new StringConverter<User>()
+                              ^
+  where T is a type-variable:
+    T extends Object declared in class ChoiceBox
+src\controller\MainMenuController.java:96: warning: [rawtypes] found raw type: D
+ialog
+            Dialog d = pdf.create();
+            ^
+  missing type arguments for generic class Dialog<R>
+  where R is a type-variable:
+    R extends Object declared in class Dialog
+src\controller\MainMenuController.java:97: warning: [unchecked] unchecked conver
+sion
+            Optional<ButtonType> result = d.showAndWait();
+                                                       ^
+  required: Optional<ButtonType>
+  found:    Optional
+src\controller\MainMenuController.java:111: warning: [unchecked] unchecked call
+to select(T) as a member of the raw type SingleSelectionModel
+                        comboName.getSelectionModel().select(currentUser);
+                                                            ^
+  where T is a type-variable:
+    T extends Object declared in class SingleSelectionModel
+src\controller\MainMenuController.java:117: warning: [unchecked] unchecked call
+to select(T) as a member of the raw type SingleSelectionModel
+                comboName.getSelectionModel().select(currentUser);
+                                                    ^
+  where T is a type-variable:
+    T extends Object declared in class SingleSelectionModel
+src\controller\MainMenuController.java:124: warning: [unchecked] unchecked call
+to setItems(ObservableList<T>) as a member of the raw type ChoiceBox
+        comboName.setItems(FXCollections.observableArrayList(dbm.getUsers()));
+                          ^
+  where T is a type-variable:
+    T extends Object declared in class ChoiceBox
+src\view\dialog\DialogFactory.java:27: warning: [rawtypes] found raw type: Dialo
+g
+    public Dialog create() {
+           ^
+  missing type arguments for generic class Dialog<R>
+  where R is a type-variable:
+    R extends Object declared in class Dialog
+src\view\dialog\DialogFactory.java:38: warning: [rawtypes] found raw type: Dialo
+g
+    public Dialog create(DialogMessageType type) {
+           ^
+  missing type arguments for generic class Dialog<R>
+  where R is a type-variable:
+    R extends Object declared in class Dialog
+src\view\dialog\DialogFactory.java:70: warning: [rawtypes] found raw type: Dialo
+g
+    public Dialog createConfirmationDialog(String message) {
+           ^
+  missing type arguments for generic class Dialog<R>
+  where R is a type-variable:
+    R extends Object declared in class Dialog
+src\view\dialog\DialogFactory.java:87: warning: [rawtypes] found raw type: Dialo
+g
+    public Dialog createConfirmationDialog(DialogMessageType type) {
+           ^
+  missing type arguments for generic class Dialog<R>
+  where R is a type-variable:
+    R extends Object declared in class Dialog
+src\view\dialog\DialogFactory.java:126: warning: [rawtypes] found raw type: Dial
+og
+    public Dialog createWarningDialog(String message) {
+           ^
+  missing type arguments for generic class Dialog<R>
+  where R is a type-variable:
+    R extends Object declared in class Dialog
+src\view\dialog\DialogFactory.java:143: warning: [rawtypes] found raw type: Dial
+og
+    public Dialog createWarningDialog(DialogMessageType type) {
+           ^
+  missing type arguments for generic class Dialog<R>
+  where R is a type-variable:
+    R extends Object declared in class Dialog
+src\view\dialog\DialogFactory.java:173: warning: [rawtypes] found raw type: Dial
+og
+    public Dialog createInformationDialog(String message) {
+           ^
+  missing type arguments for generic class Dialog<R>
+  where R is a type-variable:
+    R extends Object declared in class Dialog
+src\view\dialog\DialogFactory.java:190: warning: [rawtypes] found raw type: Dial
+og
+    public Dialog createInformationDialog(DialogMessageType type) {
+           ^
+  missing type arguments for generic class Dialog<R>
+  where R is a type-variable:
+    R extends Object declared in class Dialog
+src\view\dialog\DialogFactory.java:215: warning: [rawtypes] found raw type: Dial
+og
+        dialog = new Dialog();
+                     ^
+  missing type arguments for generic class Dialog<R>
+  where R is a type-variable:
+    R extends Object declared in class Dialog
+src\view\dialog\DialogFactory.java:242: warning: [rawtypes] found raw type: Dial
+og
+    private Dialog dialog;
+            ^
+  missing type arguments for generic class Dialog<R>
+  where R is a type-variable:
+    R extends Object declared in class Dialog
+src\view\dialog\I_DialogFactory.java:6: warning: [rawtypes] found raw type: Dial
+og
+    Dialog create();
+    ^
+  missing type arguments for generic class Dialog<R>
+  where R is a type-variable:
+    R extends Object declared in class Dialog
+src\view\dialog\PasswordDialogFactory.java:28: warning: [rawtypes] found raw typ
+e: Dialog
+    public Dialog create() {
+           ^
+  missing type arguments for generic class Dialog<R>
+  where R is a type-variable:
+    R extends Object declared in class Dialog
+src\view\dialog\PasswordDialogFactory.java:38: warning: [rawtypes] found raw typ
+e: Dialog
+        dialog = new Dialog();
+                     ^
+  missing type arguments for generic class Dialog<R>
+  where R is a type-variable:
+    R extends Object declared in class Dialog
+src\view\dialog\PasswordDialogFactory.java:79: warning: [rawtypes] found raw typ
+e: Dialog
+    private Dialog dialog;
+            ^
+  missing type arguments for generic class Dialog<R>
+  where R is a type-variable:
+    R extends Object declared in class Dialog
+25 warnings

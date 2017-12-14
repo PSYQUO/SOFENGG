@@ -1,0 +1,137 @@
+.scroll-pane > .viewport {
+    -fx-background-color: rgb(44, 64, 80);
+}
+ 
+.scroll-pane {
+    -fx-background-color:transparent;
+}
+
+.border-pane {
+    -fx-background-color: #2C3E50;
+}
+
+.split-pane {
+    -fx-background-color: #2C3E50;
+}
+
+.split-pane-divider {
+    -fx-padding: 0 1 0 1;
+    -fx-background-color: #2C3E50;
+    -fx-background-insets: 0;
+}
+
+.numberButtons {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #000000;
+    -fx-font-weight: bold;
+    -fx-font-size: 32px;
+}
+
+#numberButton00 {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #000000;
+    -fx-font-weight: bold;
+    -fx-font-size: 24px;
+}
+
+#buttonBackspace {
+    -fx-background-image: url("resources/icons/backspace.png");
+    -fx-background-color: #EF5350;
+    -fx-background-size: 60%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+#buttonEnter {
+    -fx-background-image: url("resources/icons/enter.png");
+    -fx-background-color: #2ECC71;
+    -fx-background-size: 60%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+CheckBox {
+    -fx-text-fill: #FFFFFF;
+}
+
+.labelChange {
+    -fx-text-fill: #FFEB3B;
+}
+
+BorderPane {
+    -fx-background-color: #2C3E50;
+}
+
+Label {
+    -fx-text-fill: #FFFFFF;
+}
+
+#comboName {
+    -fx-background-color: #3498DB;
+}
+
+#buttonOK {
+    -fx-background-color: #2ECC71;
+    -fx-text-fill: #FFFFFF;
+}
+
+.tab {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 18px;
+    -fx-background-color:#B7B7B7;
+    -fx-font-weight:bold;
+    -fx-padding: 0 15 0 15;
+}
+
+TabPane .tab-header-background {
+    -fx-background-color: transparent;
+}
+
+.tab-pane {
+  -fx-tab-min-height:50px;
+  -fx-tab-max-height:50px;
+}
+
+TabPane .tab .tab-label {
+    -fx-text-fill:#000000;
+}
+
+#buttonBack:pressed{
+    -fx-background-color: rgb(18,56,109);
+}
+TabPane .tab:selected .tab-label {
+    -fx-text-fill:#FFFFFF;
+}
+
+TabPane .tab:selected {
+    -fx-background-color: #3498DB;
+}
+.tab-pane > .tab-header-area > .headers-region > .tab {
+    -fx-border-color: #2C3E50;
+    -fx-border-width: 5px; 
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+.buttonClose {
+    -fx-background-color: #EF5350;
+    -fx-text-fill:#FFFFFF;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+.buttonClose:pressed { 
+    -fx-background-color: #cc2b19; 
+}
+
+.buttonClose:hover {
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+    -fx-scale-z: 1.1;
+}
+#greenbutton{
+    -fx-background-color: rgb(46,204,113);
+}
+
+#greenbutton:pressed{
+    -fx-background-color: rgb(33,145,80);
+}

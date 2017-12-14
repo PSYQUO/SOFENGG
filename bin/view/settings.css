@@ -1,0 +1,13 @@
+.background {
+    -fx-background-color: rgb(44, 64, 80);
+}
+.buttons {
+    -fx-background-color: rgb(46,204,113);
+}
+.buttons:pressed {
+    -fx-background-color: rgb(33,145,80);
+}
+
+#buttonBack:pressed{
+    -fx-background-color: rgb(18,56,109);
+}
