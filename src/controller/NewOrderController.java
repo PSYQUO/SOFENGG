@@ -148,7 +148,7 @@ public class NewOrderController extends Controller
                     
                     textfieldPayment.setText(textfieldPayment.getText() + b.getText());
 
-                    if (Integer.parseInt(textfieldPayment.getText()) == 0)
+                    if (Double.parseDouble(textfieldPayment.getText()) == 0)
                         textfieldPayment.setText("0");
 
                     double total = transactionBuilder.build().getTotal();
