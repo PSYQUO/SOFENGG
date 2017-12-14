@@ -112,12 +112,12 @@ public class RawItemHelper extends DatabaseHelper implements DataAccessObject<Ra
         return rawItems;
     }
 
-    /**
-    * Updates a RawItem record in the database with a specific id.
-    * 
-    * @param RawItem   The representation of an item/ingredient in stock in the inventory.
-    * @return          The number of rows affected by the operation.
-    */
+     /**
+      * Updates a RawItem record in the database with a specific id.
+      * 
+      * @param RawItem   The representation of an item/ingredient in stock in the inventory.
+      * @return          The number of rows affected by the operation.
+      */
     public int editItem(int id, RawItem item) {
         String query = "UPDATE " + TABLE_NAME + " "
                      + "SET " + COLUMN_NAME + " = ?, "
@@ -141,7 +141,7 @@ public class RawItemHelper extends DatabaseHelper implements DataAccessObject<Ra
     * @return          The number of rows affected by the operation.
     */
     public int deleteItem(int id) {
-        String query = "DELETE FROM " + TABLE_NAME + " "
+         String query = "DELETE FROM " + TABLE_NAME + " "
                       + "WHERE " + COLUMN_ID + " = ?;";
         
         int result = database.executeUpdate(query, new Object[] {id});
