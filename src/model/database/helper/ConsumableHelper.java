@@ -63,7 +63,11 @@ public class ConsumableHelper extends DatabaseHelper {
         }
 
         // Execute the query and store the result.
-		int result = database.executeUpdate(query, new Object[] { consumableName, consumableCodeName, consumablePrice, consumableMealId, consumableCategoryId });
+		int result = database.executeUpdate(query, new Object[] { consumableName,
+                                                                  consumableCodeName,
+                                                                  consumablePrice,
+                                                                  consumableMealId,
+                                                                  consumableCategoryId });
 
         // Return the result. Adding is successful if result != -1.
 		return result != -1;
@@ -104,7 +108,8 @@ public class ConsumableHelper extends DatabaseHelper {
 
                 // NOTE: consumableMeal can be null.
                 // Create a Consumable object from the components.
-                consumable = new Consumable(consumableId, consumableName, consumableCodeName, consumableCategory, consumablePrice, null, consumableMeal);
+                consumable = new Consumable(consumableId, consumableName, consumableCodeName,
+                                            consumableCategory, consumablePrice, null, consumableMeal);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace ();
@@ -146,7 +151,8 @@ public class ConsumableHelper extends DatabaseHelper {
                 Meal consumableMeal = new Meal(rs.getInt(COLUMN_CONSUMABLE_MEAL_ID), null);
 
                 // Create a Consumable object from the components.
-                Consumable consumable = new Consumable(consumableId, consumableName, consumableCodeName, consumableCategory, consumablePrice, null, consumableMeal);
+                Consumable consumable = new Consumable(consumableId, consumableName, consumableCodeName,
+                                                       consumableCategory, consumablePrice, null, consumableMeal);
 
                 // Initialize the list if null. Else, add the newly created Consumable to the list.
                 if (consumables == null) {
@@ -203,7 +209,11 @@ public class ConsumableHelper extends DatabaseHelper {
         }
 
         // Execute the query and store the result.
-        int result = database.executeUpdate(query, new Object[] { consumableName, consumableCodeName, consumablePrice, consumableMealId, consumableCategoryId });
+        int result = database.executeUpdate(query, new Object[] { consumableName,
+                                                                  consumableCodeName,
+                                                                  consumablePrice,
+                                                                  consumableMealId,
+                                                                  consumableCategoryId });
 
         // Return the number of records affected by the update operation.
 		return result;

@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Used to access the Incoming database table through specific data operations.
  */
-public class IncomingHelper extends DatabaseHelper implements DataAccessObject<Incoming> {
+public class IncomingHelper extends DatabaseHelper {
     
     public final String TABLE_NAME = "Incoming";
     public final String COLUMN_ID = "In_ID";
