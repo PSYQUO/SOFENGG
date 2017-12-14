@@ -18,4 +18,4 @@ compile-run.bat
 gradlew
 gradlew.bat
 SOFENGG.iml
-src/dbconfig.ini
+/src/dbconfig.ini
