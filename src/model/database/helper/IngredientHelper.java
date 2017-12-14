@@ -1,16 +1,15 @@
 package model.database.helper;
 
-import model.database.DataAccessObject;
-import model.database.DatabaseHelper;
-import model.food.Consumable;
-import model.food.Ingredient;
-import model.food.RawItem;
-import model.food.RawItemQuantityPair;
+import java.util.List;
+import java.util.ArrayList;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+
+import model.database.DatabaseHelper;
+import model.database.DataAccessObject;
+
+import model.food.*;
 
 /**
  * Used to access the Ingredient database table through specific data operations.
