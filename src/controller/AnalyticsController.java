@@ -68,6 +68,8 @@ public class AnalyticsController extends Controller
                 changePaneState("TO_MAIN");
             });
         }
+
+        loadTables();
     }
 
     @Override
@@ -117,5 +119,10 @@ public class AnalyticsController extends Controller
                 analZReading.setDisable(true);
                 break;
         }
+    }
+
+    private void loadTables()
+    {
+
     }
 }
