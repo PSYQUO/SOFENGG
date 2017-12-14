@@ -4,6 +4,12 @@ package model.food;
  * The representation of an item/ingredient in stock in the inventory.
  */
 public class RawItem {
+    public static final String TABLE_NAME = "RawItem";
+    public static final String COLUMN_ID = "RawItem_ID";
+    public static final String COLUMN_NAME = "RawItem_Name";
+    public static final String COLUMN_PRICE = "RawItem_Price";
+    public static final String COLUMN_QUANTITY = "RawItem_Quantity";
+
     public int rawItemID;
     private String name;
     private int quantity;
