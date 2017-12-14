@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Used to access the RawItem database table through specific data operations.
  */
-public class RawItemHelper extends DatabaseHelper implements DataAccessObject<RawItem> {
+public class RawItemHelper extends DatabaseHelper {
 
     public static final String TABLE_NAME = "RawItem";
     public static final String COLUMN_ID = "RawItem_ID";
@@ -20,8 +20,7 @@ public class RawItemHelper extends DatabaseHelper implements DataAccessObject<Ra
     public static final String COLUMN_PRICE = "RawItem_Price";
     public static final String COLUMN_QUANTITY = "RawItem_Quantity";
 
-    @Override
-    public boolean addItem(RawItem item) {
+    public boolean addRawItem(RawItem item) {
         String query = "INSERT INTO " + TABLE_NAME
                 + " (" + COLUMN_NAME + ", "
                 + COLUMN_PRICE + ", "
@@ -39,8 +38,7 @@ public class RawItemHelper extends DatabaseHelper implements DataAccessObject<Ra
         return result != -1;
     }
 
-    @Override
-    public RawItem getItem(int id) {
+    public RawItem getRawItem(int id) {
         String query = "SELECT " + COLUMN_NAME + ", "
                 + COLUMN_PRICE + ", "
                 + COLUMN_QUANTITY
@@ -65,8 +63,7 @@ public class RawItemHelper extends DatabaseHelper implements DataAccessObject<Ra
         return rawItem;
     }
 
-    @Override
-    public List<RawItem> getAllItems() {
+    public List<RawItem> getAllRawItems() {
         String query = "SELECT " + COLUMN_ID + ", "
                 + COLUMN_NAME + ", "
                 + COLUMN_PRICE + ", "
@@ -99,8 +96,7 @@ public class RawItemHelper extends DatabaseHelper implements DataAccessObject<Ra
         return rawItems;
     }
 
-    @Override
-    public int editItem(int id, RawItem item) {
+    public int editRawItem(int id, RawItem item) {
         String query = "UPDATE " + TABLE_NAME + " "
                 + "SET " + COLUMN_NAME + " = ?, "
                 + COLUMN_PRICE + " = ?, "
@@ -116,8 +112,7 @@ public class RawItemHelper extends DatabaseHelper implements DataAccessObject<Ra
         return result;
     }
 
-    @Override
-    public int deleteItem(int id) {
+    public int deleteRawItem(int id) {
         String query = "DELETE FROM " + TABLE_NAME + " "
                 + "WHERE " + COLUMN_ID + " = ?;";
 
