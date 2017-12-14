@@ -1,12 +1,13 @@
 package model.database.helper;
 
-import java.util.List;
-import java.util.ArrayList;
-
-import model.database.DatabaseHelper;
 import model.database.DataAccessObject;
-
+import model.database.DatabaseHelper;
 import model.food.RawItem;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
 * Used to access the RawItem database table through specific data operations.
@@ -19,12 +20,7 @@ public class RawItemHelper extends DatabaseHelper implements DataAccessObject<Ra
     public static final String COLUMN_PRICE = "RawItem_Price";
     public static final String COLUMN_QUANTITY = "RawItem_Quantity";
 
-    /**
-    * Inserts a RawItem record to the database.
-    * 
-    * @param RawItem   The representation of an item/ingredient in stock in the inventory.
-    * @return          A boolean that is true if the operation is successful.
-    */
+    @Override
     public boolean addItem(RawItem item) {
         String query = "INSERT INTO " + TABLE_NAME 
                      + " (" + COLUMN_NAME + ", "
@@ -43,12 +39,7 @@ public class RawItemHelper extends DatabaseHelper implements DataAccessObject<Ra
         return result != -1;
     }
 
-    /**
-    * Retrieves a RawItem record from the database with a specific id.
-    * 
-    * @param id    Refers to a specific record in a database table.
-    * @return      The representation of an item/ingredient in stock in the inventory.
-    */
+    @Override
     public RawItem getItem(int id) {
         String query = "SELECT " + COLUMN_NAME + ", "
                                  + COLUMN_PRICE + ", "
@@ -62,7 +53,7 @@ public class RawItemHelper extends DatabaseHelper implements DataAccessObject<Ra
 		try {
 			if (rs.next ()) {
                 String name = rs.getString(COLUMN_NAME);
-                int quantity = rs.getString(COLUMN_QUANTITY);
+                int quantity = rs.getInt(COLUMN_QUANTITY);
                 double price = rs.getDouble(COLUMN_PRICE);
 
                 rawItem = new RawItem(id, name, quantity, price);
@@ -74,11 +65,7 @@ public class RawItemHelper extends DatabaseHelper implements DataAccessObject<Ra
         return rawItem;
     }
     
-    /**
-    * Retrieves all RawItem records from the database.
-    * 
-    * @return      A list of all RawItem records in the database.
-    */
+    @Override
     public List<RawItem> getAllItems() {
         String query = "SELECT " + COLUMN_ID + ", "
                                  + COLUMN_NAME + ", "
@@ -93,13 +80,13 @@ public class RawItemHelper extends DatabaseHelper implements DataAccessObject<Ra
 			while (rs.next()) {
                 int id = rs.getInt(COLUMN_ID);
                 String name = rs.getString(COLUMN_NAME);
-                int quantity = rs.getString(COLUMN_QUANTITY);
+                int quantity = rs.getInt(COLUMN_QUANTITY);
                 double price = rs.getDouble(COLUMN_PRICE);
 
                 RawItem rawitem = new RawItem(id, name, quantity, price);
                 
                 if (rawItems == null) {
-                    rawItems = new ArrayList<RawItem>();
+                    rawItems = new ArrayList<>();
                 }
                 else {
                     rawItems.add(rawitem);
@@ -112,12 +99,7 @@ public class RawItemHelper extends DatabaseHelper implements DataAccessObject<Ra
         return rawItems;
     }
 
-     /**
-      * Updates a RawItem record in the database with a specific id.
-      * 
-      * @param RawItem   The representation of an item/ingredient in stock in the inventory.
-      * @return          The number of rows affected by the operation.
-      */
+    @Override
     public int editItem(int id, RawItem item) {
         String query = "UPDATE " + TABLE_NAME + " "
                      + "SET " + COLUMN_NAME + " = ?, "
@@ -134,12 +116,7 @@ public class RawItemHelper extends DatabaseHelper implements DataAccessObject<Ra
 		return result;
     }
     
-    /**
-    * Deletes a RawItem record from the database.
-    * 
-    * @param RawItem   The representation of an item/ingredient in stock in the inventory.
-    * @return          The number of rows affected by the operation.
-    */
+    @Override
     public int deleteItem(int id) {
          String query = "DELETE FROM " + TABLE_NAME + " "
                       + "WHERE " + COLUMN_ID + " = ?;";
