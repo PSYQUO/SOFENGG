@@ -1,46 +1,43 @@
 package model.database.helper;
 
-import java.util.List;
-import java.util.ArrayList;
+import model.database.DatabaseHelper;
+import model.food.Consumable;
+import model.food.Ingredient;
+import model.food.RawItem;
+import model.food.RawItemQuantityPair;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import model.database.DatabaseHelper;
-import model.database.DataAccessObject;
-
-import model.food.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Used to access the Ingredient database table through specific data operations.
  */
-public class IngredientHelper extends DatabaseHelper implements DataAccessObject<Ingredient> {
+public class IngredientHelper extends DatabaseHelper {
 
+    // Constants referring to the database table columns.
     public final String TABLE_NAME = "Ingredient";
     public final String COLUMN_CONSUMABLE_ID = "Consumable_ID";
-    public final String COLUMN_RAWITEM_ID = "RawItem_ID";
+    public final String COLUMN_RAWITEM_ID = "RawIngredient_ID";
     public final String COLUMN_QUANTITY = "Quantity";
 
-    @Override
-    public boolean addItem(Ingredient item) {
-        // Do not use
-        return false;
-    }
-
     /**
-     * Use in place of the overridden addItem method.
+     * Inserts an Ingredient into the database.
      *
-     * @param consumable            The representation of a food item.
+     * @param consumable            The representation of a food ingredient.
      * @param rawItemQuantityPair   Determines the number of raw items used as ingredient to a consumable.
      * @return                      A boolean that is true if adding is successful.
      */
-    public boolean addItem(Consumable consumable, RawItemQuantityPair rawItemQuantityPair) {
+    public boolean addIngredient(Consumable consumable, RawItemQuantityPair rawItemQuantityPair) {
+        // Prepare the query.
         String query = "INSERT INTO " + TABLE_NAME
                      + " (" + COLUMN_CONSUMABLE_ID + ", "
                             + COLUMN_RAWITEM_ID + ", "
                             + COLUMN_QUANTITY + ") "
                             + "VALUES (?, ?, ?);";
 
+        // Prepare the variables for binding.
         Integer consumableId = null;
         if (consumable != null) {
             consumableId = consumable.getConsumableID();
@@ -54,20 +51,16 @@ public class IngredientHelper extends DatabaseHelper implements DataAccessObject
             rawItemId = rawItemQuantityPair.getRawItem().getRawItemID();
         }
         else {
-            System.err.println("WARNING: Raw item of ingredient to be added is null!");
+            System.err.println("WARNING: Raw ingredient of ingredient to be added is null!");
         }
 
         int quantity = rawItemQuantityPair.getQuantity();
 
+        // Execute the query and store the result.
         int result = database.executeUpdate(query, new Object[] { consumableId, rawItemId, quantity });
 
+        // Return the result. Adding is successful if result != -1.
         return result != -1;
-    }
-
-    @Override
-    public Ingredient getItem(int id) {
-        // Do not use, Ingredient has no primary key.
-        return null;
     }
 
     /**
@@ -77,25 +70,34 @@ public class IngredientHelper extends DatabaseHelper implements DataAccessObject
      * @return      The ingredients of the specified consumable.
      */
     public List<Ingredient> getIngredientsByConsumable(int id) {
+        // Prepare the query.
         String query = "SELECT " + COLUMN_CONSUMABLE_ID + ", "
                                  + COLUMN_RAWITEM_ID + ", "
                                  + COLUMN_QUANTITY
                                  + " FROM " + TABLE_NAME
                                  + " WHERE " + COLUMN_CONSUMABLE_ID + " = ?;";
 
+        // Execute the query and store the result.
         ResultSet rs = database.executeQuery (query, new Object[] {id});
+
+        // Declare object to be returned.
         List<Ingredient> ingredients = null;
 
         try {
             while (rs.next()) {
+                // Retrieve Ingredient components from the result.
                 int Cid = rs.getInt(COLUMN_CONSUMABLE_ID);
-                int Rid = rs.getInt(COLUMN_RAWITEM_ID);
                 int q = rs.getInt(COLUMN_QUANTITY);
-                // TODO: Build RawItem object
-                Ingredient ingredient = new Ingredient(null, q);
+                int rawItemId = rs.getInt(COLUMN_RAWITEM_ID);
 
+                RawItem rawItem = new RawItem(rawItemId, null, -1, -1);
+
+                // Create an Ingredient object from the components.
+                Ingredient ingredient = new Ingredient(rawItem, q);
+
+                // Initialize the list if null. Else, add the newly created Ingredient to the list.
                 if (ingredients == null) {
-                    ingredients = new ArrayList<Ingredient>();
+                    ingredients = new ArrayList<>();
                 }
                 else {
                     ingredients.add(ingredient);
@@ -105,11 +107,16 @@ public class IngredientHelper extends DatabaseHelper implements DataAccessObject
             e.printStackTrace ();
         }
 
+        // Return the list of Ingredients. NOTE: Can be null.
         return ingredients;
     }
 
-    @Override
-    public List<Ingredient> getAllItems() {
+    /**
+     * Retrieves a list of all Ingredients from the database.
+     *
+     * @return  A list of all Ingredients from the database.
+     */
+    public List<Ingredient> getAllIngredients() {
         String query = "SELECT " + COLUMN_CONSUMABLE_ID + ", "
                                  + COLUMN_RAWITEM_ID + ", "
                                  + COLUMN_QUANTITY
@@ -118,48 +125,80 @@ public class IngredientHelper extends DatabaseHelper implements DataAccessObject
 		ResultSet rs = database.executeQuery (query, null);
 		List<Ingredient> ingredients = null;
 
-		try {
-			while (rs.next()) {
+        try {
+            while (rs.next()) {
+                // Retrieve Ingredient components from the result.
                 int Cid = rs.getInt(COLUMN_CONSUMABLE_ID);
-                int Rid = rs.getInt(COLUMN_RAWITEM_ID);
                 int q = rs.getInt(COLUMN_QUANTITY);
+                int rawItemId = rs.getInt(COLUMN_RAWITEM_ID);
 
-                Ingredient ingredient = new Ingredient(null, q);
-                
+                RawItem rawItem = new RawItem(rawItemId, null, -1, -1);
+
+                // Create an Ingredient object from the components.
+                Ingredient ingredient = new Ingredient(rawItem, q);
+
+                // Initialize the list if null. Else, add the newly created Ingredient to the list.
                 if (ingredients == null) {
-                    ingredients = new ArrayList<Ingredient>();
+                    ingredients = new ArrayList<>();
                 }
                 else {
                     ingredients.add(ingredient);
                 }
-			}
-		} catch (SQLException e) {
-			e.printStackTrace ();
-		}
+            }
+        } catch (SQLException e) {
+            e.printStackTrace ();
+        }
 
-		return ingredients;
+        // Return the list of Ingredients. NOTE: Can be null.
+        return ingredients;
     }
 
-    @Override
-    public int editItem(int id, Ingredient item) {
-        // Do not use
-        return -1;
-    }
+    /**
+     * Updates an Ingredient in the database with a specific id.
+     *
+     * @param consumable            The Consumable that is composed by the Ingredient.
+     * @param rawItemQuantityPair   The RawItemQuantity pair containing details about the Ingredient.
+     * @return                      The number of records affected by the update operation.
+     */
+    public int editIngredient(Consumable consumable, RawItemQuantityPair rawItemQuantityPair) {
+        // Prepare the query.
+        String query = "UPDATE " + TABLE_NAME + " "
+                     + "SET " + COLUMN_RAWITEM_ID + " = ?, "
+                              + COLUMN_QUANTITY + " = ? "
+                              + "WHERE " + COLUMN_CONSUMABLE_ID + " = ?;";
 
-    @Override
-    public int deleteItem(int id) {
-        String query = "DELETE FROM " + TABLE_NAME
-                    + " WHERE " + COLUMN_CONSUMABLE_ID + " = ? AND " + COLUMN_RAWITEM_ID + " = ?;";
+        // Prepare the variables for binding.
+        Integer consumableId = null;
+        if (consumable != null) {
+            consumableId = consumable.getConsumableID();
+        }
+        else {
+            System.err.println("WARNING: Consumable of ingredient to be added is null!");
+        }
 
-        int result = database.executeUpdate(query, new Object[] {id});
+        int rawItemId = rawItemQuantityPair.getRawItem().getRawItemID();
+        int quantity = rawItemQuantityPair.getQuantity();
 
+        // Execute the query and store the result.
+        int result = database.executeUpdate(query, new Object[] { rawItemId, quantity, consumableId });
+
+        // Return the number of records affected by the update operation.
         return result;
     }
 
-    public int deleteItem(Consumable consumable, RawItem rawItem) {
-        String query = "DELETE FROM " + TABLE_NAME
-                + " WHERE " + COLUMN_CONSUMABLE_ID + " = ? AND " + COLUMN_RAWITEM_ID + " = ?;";
+    /**
+     * Deletes an Ingredient in the database composing a specific Consumable.
+     *
+     * @param consumable    The Consumable composed by the Ingredient.
+     * @param rawItem       The RawItem containing details about the Ingredient.
+     * @return              The number of records affected by the delete operation.
+     */
+    public int deleteIngredient(Consumable consumable, RawItem rawItem) {
+        // Prepare the query.
+        String query = "DELETE FROM " + TABLE_NAME + " "
+                     + "WHERE " + COLUMN_CONSUMABLE_ID + " = ? AND " + COLUMN_RAWITEM_ID + " = ?;";
 
+        // Prepare the variables for binding.
         Integer consumableId = null;
         if (consumable != null) {
             consumableId = consumable.getConsumableID();
@@ -173,11 +212,14 @@ public class IngredientHelper extends DatabaseHelper implements DataAccessObject
             rawItemId = rawItem.getRawItemID();
         }
         else {
-            System.err.println("WARNING: Raw item of ingredient to be deleted is null!");
+            System.err.println("WARNING: Raw ingredient of ingredient to be deleted is null!");
         }
 
+        // Execute the query and store the result.
         int result = database.executeUpdate(query, new Object[] { consumableId, rawItemId });
 
+        // Return the number of records affected by the delete.
         return result;
     }
+
 }
