@@ -15,7 +15,7 @@ public abstract class DatabaseHelper {
     /**
      * Sets the current database to be used. Invoke sparingly.
      * 
-     * @param database  Creates a common parent for database access.
+     * @param newDatabase  Creates a common parent for database access.
      */
     public static void setDatabaseManager(DatabaseManager newDatabase) {
         database = newDatabase;

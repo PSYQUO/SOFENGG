@@ -41,7 +41,7 @@ public interface DataAccessObject<T> {
     /**
      * Deletes an item from the database.
      * 
-     * @param item  A generic entity in the database.
+     * @param id    A generic entity in the database.
      * @return      The number of rows affected by the operation.
      */
     public int deleteItem(int id);
