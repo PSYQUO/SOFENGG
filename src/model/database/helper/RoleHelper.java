@@ -13,19 +13,16 @@ import model.database.DataAccessObject;
 /**
  * Used to access the Incoming database table through specific data operations.
  */
-public class RoleHelper extends DatabaseHelper implements DataAccessObject<Role> {
+public class RoleHelper extends DatabaseHelper {
     
     public final String TABLE_NAME = "Role";
     public final String COLUMN_ID = "Role_ID";
     public final String COLUMN_NAME = "Role_Name";
 
-    @Override
-    public boolean addItem(Role item) {
+    public boolean addRole(Role item) {
         String query = "INSERT INTO " + TABLE_NAME 
                      + " (" + COLUMN_NAME + ") "
                             + "VALUES (?);";
-
-        System.out.println(query);
         
         String name = item.getRoleName();
                             
@@ -34,8 +31,7 @@ public class RoleHelper extends DatabaseHelper implements DataAccessObject<Role>
         return result != -1;
     }
 
-    @Override
-    public Role getItem(int id) {
+    public Role getRole(int id) {
         String query = "SELECT " + COLUMN_NAME
                                  + " FROM " + TABLE_NAME 
                                  + " WHERE " + COLUMN_ID + " = ?;";
@@ -56,8 +52,7 @@ public class RoleHelper extends DatabaseHelper implements DataAccessObject<Role>
         return role;
     }
 
-    @Override
-    public List<Role> getAllItems() {
+    public List<Role> getAllRoles() {
         String query = "SELECT " + COLUMN_ID + ", "
                                  + COLUMN_NAME
                                  + " FROM " + TABLE_NAME + ";";
@@ -73,7 +68,7 @@ public class RoleHelper extends DatabaseHelper implements DataAccessObject<Role>
                 Role role = new Role(id, name);
                 
                 if (roles == null) {
-                    roles = new ArrayList<Role>();
+                    roles = new ArrayList<>();
                 }
                 else {
                     roles.add(role);
@@ -86,8 +81,7 @@ public class RoleHelper extends DatabaseHelper implements DataAccessObject<Role>
         return roles;
     }
 
-    @Override
-    public int editItem(int id, Role item) {
+    public int editRole(int id, Role item) {
         String query = "UPDATE " + TABLE_NAME + " "
                      + "SET " + COLUMN_NAME + " = ?, "
                               + "WHERE " + COLUMN_ID + " = ?;";
@@ -99,8 +93,7 @@ public class RoleHelper extends DatabaseHelper implements DataAccessObject<Role>
 		return result;
     }
 
-    @Override
-    public int deleteItem(int id) {
+    public int deleteRole(int id) {
         String query = "DELETE FROM " + TABLE_NAME + " "
                       + "WHERE " + COLUMN_ID + " = ?;";
         
