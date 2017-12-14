@@ -7,11 +7,6 @@ import model.food.RawItem;
  */
 public class Ingredient {
 
-    public static final String TABLE_NAME = "Ingredient";
-    public static final String COLUMN_CONSUMABLE_ID = "Consumable_ID";
-    public static final String COLUMN_RAWITEM_ID = "RawItem_ID";
-    public static final String COLUMN_QUANTITY = "Quantity";
-
     private RawItem rawItem;
     private int quantity; // The number of rawItems used as ingredient.
 

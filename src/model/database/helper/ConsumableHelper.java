@@ -126,7 +126,6 @@ public class ConsumableHelper extends DatabaseHelper implements DataAccessObject
 
     @Override
     public int editItem(int id, Consumable item) {
-
         String query = "UPDATE " + TABLE_NAME + " "
                      + "SET " + COLUMN_NAME + " = ?, "
                               + COLUMN_CODENAME + " = ?, "
