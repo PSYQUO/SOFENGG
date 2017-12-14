@@ -1,5 +1,7 @@
 package model.database.helper;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -9,6 +11,7 @@ import java.sql.SQLException;
 import model.Outgoing;
 import model.database.DatabaseHelper;
 import model.database.DataAccessObject;
+import model.food.RawItem;
 
 
 /**
@@ -24,7 +27,7 @@ public class OutgoingHelper extends DatabaseHelper implements DataAccessObject<O
     public final String COLUMN_DATETIME = "Out_DateTime";
 
     @Override
-    public boolean addItem(Outgoing item, RawItem rawItem) {
+    public boolean addItem(Outgoing item) {
         String query = "INSERT INTO " + TABLE_NAME
                      + " (" + COLUMN_DATETIME + ", "
                             + COLUMN_QUANTITY + ", "
@@ -32,7 +35,7 @@ public class OutgoingHelper extends DatabaseHelper implements DataAccessObject<O
                             + COLUMN_RAWITEM_ID + ") "
                             + "VALUES (?, ?, ?, ?)";
 
-        LocalDateTime date = item.getInDate();
+        LocalDateTime date = item.getOutDate();
         Timestamp timestamp = Timestamp.valueOf(date); // TODO Check if this works.
 
         int quantity = item.getQuantity();
@@ -40,8 +43,8 @@ public class OutgoingHelper extends DatabaseHelper implements DataAccessObject<O
         String remarks = item.getRemarks();
 
         Integer rawItemId = null;
-        if (rawItem != null) {
-            rawItemId = rawItem.getRawItemID();
+        if (item.getRawItem() != null) {
+            rawItemId = item.getRawItem().getRawItemID();
         }
         else {
             System.err.println("WARNING: RawItem is NULL!");
@@ -58,10 +61,10 @@ public class OutgoingHelper extends DatabaseHelper implements DataAccessObject<O
         String query = "SELECT " + COLUMN_REMARKS + ", "
                                  + COLUMN_QUANTITY + ", "
                                  + COLUMN_DATETIME
+                                 + COLUMN_ID + ", "
+                                 + COLUMN_RAWITEM_ID + ", "
                                  + " FROM " + TABLE_NAME
                                  + " WHERE " + COLUMN_ID + " = ?;";
-//        COLUMN_ID + ", "
-//                + COLUMN_RAWITEM_ID + ", "
 
         ResultSet rs = database.executeQuery(query, new Object[] {id});
         Outgoing outgoing = null;
@@ -69,12 +72,14 @@ public class OutgoingHelper extends DatabaseHelper implements DataAccessObject<O
         try {
             if (rs.next ()) {
 //                int columnId = rs.getInt(COLUMN_ID);
-//                int rawItemId = rs.getInt(COLUMN_RAWITEM_ID);
+                int rawItemId = rs.getInt(COLUMN_RAWITEM_ID);
                 String remarks = rs.getString(COLUMN_REMARKS);
                 int quantity = rs.getInt(COLUMN_QUANTITY);
                 LocalDateTime outDate = rs.getTimestamp(COLUMN_DATETIME).toLocalDateTime();
 
-                outgoing = new Outgoing(outDate, quantity, remarks);
+                RawItem rawItem = new RawItem(rawItemId, null, -1, -1);
+
+                outgoing = new Outgoing(outDate, quantity, remarks, rawItem);
             }
         } catch (SQLException e) {
             e.printStackTrace ();
@@ -87,10 +92,10 @@ public class OutgoingHelper extends DatabaseHelper implements DataAccessObject<O
     public List<Outgoing> getAllItems() {
         String query = "SELECT " + COLUMN_REMARKS + ", "
                                  + COLUMN_QUANTITY + ", "
+                                 + COLUMN_ID + ", "
+                                 + COLUMN_RAWITEM_ID + ", "
                                  + COLUMN_DATETIME
                                  + " FROM " + TABLE_NAME + ";";
-//        COLUMN_ID + ", "
-//                + COLUMN_RAWITEM_ID + ", "
 
         ResultSet rs = database.executeQuery(query, null);
         List<Outgoing> outgoings = new ArrayList<>();
@@ -98,12 +103,14 @@ public class OutgoingHelper extends DatabaseHelper implements DataAccessObject<O
         try {
             while (rs.next ()) {
 //                int columnId = rs.getInt(COLUMN_ID);
-//                int rawItemId = rs.getInt(COLUMN_RAWITEM_ID);
+                int rawItemId = rs.getInt(COLUMN_RAWITEM_ID);
                 String remarks = rs.getString(COLUMN_REMARKS);
                 int quantity = rs.getInt(COLUMN_QUANTITY);
                 LocalDateTime outDate = rs.getTimestamp(COLUMN_DATETIME).toLocalDateTime();
 
-                Outgoing outgoing = new Outgoing(outDate, quantity, remarks);
+                RawItem rawItem = new RawItem(rawItemId, null , -1, -1);
+
+                Outgoing outgoing = new Outgoing(outDate, quantity, remarks, rawItem);
 
                 if (outgoings == null) {
                     outgoings = new ArrayList<>();
@@ -121,18 +128,14 @@ public class OutgoingHelper extends DatabaseHelper implements DataAccessObject<O
 
     @Override
     public int editItem(int id, Outgoing item) {
-        // do not use
-        return -1;
-    }
-
-    public int editItem(Outgoing item, RawItem rawItem) {
         String query = "UPDATE " + TABLE_NAME + " "
                      + "SET " + COLUMN_DATETIME + " = ?, "
                               + COLUMN_QUANTITY + " = ?, "
-                              + COLUMN_REMARKS + " = ? "
+                              + COLUMN_REMARKS + " = ?, "
+                              + COLUMN_RAWITEM_ID + " = ? "
                               + "WHERE " + COLUMN_ID + " = ?;";
 
-        LocalDateTime date = item.getInDate();
+        LocalDateTime date = item.getOutDate();
         Timestamp timestamp = Timestamp.valueOf(date); // TODO Check if this works.
 
         int quantity = item.getQuantity();
@@ -140,15 +143,15 @@ public class OutgoingHelper extends DatabaseHelper implements DataAccessObject<O
         String remarks = item.getRemarks();
 
         Integer rawItemId = null;
-        if (rawItem != null) {
-            rawItemId = rawItem.getRawItemID();
+        if (item.getRawItem() != null) {
+            rawItemId = item.getRawItem().getRawItemID();
         }
         else {
             System.err.println("WARNING: RawItem is NULL!");
             return -1;
         }
 
-        int result = database.executeUpdate(query, new Object[] { timestamp, quantity, remarks, rawItemId });
+        int result = database.executeUpdate(query, new Object[] { timestamp, quantity, remarks, rawItemId, id });
 
         return result;
     }

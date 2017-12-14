@@ -1,20 +1,16 @@
 package model.database.helper;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.ArrayList;
+import model.Incoming;
+import model.database.DataAccessObject;
+import model.database.DatabaseHelper;
+import model.food.RawItem;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import model.Incoming;
-import model.database.DatabaseHelper;
-import model.database.DataAccessObject;
-import model.food.Category;
-import model.food.Consumable;
-import model.food.Meal;
-import model.food.RawItem;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Used to access the Incoming database table through specific data operations.
