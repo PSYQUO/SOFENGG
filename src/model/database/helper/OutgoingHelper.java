@@ -17,7 +17,7 @@ import model.food.RawItem;
 /**
  * Used to access the Incoming database table through specific data operations.
  */
-public class OutgoingHelper extends DatabaseHelper implements DataAccessObject<Outgoing> {
+public class OutgoingHelper extends DatabaseHelper {
     
     public final String TABLE_NAME = "Outgoing";
     public final String COLUMN_ID = "Out_ID";
@@ -26,8 +26,7 @@ public class OutgoingHelper extends DatabaseHelper implements DataAccessObject<O
     public final String COLUMN_QUANTITY = "Out_Quantity";
     public final String COLUMN_DATETIME = "Out_DateTime";
 
-    @Override
-    public boolean addItem(Outgoing item) {
+    public boolean addOutoing(Outgoing item) {
         String query = "INSERT INTO " + TABLE_NAME
                      + " (" + COLUMN_DATETIME + ", "
                             + COLUMN_QUANTITY + ", "
@@ -56,8 +55,7 @@ public class OutgoingHelper extends DatabaseHelper implements DataAccessObject<O
         return result != -1;
     }
 
-    @Override
-    public Outgoing getItem(int id) {
+    public Outgoing getOutgoing(int id) {
         String query = "SELECT " + COLUMN_REMARKS + ", "
                                  + COLUMN_QUANTITY + ", "
                                  + COLUMN_DATETIME
@@ -88,8 +86,7 @@ public class OutgoingHelper extends DatabaseHelper implements DataAccessObject<O
         return outgoing;
     }
 
-    @Override
-    public List<Outgoing> getAllItems() {
+    public List<Outgoing> getAllOutgoings() {
         String query = "SELECT " + COLUMN_REMARKS + ", "
                                  + COLUMN_QUANTITY + ", "
                                  + COLUMN_ID + ", "
@@ -126,8 +123,7 @@ public class OutgoingHelper extends DatabaseHelper implements DataAccessObject<O
         return outgoings;
     }
 
-    @Override
-    public int editItem(int id, Outgoing item) {
+    public int editOutgoing(int id, Outgoing item) {
         String query = "UPDATE " + TABLE_NAME + " "
                      + "SET " + COLUMN_DATETIME + " = ?, "
                               + COLUMN_QUANTITY + " = ?, "
@@ -156,8 +152,7 @@ public class OutgoingHelper extends DatabaseHelper implements DataAccessObject<O
         return result;
     }
 
-    @Override
-    public int deleteItem(int id) {
+    public int deleteOutgoing(int id) {
         String query = "DELETE FROM " + TABLE_NAME + " "
                      + "WHERE " + COLUMN_ID + " = ?;";
 
