@@ -10,7 +10,7 @@ public interface DataAccessObject<T> {
     /**
      * Inserts an item into the database.
      * 
-     * @param T     A generic entity in the database.
+     * @param item  An entity in the database.
      * @return      A boolean that is true if adding is successful.
      */
     public boolean addItem(T item);
@@ -19,7 +19,7 @@ public interface DataAccessObject<T> {
      * Retrieves an item from the database.
      * 
      * @param id    Refers to a specific record in a database table.
-     * @return      A generic entity in the database.
+     * @return      An entity in the database.
      */
     public T getItem(int id);
     
@@ -33,7 +33,7 @@ public interface DataAccessObject<T> {
     /**
      * Updates an item in the database.
      * 
-     * @param T     A generic entity in the database.
+     * @param item  An entity in the database.
      * @return      The number of rows affected by the operation.
      */
     public int editItem(int id, T item);
@@ -41,7 +41,7 @@ public interface DataAccessObject<T> {
     /**
      * Deletes an item from the database.
      * 
-     * @param T     A generic entity in the database.
+     * @param item  A generic entity in the database.
      * @return      The number of rows affected by the operation.
      */
     public int deleteItem(int id);

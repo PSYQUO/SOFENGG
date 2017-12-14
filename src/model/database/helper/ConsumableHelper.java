@@ -10,42 +10,61 @@ import model.database.DatabaseHelper;
 import model.database.DataAccessObject;
 
 import model.food.Consumable;
+import model.food.Meal;
+import model.food.Ingredient;
+import model.food.Category;
 
 /**
  * Used to access the Consumable database table through specific data operations.
  */
 public class ConsumableHelper extends DatabaseHelper implements DataAccessObject<Consumable> {
 
-    /**
-     * Inserts a Consumable record into the database.
-     * 
-     * @param Consumable    The representation of a food item. 
-     * @return              A boolean that is true if the operation is successful.
-     */
     @Override
     public boolean addItem(Consumable item) {
+        String query = "INSERT INTO " + Consumable.TABLE_NAME 
+                     + " (" + Consumable.COLUMN_NAME + ", "
+                            + Consumable.COLUMN_CODENAME + ", "
+                            + Consumable.COLUMN_PRICE + ", "
+                            + Consumable.COLUMN_MEAL + ", "
+                            + Consumable.COLUMN_CATEGORY + ") "
+                            + "VALUES (?, ?, ?, ?, ?);";
 
-        return false;
+        System.out.println(query);
+        
+        String name = item.getName();
+        String codeName = item.getCodeName();
+        double price = item.getPrice();
+
+        Integer mealId = null;
+        if (item.getMeal() != null) {
+            mealId = item.getMeal().getMealID();
+        }
+
+        Integer categoryId = null;
+        if (item.getCategory() != null) {
+            categoryId = item.getCategory().getCategoryID();
+        }
+        else {
+            System.err.println("WARNING: Category must not be NULL! Foreign key constraint will fail!");
+        }
+                            
+		int result = database.executeUpdate(query, new Object[] { name, codeName, price, mealId, categoryId });
+
+		return result != -1;
     }
 
-    /**
-     * Retrieves a Consumable record from the database with a specific id.
-     * 
-     * @param id    Refers to a specific record in a database table.
-     * @return      The representation of an item/ingredient in stock in the inventory.
-     */
     @Override
     public Consumable getItem(int id) {
-        String query = "SELECT " + Consumable.COLUMN_ID + ","
-                                 + Consumable.COLUMN_NAME + ","
-                                 + Consumable.COLUMN_CODENAME + ","
-                                 + Consumable.COLUMN_PRICE + ","
-                                 + Consumable.COLUMN_MEAL + ","
+        String query = "SELECT " + Consumable.COLUMN_ID + ", "
+                                 + Consumable.COLUMN_NAME + ", "
+                                 + Consumable.COLUMN_CODENAME + ", "
+                                 + Consumable.COLUMN_PRICE + ", "
+                                 + Consumable.COLUMN_MEAL + ", "
                                  + Consumable.COLUMN_CATEGORY
                                  + " FROM " + Consumable.TABLE_NAME 
                                  + " WHERE " + Consumable.COLUMN_ID + " = ?;";
 
-		ResultSet rs = database.executeQuery (query, new Object[] {id});
+		ResultSet rs = database.executeQuery(query, new Object[] {id});
 		Consumable consumable = null;
 
 		try {
@@ -54,8 +73,10 @@ public class ConsumableHelper extends DatabaseHelper implements DataAccessObject
                 String name = rs.getString(Consumable.COLUMN_NAME);
                 String codeName = rs.getString(Consumable.COLUMN_CODENAME);
                 double price = rs.getDouble(Consumable.COLUMN_PRICE);
+                Category category = new Category(rs.getInt(Consumable.COLUMN_CATEGORY), null);
+                Meal meal = new Meal(rs.getInt(Consumable.COLUMN_MEAL), null);
 
-                consumable = new Consumable(consumableId, name, codeName, null, price, null);
+                consumable = new Consumable(consumableId, name, codeName, category, price, null, meal);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace ();
@@ -64,11 +85,6 @@ public class ConsumableHelper extends DatabaseHelper implements DataAccessObject
 		return consumable;
     }
     
-    /**
-     * Retrieves all Consumable records from the database.
-     * 
-     * @return      A list of all Consumable records in the database.
-     */
     @Override
     public List<Consumable> getAllItems() {
         String query = "SELECT " + Consumable.COLUMN_ID + ", "
@@ -105,34 +121,48 @@ public class ConsumableHelper extends DatabaseHelper implements DataAccessObject
 		return consumables;
     }
 
-    /**
-     * Updates a Consumable record in the database with a specific id.
-     * 
-     * @param Consumable    The representation of a food item.
-     * @return              The number of rows affected by the operation.
-     */
     @Override
     public int editItem(int id, Consumable item) {
 
-        return -1;
+        String query = "UPDATE " + Consumable.TABLE_NAME + " "
+                     + "SET " + Consumable.COLUMN_NAME + " = ?, "
+                              + Consumable.COLUMN_CODENAME + " = ?, "
+                              + Consumable.COLUMN_PRICE + " = ?, "
+                              + Consumable.COLUMN_MEAL + " = ?, "
+                              + Consumable.COLUMN_CATEGORY + " = ? "
+                              + "WHERE " + Consumable.COLUMN_ID + " = ?;";
+                            
+        String name = item.getName();
+        String codeName = item.getCodeName();
+        double price = item.getPrice();
+
+        Integer mealId = null;
+        if (item.getMeal() != null) {
+            mealId = item.getMeal().getMealID();
+        }
+
+        Integer categoryId = null;
+        if (item.getCategory() != null) {
+            categoryId = item.getCategory().getCategoryID();
+        }
+        else {
+            System.err.println("ERROR: Consumable category must not be NULL! Foreign key constraint will fail!");
+            return -1;
+        }
+                            
+		int result = database.executeUpdate(query, new Object[] { name, codeName, price, mealId, categoryId, id });
+
+		return result;
     }
     
-    /**
-     * Deletes a Consumable record from the database.
-     * 
-     * @param Consumable    The representation of a food item. 
-     * @return              The number of rows affected by the operation.
-     */
     @Override
     public int deleteItem(int id) {
-        String query = "DELETE FROM " + Consumable.TABLE_NAME + 
-                            " WHERE " + Consumable.COLUMN_ID + " = ?;";
+        String query = "DELETE FROM " + Consumable.TABLE_NAME + " "
+                     + "WHERE " + Consumable.COLUMN_ID + " = ?;";
         
-        if(database.executeUpdate(query, new Object[] {id}) == 1)
-        {
-            return 1;
-        }
+        int result = database.executeUpdate(query, new Object[] {id});
         
-        return -1;
+        return result;
     }
+
 }

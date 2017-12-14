@@ -342,6 +342,20 @@ public class NewOrderController extends Controller
 
         // ConsumableHelper consumableHelper = new ConsumableHelper();
         // List<Consumable> consumablesList = consumableHelper.getAllItems();
+        
+        // Consumable consumable = new Consumable("wat", "GG", new Category(3, "Budget Meal"), 5.55, new ArrayList<Ingredient>());
+
+        // DatabaseManager databaseManager = MySQLDatabase.getInstance();
+        // databaseManager.setConnection("127.0.0.1", "3306", "tjbbqdb", "root", "p@ssword");
+
+        // DatabaseHelper.setDatabaseManager(databaseManager);
+
+        // ConsumableHelper consumableHelper = new ConsumableHelper();
+        // List<Consumable> consumablesList = consumableHelper.getAllItems();
+        // boolean result = consumableHelper.addItem(consumable);
+        // consumableHelper.getItem()
+
+        // consumableHelper.deleteItem(111);
 
         for(Consumable c : consumablesList)
         {
