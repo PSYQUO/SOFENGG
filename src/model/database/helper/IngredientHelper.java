@@ -1,4 +1,3 @@
-
 package model.database.helper;
 
 import java.util.List;
@@ -18,10 +17,39 @@ import model.food.Ingredient;
  */
 public class IngredientHelper extends DatabaseHelper implements DataAccessObject<Ingredient> {
 
+    public final String TABLE_NAME = "Ingredient";
+    public final String COLUMN_CONSUMABLE = "Consumable_ID";
+    public final String COLUMN_RAWITEM = "RawItem_ID";
+    public final String COLUMN_QUANTITY = "Quantity";
+
     @Override
     public boolean addItem(Ingredient item) {
+        String query = "INSERT INTO " + TABLE_NAME
+                     + " (" + COLUMN_CONSUMABLE + ", "
+                            + COLUMN_RAWITEM + ", "
+                            + COLUMN_QUANTITY + ") "
+                            + "VALUES (?, ?, ?);";
 
-        return false;
+        String name = item.getName();
+        String codeName = item.getCodeName();
+        double price = item.getPrice();
+
+        Integer mealId = null;
+        if (item.getMeal() != null) {
+            mealId = item.getMeal().getMealID();
+        }
+
+        Integer categoryId = null;
+        if (item.getCategory() != null) {
+            categoryId = item.getCategory().getCategoryID();
+        }
+        else {
+            System.err.println("WARNING: Category must not be NULL! Foreign key constraint will fail!");
+        }
+
+        int result = database.executeUpdate(query, new Object[] { name, codeName, price, mealId, categoryId });
+
+        return result != -1;
     }
 
     @Override

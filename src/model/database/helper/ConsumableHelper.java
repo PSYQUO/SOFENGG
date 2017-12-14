@@ -1,18 +1,15 @@
 package model.database.helper;
 
-import java.util.List;
-import java.util.ArrayList;
+import model.database.DataAccessObject;
+import model.database.DatabaseHelper;
+import model.food.Category;
+import model.food.Consumable;
+import model.food.Meal;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import model.database.DatabaseHelper;
-import model.database.DataAccessObject;
-
-import model.food.Consumable;
-import model.food.Meal;
-import model.food.Ingredient;
-import model.food.Category;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Used to access the Consumable database table through specific data operations.
@@ -36,8 +33,6 @@ public class ConsumableHelper extends DatabaseHelper implements DataAccessObject
                             + COLUMN_MEAL + ", "
                             + COLUMN_CATEGORY + ") "
                             + "VALUES (?, ?, ?, ?, ?);";
-
-        System.out.println(query);
         
         String name = item.getName();
         String codeName = item.getCodeName();
