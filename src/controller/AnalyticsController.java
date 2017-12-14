@@ -31,10 +31,14 @@ public class AnalyticsController extends Controller
     @FXML
     private TableView<ZReading> tableZReading;
 
-//    @FXML
-//    private TableColumn
-//            colItemS, colPriceS, colQuantityS,
-//            colItemW, colPriceW, colQuantityW;
+    @FXML
+    private TableColumn<MostSoldWasted, String> colItemS, colItemW;
+
+    @FXML
+    private TableColumn<MostSoldWasted, Integer> colQuantityS, colQuantityW;
+
+    @FXML
+    private TableColumn<MostSoldWasted, Double> colPriceS, colPriceW;
 
     @FXML
     private TableColumn<XReading, Double> colTotalX;
@@ -156,16 +160,25 @@ public class AnalyticsController extends Controller
 
     private void setTablePropertiesAndItems()
     {
+        colItemS.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colPriceS.setCellValueFactory(new PropertyValueFactory<>("price"));
+        colQuantityS.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+
+        colItemW.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colPriceW.setCellValueFactory(new PropertyValueFactory<>("price"));
+        colQuantityW.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+
         colUserX.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getUser().getUsername()));
         colTotalX.setCellValueFactory(new PropertyValueFactory<>("total"));
+
         colTotalZ.setCellValueFactory(new PropertyValueFactory<>("total"));
         colDateZ.setCellValueFactory(new PropertyValueFactory<>("date"));
     }
 
     private void loadTables()
     {
-//        tableMostSold.setItems(FXCollections.observableArrayList(dbm.getMostandLeastSold()));
-//        tableMostWasted.setItems(FXCollections.observableArrayList(dbm.getMostandLeastSold()));
+        tableMostSold.setItems(FXCollections.observableArrayList(dbm.getMostandLeastSold()));
+        tableMostWasted.setItems(FXCollections.observableArrayList(dbm.getMostWasted()));
         tableXReading.setItems(FXCollections.observableArrayList(dbm.getXReadToday()));
         dateBoxX.setText(new SimpleDateFormat("yyyy/MM/dd").format(new Date()));
         tableZReading.setItems(FXCollections.observableArrayList(dbm.getZReadAll()));
