@@ -8,6 +8,10 @@ import model.food.*;
 import model.transaction.Transaction;
 import model.transaction.TransactionBuilder;
 
+/**
+ * TODO LINE 605
+ */
+
 public class DatabaseModel
 {
     private DBConnection dbc;
@@ -592,19 +596,43 @@ public class DatabaseModel
         return data;
     }
 
-    public ArrayList<Col2> getMostandLeastSold()
+    public ArrayList<MostSoldWasted> getMostandLeastSold()
     {
         dbc = DBConnection.getInstance();
-        ArrayList<Col2> data = new ArrayList<Col2>();
+        ArrayList<MostSoldWasted> data = new ArrayList<MostSoldWasted>();
         try
         {
-            ResultSet rs = dbc.executeQuery("select c.consumable_name, sum(l.quantity) from lineitem l, consumable c where l.consumable_id=c.consumable_id group by l.quantity desc");
+            ResultSet rs = dbc.executeQuery("select c.consumable_name, c.consumable_price, sum(l.quantity) from lineitem l, consumable c, category cc where l.Consumable_ID=c.Consumable_ID and cc.Category_ID=c.Category_ID and  cc.Category_Name!='Appetizer' and cc.Category_Name!='Drinks' and cc.Category_Name!='Extras' and cc.Category_Name!='Rice' group by l.Consumable_ID desc order by 3 desc;");
             while(rs.next())
             {
-                Col2 c = new Col2(
-                    rs.getString("consumable_name"), 
-                    rs.getString("sum(l.quantity)"));
-                data.add(c);
+                MostSoldWasted s = new MostSoldWasted(
+                    rs.getString(1), 
+                    rs.getDouble(2),
+                    rs.getInt(3));
+                data.add(s);
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+        return data;
+    }
+
+    public ArrayList<MostSoldWasted> getMostWasted()
+    {
+        dbc = DBConnection.getInstance();
+        ArrayList<MostSoldWasted> data = new ArrayList<MostSoldWasted>();
+        try
+        {
+            ResultSet rs = dbc.executeQuery("select r.RawItem_Name, r.RawItem_Price, o.Out_Quantity from rawitem r, outgoing o where r.RawItem_ID=o.RawItem_ID;");
+            while(rs.next())
+            {
+                MostSoldWasted s = new MostSoldWasted(
+                    rs.getString("RawItem_Name"), 
+                    rs.getDouble("RawItem_Price"),
+                    rs.getInt("Out_Quantity"));
+                data.add(s);
             }
         }
         catch(Exception e)

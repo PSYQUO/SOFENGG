@@ -108,6 +108,7 @@ public class App extends Application
         else
             System.err.println("Database connection was not set. Check dbconfig.ini at the default package.");
     }
+<<<<<<< HEAD
 
     @Override
     public void stop()
@@ -119,4 +120,6 @@ public class App extends Application
 //         DatabaseManager databaseManager = MySQLDatabase.getInstance();
 //         databaseManager.close();
     }
+=======
+>>>>>>> master
 }

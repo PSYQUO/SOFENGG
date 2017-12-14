@@ -9,7 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.Node;
 import model.food.LineItem;
 
-public class LineItemBox extends HBox {
+public class LineItemBox extends ItemBox {
 
     private static final String STYLESHEET_LOCATION = "/view/line-item-box.css";
     public static final int DEFAULT = 0;
@@ -27,13 +27,7 @@ public class LineItemBox extends HBox {
     */
 
     public LineItemBox(LineItem l) {
-        // set hbox constraints
-        this.setPrefHeight(30);
-        this.setPrefWidth(300);
-        this.setMaxWidth(Double.MAX_VALUE);
-        this.setSpacing(10.0);
-        this.getStylesheets().add(STYLESHEET_LOCATION);
-
+        super();
         statusFlag = LineItemBox.DEFAULT;
         addQuantityButtons();
         initialize();
@@ -79,7 +73,7 @@ public class LineItemBox extends HBox {
     public void addQuantityButtons() {
         Button add = new Button("+");
         add.setId("buttonAdd"); // for CSS
-        add.setMinSize(USE_COMPUTED_SIZE, USE_COMPUTED_SIZE);
+        add.setMinSize(60, USE_COMPUTED_SIZE);
         add.setPrefSize(USE_COMPUTED_SIZE, USE_COMPUTED_SIZE);
         buttonSubtract = new Button("-");
         buttonSubtract.setId("buttonSubtract"); // for CSS
@@ -181,7 +175,7 @@ public class LineItemBox extends HBox {
 
         // initialize grid, set pane constraints
         GridPane grid = new GridPane();
-        grid.setPrefWidth(330);
+        grid.setPrefWidth(Double.MAX_VALUE);
         grid.setMaxWidth(Double.MAX_VALUE);
         grid.setPrefHeight(USE_COMPUTED_SIZE);
 
