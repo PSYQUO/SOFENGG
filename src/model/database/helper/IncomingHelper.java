@@ -30,18 +30,6 @@ public class IncomingHelper extends DatabaseHelper implements DataAccessObject<I
 
     @Override
     public boolean addItem(Incoming item) {
-        // Do not use
-        return false;
-    }
-
-    /**
-     * Use in place of the overridden addItem method.
-     *
-     * @param item      The representation of a food item.
-     * @param rawItem   The representation of an item/ingredient in stock in the inventory.
-     * @return          A boolean that is true if adding is successful.
-     */
-    public boolean addItem(Incoming item, RawItem rawItem) {
         String query = "INSERT INTO " + TABLE_NAME
                      + " (" + COLUMN_DATETIME + ", "
                             + COLUMN_QUANTITY + ", "
@@ -57,8 +45,8 @@ public class IncomingHelper extends DatabaseHelper implements DataAccessObject<I
         String remarks = item.getRemarks();
 
         Integer rawItemId = null;
-        if (rawItem != null) {
-            rawItemId = rawItem.getRawItemID();
+        if (item.getRawItem() != null) {
+            rawItemId = item.getRawItem().getRawItemID();
         }
         else {
             System.err.println("WARNING: RawItem is NULL!");
@@ -75,10 +63,10 @@ public class IncomingHelper extends DatabaseHelper implements DataAccessObject<I
         String query = "SELECT " + COLUMN_REMARKS + ", "
                                  + COLUMN_QUANTITY + ", "
                                  + COLUMN_DATETIME
+                                 + COLUMN_RAWITEM_ID + ", "
+                                 + COLUMN_ID + " "
                                  + " FROM " + TABLE_NAME
                                  + " WHERE " + COLUMN_ID + " = ?;";
-//        COLUMN_ID + ", "
-//                + COLUMN_RAWITEM_ID + ", "
 
         ResultSet rs = database.executeQuery(query, new Object[] {id});
         Incoming incoming = null;
@@ -86,12 +74,14 @@ public class IncomingHelper extends DatabaseHelper implements DataAccessObject<I
         try {
             if (rs.next ()) {
 //                int columnId = rs.getInt(COLUMN_ID);
-//                int rawItemId = rs.getInt(COLUMN_RAWITEM_ID);
+                int rawItemId = rs.getInt(COLUMN_RAWITEM_ID);
                 String remarks = rs.getString(COLUMN_REMARKS);
                 int quantity = rs.getInt(COLUMN_QUANTITY);
                 LocalDateTime inDate = rs.getTimestamp(COLUMN_DATETIME).toLocalDateTime();
 
-                incoming = new Incoming(inDate, quantity, remarks);
+                RawItem rawItem = new RawItem(rawItemId, null, -1, -1);
+
+                incoming = new Incoming(inDate, quantity, remarks, rawItem);
             }
         } catch (SQLException e) {
             e.printStackTrace ();
@@ -115,12 +105,14 @@ public class IncomingHelper extends DatabaseHelper implements DataAccessObject<I
         try {
             while (rs.next ()) {
 //                int columnId = rs.getInt(COLUMN_ID);
-//                int rawItemId = rs.getInt(COLUMN_RAWITEM_ID);
+                int rawItemId = rs.getInt(COLUMN_RAWITEM_ID);
                 String remarks = rs.getString(COLUMN_REMARKS);
                 int quantity = rs.getInt(COLUMN_QUANTITY);
                 LocalDateTime inDate = rs.getTimestamp(COLUMN_DATETIME).toLocalDateTime();
 
-                Incoming incoming = new Incoming(inDate, quantity, remarks);
+                RawItem rawItem = new RawItem(rawItemId, null, -1, -1);
+
+                Incoming incoming = new Incoming(inDate, quantity, remarks, rawItem);
 
                 if (incomings == null) {
                     incomings = new ArrayList<>();
@@ -138,11 +130,6 @@ public class IncomingHelper extends DatabaseHelper implements DataAccessObject<I
 
     @Override
     public int editItem(int id, Incoming item) {
-        // Do not use
-        return -1;
-    }
-
-    public int editItem(Incoming item, RawItem rawItem) {
         String query = "UPDATE " + TABLE_NAME + " "
                      + "SET " + COLUMN_DATETIME + " = ?, "
                               + COLUMN_QUANTITY + " = ?, "
@@ -157,8 +144,8 @@ public class IncomingHelper extends DatabaseHelper implements DataAccessObject<I
         String remarks = item.getRemarks();
 
         Integer rawItemId = null;
-        if (rawItem != null) {
-            rawItemId = rawItem.getRawItemID();
+        if (item.getRawItem() != null) {
+            rawItemId = item.getRawItem().getRawItemID();
         }
         else {
             System.err.println("WARNING: RawItem is NULL!");
