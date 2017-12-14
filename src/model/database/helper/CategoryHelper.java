@@ -125,11 +125,11 @@ public class CategoryHelper extends DatabaseHelper {
                      + "WHERE " + COLUMN_CATEGORY_ID + " = ?;";
 
         // Prepare the variables for binding.
-        int id = category.getCategoryID();
-        String name = category.getCategoryName();
+        int categoryId = category.getCategoryID();
+        String categoryName = category.getCategoryName();
 
         // Execute the query and store the result.
-        int result = database.executeUpdate(query, new Object[] { name, id });
+        int result = database.executeUpdate(query, new Object[] { categoryName, categoryId });
 
         // Return the number of records affected by the update operation.
         return result;
