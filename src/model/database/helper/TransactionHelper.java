@@ -9,12 +9,12 @@ import java.sql.SQLException;
 import model.database.DatabaseHelper;
 import model.database.DataAccessObject;
 
-import model;
+import model.transaction.Transaction;
 
 /**
  * Used to access the Incoming database table through specific data operations.
  */
-public class ConsumableHelper extends DatabaseHelper implements DataAccessObject<Incoming> {
+public class TransactionHelper extends DatabaseHelper implements DataAccessObject<Transaction> {
     
     public final String TABLE_NAME = "Transaction";
     public final String COLUMN_ID = "Transaction_ID";
@@ -29,24 +29,27 @@ public class ConsumableHelper extends DatabaseHelper implements DataAccessObject
     public final String COLUMN_TOTAL = "Total";
 
     @Override
-    public boolean addItem(Consumable item) {
+    public boolean addItem(Transaction item) {
+        return false;
     }
 
     @Override
-    public Consumable getItem(int id) {
-    }
-    
-    @Override
-    public List<Consumable> getAllItems() {
+    public Transaction getItem(int id) {
+        return null;
     }
 
     @Override
-    public int editItem(int id, Consumable item) {
+    public List<Transaction> getAllItems() {
+        return null;
     }
-    
+
+    @Override
+    public int editItem(int id, Transaction item) {
+        return 0;
+    }
+
     @Override
     public int deleteItem(int id) {
-
+        return 0;
     }
-
 }

@@ -6,15 +6,14 @@ import java.util.ArrayList;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import model.User;
 import model.database.DatabaseHelper;
 import model.database.DataAccessObject;
-
-import model;
 
 /**
  * Used to access the Incoming database table through specific data operations.
  */
-public class ConsumableHelper extends DatabaseHelper implements DataAccessObject<Incoming> {
+public class UserHelper extends DatabaseHelper implements DataAccessObject<User> {
     
     public final String TABLE_NAME = "User";
     public final String COLUMN_ID = "User_ID";
@@ -24,24 +23,28 @@ public class ConsumableHelper extends DatabaseHelper implements DataAccessObject
     public final String COLUMN_ROLE_ID = "Role_ID";
 
     @Override
-    public boolean addItem(Consumable item) {
+    public boolean addItem(User item) {
+        return false;
     }
 
     @Override
-    public Consumable getItem(int id) {
-    }
-    
-    @Override
-    public List<Consumable> getAllItems() {
+    public User getItem(int id) {
+        return null;
     }
 
     @Override
-    public int editItem(int id, Consumable item) {
+    public List<User> getAllItems() {
+        return null;
     }
-    
+
+    @Override
+    public int editItem(int id, User item) {
+        return 0;
+    }
+
     @Override
     public int deleteItem(int id) {
-
+        return 0;
     }
 
 }

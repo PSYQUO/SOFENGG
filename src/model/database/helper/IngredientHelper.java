@@ -1,139 +1,103 @@
-// package model.database.helper;
 
-// import java.util.List;
-// import java.util.ArrayList;
+package model.database.helper;
 
-// import java.sql.ResultSet;
-// import java.sql.SQLException;
+import java.util.List;
+import java.util.ArrayList;
 
-// import model.database.DatabaseHelper;
-// import model.database.DataAccessObject;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-// import model.food.Consumable;
-// import model.food.Ingredient;
-// import model.food.ingredient;
+import model.database.DatabaseHelper;
+import model.database.DataAccessObject;
 
-// /**
-//  * Used to access the Ingredient database table through specific data operations.
-//  */
-// public class IngredientHelper extends DatabaseHelper implements DataAccessObject<Ingredient> {
+import model.food.Consumable;
+import model.food.Ingredient;
 
-//     /**
-//      * Inserts a Ingredient record into the database.
-//      * 
-//      * @param Ingredient    The representation of a Ingredient item. 
-//      * @return              A boolean that is true if the operation is successful.
-//      */
-//     @Override
-//     public boolean addItem(Ingredient item) {
+/**
+ * Used to access the Ingredient database table through specific data operations.
+ */
+public class IngredientHelper extends DatabaseHelper implements DataAccessObject<Ingredient> {
 
-//         return false;
-//     }
+    @Override
+    public boolean addItem(Ingredient item) {
 
-//     /**
-//      * Retrieves Ingredients record from the database with a specific id.
-//      * 
-//      * @param id    Refers to a specific record in a database table.
-//      * @return      The representation of an item/ingredient in stock in the inventory.
-//      */
-//     @Override
-//     public List<Ingredient> getItem(int id) {
-//         String query = "SELECT " + Ingredient.COLUMN_CONSUMABLE_ID + ", "
-//                                  + Ingredient.COLUMN_RAWITEM_ID + ", "
-//                                  + Ingredient.COLUMN_QUANTITY
-//                                  + " FROM " + Ingredient.TABLE_NAME
-//                                  + " WHERE " + Ingredient.COLUMN_CONSUMABLE_ID + " = ?;";
+        return false;
+    }
 
-// 		ResultSet rs = database.executeQuery (query, null);
-// 		List<Ingredient> ingredients = null;
+    @Override
+    public Ingredient getItem(int id) {
+        String query = "SELECT " + Ingredient.COLUMN_CONSUMABLE_ID + ", "
+                                 + Ingredient.COLUMN_RAWITEM_ID + ", "
+                                 + Ingredient.COLUMN_QUANTITY
+                                 + " FROM " + Ingredient.TABLE_NAME
+                                 + " WHERE " + Ingredient.COLUMN_CONSUMABLE_ID + " = ?;";
 
-// 		try {
-// 			if (rs.next ()) {
-//                 int Cid = rs.getInt(Ingredient.COLUMN_CONSUMABLE_ID);
-//                 int Rid = rs.getInt(Ingredient.COLUMN_RAWITEM_ID);
-//                 int q = rs.getInt(Ingredient.COLUMN_QUANTITY);
+		ResultSet rs = database.executeQuery (query, null);
+        Ingredient ingredient = null;
 
-//                 Ingredient ingredient = new Ingredient(null, q);
+		try {
+			if (rs.next ()) {
+                int Cid = rs.getInt(Ingredient.COLUMN_CONSUMABLE_ID);
+                int Rid = rs.getInt(Ingredient.COLUMN_RAWITEM_ID);
+                int q = rs.getInt(Ingredient.COLUMN_QUANTITY);
 
-//                 if (ingredients == null) {
-//                     ingredients = new ArrayList<Ingredient>();
-//                 }
-//                 else {
-//                     ingredients.add(ingredient);
-//                 }
-// 			}
-// 		} catch (SQLException e) {
-// 			e.printStackTrace ();
-// 		}
+                 ingredient = new Ingredient(null, q);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace ();
+		}
 
-// 		return ingredients;
-//     }
-    
-//     /**
-//      * Retrieves all Ingredient records from the database.
-//      * 
-//      * @return      A list of all Ingredient records in the database.
-//      */
-//     @Override
-//     public List<Ingredient> getAllItems() {
-//         String query = "SELECT " + Ingredient.COLUMN_CONSUMABLE_ID + ", "
-//                                  + Ingredient.COLUMN_RAWITEM_ID + ", "
-//                                  + Ingredient.COLUMN_QUANTITY
-//                                  + " FROM " + Ingredient.TABLE_NAME + ";";
+		return ingredient;
+    }
 
-// 		ResultSet rs = database.executeQuery (query, null);
-// 		List<Ingredient> ingredients = null;
+    @Override
+    public List<Ingredient> getAllItems() {
+        String query = "SELECT " + Ingredient.COLUMN_CONSUMABLE_ID + ", "
+                                 + Ingredient.COLUMN_RAWITEM_ID + ", "
+                                 + Ingredient.COLUMN_QUANTITY
+                                 + " FROM " + Ingredient.TABLE_NAME + ";";
 
-// 		try {
-// 			while (rs.next()) {
-//                 int Cid = rs.getInt(Ingredient.COLUMN_CONSUMABLE_ID);
-//                 int Rid = rs.getInt(Ingredient.COLUMN_RAWITEM_ID);
-//                 int q = rs.getInt(Ingredient.COLUMN_QUANTITY);
+		ResultSet rs = database.executeQuery (query, null);
+		List<Ingredient> ingredients = null;
 
-//                 Ingredient ingredient = new Ingredient(null, q);
+		try {
+			while (rs.next()) {
+                int Cid = rs.getInt(Ingredient.COLUMN_CONSUMABLE_ID);
+                int Rid = rs.getInt(Ingredient.COLUMN_RAWITEM_ID);
+                int q = rs.getInt(Ingredient.COLUMN_QUANTITY);
+
+                Ingredient ingredient = new Ingredient(null, q);
                 
-//                 if (ingredients == null) {
-//                     ingredients = new ArrayList<Ingredient>();
-//                 }
-//                 else {
-//                     ingredients.add(ingredient);
-//                 }
-// 			}
-// 		} catch (SQLException e) {
-// 			e.printStackTrace ();
-// 		}
+                if (ingredients == null) {
+                    ingredients = new ArrayList<Ingredient>();
+                }
+                else {
+                    ingredients.add(ingredient);
+                }
+			}
+		} catch (SQLException e) {
+			e.printStackTrace ();
+		}
 
-// 		return ingredients;
-//     }
+		return ingredients;
+    }
 
-//     /**
-//      * Updates a Consumable record in the database with a specific id.
-//      * 
-//      * @param Consumable    The representation of a food item.
-//      * @return              The number of rows affected by the operation.
-//      */
-//     @Override
-//     public int editItem(int id, Consumable item) {
+    @Override
+    public int editItem(int id, Ingredient item) {
 
-//         return -1;
-//     }
-    
-//     /**
-//      * Deletes a Consumable record from the database.
-//      * 
-//      * @param Consumable    The representation of a food item. 
-//      * @return              The number of rows affected by the operation.
-//      */
-//     @Override
-//     public int deleteItem(int id) {
-//         String query = "DELETE FROM " + Ingredient.TABLE_NAME + 
-//                             " WHERE " + Consumable.COLUMN_ID + " = ?;";
+        return -1;
+    }
+
+    @Override
+    public int deleteItem(int id) {
+        String query = "DELETE FROM " + Ingredient.TABLE_NAME + 
+                            " WHERE " + Consumable.COLUMN_ID + " = ?;";
         
-//         if(database.executeUpdate(query, new Object[] {id}) == 1)
-//         {
-//             return 1;
-//         }
+        if(database.executeUpdate(query, new Object[] {id}) == 1)
+        {
+            return 1;
+        }
         
-//         return -1;
-//     }
-// }
+        return -1;
+    }
+}
