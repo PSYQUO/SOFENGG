@@ -63,26 +63,26 @@ public class ConsumableHelper extends DatabaseHelper implements DataAccessObject
 
     @Override
     public Consumable getItem(int id) {
-        String query = "SELECT " + Consumable.COLUMN_ID + ", "
-                                 + Consumable.COLUMN_NAME + ", "
-                                 + Consumable.COLUMN_CODENAME + ", "
-                                 + Consumable.COLUMN_PRICE + ", "
-                                 + Consumable.COLUMN_MEAL + ", "
-                                 + Consumable.COLUMN_CATEGORY
-                                 + " FROM " + Consumable.TABLE_NAME 
-                                 + " WHERE " + Consumable.COLUMN_ID + " = ?;";
+        String query = "SELECT " + COLUMN_ID + ", "
+                                 + COLUMN_NAME + ", "
+                                 + COLUMN_CODENAME + ", "
+                                 + COLUMN_PRICE + ", "
+                                 + COLUMN_MEAL + ", "
+                                 + COLUMN_CATEGORY
+                                 + " FROM " + TABLE_NAME 
+                                 + " WHERE " + COLUMN_ID + " = ?;";
 
 		ResultSet rs = database.executeQuery(query, new Object[] {id});
 		Consumable consumable = null;
 
 		try {
 			if (rs.next ()) {
-                int consumableId = rs.getInt(Consumable.COLUMN_ID);
-                String name = rs.getString(Consumable.COLUMN_NAME);
-                String codeName = rs.getString(Consumable.COLUMN_CODENAME);
-                double price = rs.getDouble(Consumable.COLUMN_PRICE);
-                Category category = new Category(rs.getInt(Consumable.COLUMN_CATEGORY), null);
-                Meal meal = new Meal(rs.getInt(Consumable.COLUMN_MEAL), null);
+                int consumableId = rs.getInt(COLUMN_ID);
+                String name = rs.getString(COLUMN_NAME);
+                String codeName = rs.getString(COLUMN_CODENAME);
+                double price = rs.getDouble(COLUMN_PRICE);
+                Category category = new Category(rs.getInt(COLUMN_CATEGORY), null);
+                Meal meal = new Meal(rs.getInt(COLUMN_MEAL), null);
 
                 consumable = new Consumable(consumableId, name, codeName, category, price, null, meal);
 			}
@@ -95,23 +95,23 @@ public class ConsumableHelper extends DatabaseHelper implements DataAccessObject
     
     @Override
     public List<Consumable> getAllItems() {
-        String query = "SELECT " + Consumable.COLUMN_ID + ", "
-                                 + Consumable.COLUMN_NAME + ", "
-                                 + Consumable.COLUMN_CODENAME + ", "
-                                 + Consumable.COLUMN_PRICE + ", "
-                                 + Consumable.COLUMN_MEAL + ", "
-                                 + Consumable.COLUMN_CATEGORY
-                                 + " FROM " + Consumable.TABLE_NAME + ";";
+        String query = "SELECT " + COLUMN_ID + ", "
+                                 + COLUMN_NAME + ", "
+                                 + COLUMN_CODENAME + ", "
+                                 + COLUMN_PRICE + ", "
+                                 + COLUMN_MEAL + ", "
+                                 + COLUMN_CATEGORY
+                                 + " FROM " + TABLE_NAME + ";";
 
 		ResultSet rs = database.executeQuery (query, null);
 		List<Consumable> consumables = null;
 
 		try {
 			while (rs.next()) {
-                int id = rs.getInt(Consumable.COLUMN_ID);
-                String name = rs.getString(Consumable.COLUMN_NAME);
-                String codeName = rs.getString(Consumable.COLUMN_CODENAME);
-                double price = rs.getDouble(Consumable.COLUMN_PRICE);
+                int id = rs.getInt(COLUMN_ID);
+                String name = rs.getString(COLUMN_NAME);
+                String codeName = rs.getString(COLUMN_CODENAME);
+                double price = rs.getDouble(COLUMN_PRICE);
 
                 Consumable consumable = new Consumable(id, name, codeName, null, price, null);
                 
@@ -132,13 +132,13 @@ public class ConsumableHelper extends DatabaseHelper implements DataAccessObject
     @Override
     public int editItem(int id, Consumable item) {
 
-        String query = "UPDATE " + Consumable.TABLE_NAME + " "
-                     + "SET " + Consumable.COLUMN_NAME + " = ?, "
-                              + Consumable.COLUMN_CODENAME + " = ?, "
-                              + Consumable.COLUMN_PRICE + " = ?, "
-                              + Consumable.COLUMN_MEAL + " = ?, "
-                              + Consumable.COLUMN_CATEGORY + " = ? "
-                              + "WHERE " + Consumable.COLUMN_ID + " = ?;";
+        String query = "UPDATE " + TABLE_NAME + " "
+                     + "SET " + COLUMN_NAME + " = ?, "
+                              + COLUMN_CODENAME + " = ?, "
+                              + COLUMN_PRICE + " = ?, "
+                              + COLUMN_MEAL + " = ?, "
+                              + COLUMN_CATEGORY + " = ? "
+                              + "WHERE " + COLUMN_ID + " = ?;";
                             
         String name = item.getName();
         String codeName = item.getCodeName();
@@ -165,8 +165,8 @@ public class ConsumableHelper extends DatabaseHelper implements DataAccessObject
     
     @Override
     public int deleteItem(int id) {
-        String query = "DELETE FROM " + Consumable.TABLE_NAME + " "
-                     + "WHERE " + Consumable.COLUMN_ID + " = ?;";
+        String query = "DELETE FROM " + TABLE_NAME + " "
+                     + "WHERE " + COLUMN_ID + " = ?;";
         
         int result = database.executeUpdate(query, new Object[] {id});
         
