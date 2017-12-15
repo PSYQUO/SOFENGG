@@ -1,5 +1,6 @@
 package controller;
 
+import controller.usercontrol.UserControl;
 import controller.viewmanager.ViewManagerException;
 
 import javafx.beans.value.ObservableValue;
@@ -110,9 +111,11 @@ public class NewOrderController extends Controller
     {
         // Temporary hard-coded data
         transactionId = 10;
-        customerNo = 2;
+//        customerNo = 2;
         transactionMode = Transaction.MODE_DINE_IN;
-        cashier = new User("Bob", "bobthebuilder", "builder", null);
+//        cashier = new User("Bob", "bobthebuilder", "builder", null);
+
+        cashier = UserControl.getInstance().getCurrentUser();
 
         lineItems = new ArrayList<LineItem>();
         transactionBuilder = new TransactionBuilder(transactionId);
