@@ -125,9 +125,8 @@ public class MainMenuController extends Controller
                 }
             });
 
+            comboName.setItems(FXCollections.observableArrayList(dbm.getUsers()));
         }
-
-        loadUsers();
     }
 
     @Override
@@ -180,10 +179,5 @@ public class MainMenuController extends Controller
                 comboName.getSelectionModel().select(UserControl.getInstance().getCurrentUser());
 
         });
-    }
-
-    private void loadUsers()
-    {
-        comboName.setItems(FXCollections.observableArrayList(dbm.getUsers()));
     }
 }
