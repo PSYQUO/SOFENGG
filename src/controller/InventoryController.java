@@ -8,9 +8,14 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import model.DatabaseModel;
+import model.Incoming;
+import model.Outgoing;
 import model.food.RawItem;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 public class InventoryController extends Controller
 {
@@ -90,7 +95,11 @@ public class InventoryController extends Controller
                     RawItem selectedItem = tableviewInventory.getSelectionModel().getSelectedItem();
                     selectedItem.setQuantity(selectedItem.getQuantity() + qty);
 
+                    Incoming i = new Incoming(LocalDateTime.now(), qty, "");
+
+                    dbm.addIncoming(i, selectedItem);
                     dbm.updateRawItem(selectedItem);
+
                     tableviewInventory.refresh();
                     changePaneState("TO_TABLE");
                 }
@@ -106,7 +115,11 @@ public class InventoryController extends Controller
                     RawItem selectedItem = tableviewInventory.getSelectionModel().getSelectedItem();
                     selectedItem.setQuantity(selectedItem.getQuantity() - qty);
 
+                    Outgoing o = new Outgoing(LocalDateTime.now(), qty, "");
+
+                    dbm.addOutgoing(o, selectedItem);
                     dbm.updateRawItem(selectedItem);
+
                     tableviewInventory.refresh();
                     changePaneState("TO_TABLE");
                 }

@@ -239,6 +239,7 @@ public class NewOrderController extends Controller
                 transactionBuilder.setChange(Double.parseDouble(labelChange.getText()));
 
                 // TODO: at this point papasok na sa DB dapat
+<<<<<<< HEAD
                 // Transaction transaction = transactionBuilder.build();
 
                 // TODO: Implement transactionHelper.addTransaction(Transaction transaction).
@@ -271,6 +272,8 @@ public class NewOrderController extends Controller
                 //         dbm.updateRawItem(rawItem);
                 //     }
                 // }
+=======
+>>>>>>> master
                 receiptBuilder.clear();
                 Receipt receipt = receiptBuilder.processTransaction(transactionBuilder.build()).build();
                 //System.out.println(receipt.customerReceipt());

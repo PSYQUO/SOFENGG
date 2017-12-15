@@ -1,7 +1,10 @@
 package model;
 
+import java.sql.Date;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 
 import model.food.*;
@@ -783,8 +786,13 @@ public class DatabaseModel
         try
         {
             dbc = DBConnection.getInstance();
-            dbc.prepareStatement("INSERT INTO transaction (Transaction_DateTime, User_ID, Customer_Number, Transaction_Type, Cash, Change, Subtotal, Senior_Discount, Total) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            dbc.setString(1, null);
+            dbc.prepareStatement("INSERT INTO transaction (Transaction_DateTime, User_ID, Customer_Number, Transaction_Type, Cash, transaction.Change, Subtotal, Senior_Discount, Total) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            dbc.setTimestamp(1, Timestamp.valueOf(newTransaction.getDate()));
+
+//            long millis = newTransaction.getDate().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli();
+//            Date date = new Date(millis);
+//            dbc.setDate(1, date);
+
             dbc.setInt(2, newTransaction.getCashier().getUserID());
             dbc.setInt(3, newTransaction.getCustomerNo());
             dbc.setString(4, newTransaction.getMode().toString());
@@ -802,7 +810,7 @@ public class DatabaseModel
         }
         catch(Exception e)
         {
-            System.out.println(e);
+            e.printStackTrace();
         }
         return false;
     }
@@ -926,7 +934,7 @@ public class DatabaseModel
         {
             dbc = DBConnection.getInstance();
             dbc.prepareStatement("INSERT INTO incoming (In_DateTime, In_Quantity, In_Remarks, RawItem_ID) VALUES (?, ?, ?, ?)");
-            dbc.setString(1, null); // set date
+            dbc.setString(1, incoming.getInDate().toString()); // set date
             dbc.setInt(2, incoming.getQuantity());
             dbc.setString(3, incoming.getRemarks());
             dbc.setInt(4, rawItem.getRawItemID());
@@ -953,7 +961,7 @@ public class DatabaseModel
         {
             dbc = DBConnection.getInstance();
             dbc.prepareStatement("INSERT INTO outgoing (Out_DateTime, Out_Quantity, Out_Remarks, RawItem_ID) VALUES (?, ?, ?, ?)");
-            dbc.setString(1, null); // set date
+            dbc.setString(1, outgoing.getOutDate().toString()); // set date
             dbc.setInt(2, outgoing.getQuantity());
             dbc.setString(3, outgoing.getRemarks());
             dbc.setInt(4, rawItem.getRawItemID());
