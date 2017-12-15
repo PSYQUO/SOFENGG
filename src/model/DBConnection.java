@@ -63,6 +63,10 @@ public class DBConnection
         preparedStatement.setString(p, x);
     }
 
+    public void setTimestamp(int p, Timestamp t) throws SQLException {
+        preparedStatement.setTimestamp(p, t);
+    }
+
     public void setDouble(int p, double x) throws SQLException
     {
         preparedStatement.setDouble(p, x);

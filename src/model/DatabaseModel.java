@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -784,7 +785,7 @@ public class DatabaseModel
         {
             dbc = DBConnection.getInstance();
             dbc.prepareStatement("INSERT INTO transaction (Transaction_DateTime, User_ID, Customer_Number, Transaction_Type, Cash, Change, Subtotal, Senior_Discount, Total) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            dbc.setString(1, null);
+            dbc.setTimestamp(1, Timestamp.valueOf(newTransaction.getDate()));
             dbc.setInt(2, newTransaction.getCashier().getUserID());
             dbc.setInt(3, newTransaction.getCustomerNo());
             dbc.setString(4, newTransaction.getMode().toString());
@@ -802,7 +803,7 @@ public class DatabaseModel
         }
         catch(Exception e)
         {
-            System.out.println(e);
+            e.printStackTrace();
         }
         return false;
     }

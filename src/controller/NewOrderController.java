@@ -23,6 +23,7 @@ import javafx.scene.layout.VBox;
 import model.food.Consumable;
 import model.food.Ingredient;
 import model.DatabaseModel;
+import model.food.RawItem;
 import model.transaction.Transaction;
 import model.transaction.TransactionBuilder;
 import model.food.LineItem;
@@ -264,27 +265,29 @@ public class NewOrderController extends Controller
                 transactionBuilder.setChange(Double.parseDouble(labelChange.getText()));
 
                 // TODO: at this point papasok na sa DB dapat
+                Transaction transaction = transactionBuilder.build();
 
-                // dbm.addTransaction(transactionBuilder.build());
+                 DatabaseModel dbm = new DatabaseModel();
+                 dbm.addTransaction(transaction);
 
-                // Decrease the inventory stocks after the transaction.
-                // RawItem rawItem;
-                // for (LineItem li : transaction.getLineItems()) {
-                //     for (Ingredient i : li.getConsumable().getIngredients()) {
-                //         rawItem = dbm.searchRawItem(i.getRawItem().rawItemID);
-                //         rawItem.setQuantity(rawItem.getQuantity() - i.getQuantity());
-                //         dbm.updateRawItem(rawItem);
-                //     }
-                // }
+//                 Decrease the inventory stocks after the transaction.
+                 RawItem rawItem;
+                 for (LineItem li : transaction.getLineItems()) {
+                     for (Ingredient i : li.getConsumable().getIngredients()) {
+                         rawItem = dbm.searchRawItem(i.getRawItem().rawItemID);
+                         rawItem.setQuantity(rawItem.getQuantity() - i.getQuantity());
+                         dbm.updateRawItem(rawItem);
+                     }
+                 }
                 receiptBuilder.clear();
                 Receipt receipt = receiptBuilder.processTransaction(transactionBuilder.build()).build();
                 //System.out.println(receipt.customerReceipt());
                 //System.out.println(receipt.kitchenReceipt());
 
                 System.out.println(receipt.customerReceipt()+"\n"+receipt.kitchenReceipt());
-                ReceiptPrinter rp = new ReceiptPrinter();
+//                ReceiptPrinter rp = new ReceiptPrinter();
                 //rp.printReceipt(receipt.customerReceipt());
-                rp.printReceipt(receipt.customerReceipt()+"\n"+receipt.kitchenReceipt());
+//                rp.printReceipt(receipt.customerReceipt()+"\n"+receipt.kitchenReceipt());
 
 
 
@@ -293,7 +296,7 @@ public class NewOrderController extends Controller
                 borderpanePayment.setDisable(true);
                 borderpanePayment.setVisible(false);
                 splitpaneNewOrder.setDisable(false);
-                // spinnerCustNo.getEditor().clear(); // remove spinner content
+                 spinnerCustNo.getEditor().setText("1"); // remove spinner content
                 textfieldPayment.clear(); // remove textfield content
                 
                 viewManager.switchViews("MainMenuController");
