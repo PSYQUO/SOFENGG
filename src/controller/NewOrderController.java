@@ -288,9 +288,9 @@ public class NewOrderController extends Controller
                 //System.out.println(receipt.kitchenReceipt());
 
                 System.out.println(receipt.customerReceipt()+"\n"+receipt.kitchenReceipt());
-//                ReceiptPrinter rp = new ReceiptPrinter();
+                ReceiptPrinter rp = new ReceiptPrinter();
                 //rp.printReceipt(receipt.customerReceipt());
-//                rp.printReceipt(receipt.customerReceipt()+"\n"+receipt.kitchenReceipt());
+                rp.printReceipt(receipt.customerReceipt()+"\n"+receipt.kitchenReceipt());
 
 
 
