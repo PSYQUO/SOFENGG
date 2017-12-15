@@ -1,7 +1,9 @@
 package controller;
 
+import controller.usercontrol.UserControl;
 import controller.viewmanager.ViewManagerException;
 
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
@@ -22,6 +24,7 @@ import javafx.scene.layout.VBox;
 import model.food.Consumable;
 import model.food.Ingredient;
 import model.DatabaseModel;
+import model.food.RawItem;
 import model.transaction.Transaction;
 import model.transaction.TransactionBuilder;
 import model.food.LineItem;
@@ -93,6 +96,8 @@ public class NewOrderController extends Controller
     private User cashier;
     private List<LineItem> lineItems;
     private DoubleProperty changeProperty;
+
+    private Node focusedNode;
     
     private DecimalFormat df = new DecimalFormat("0.00");
 
@@ -106,9 +111,11 @@ public class NewOrderController extends Controller
     {
         // Temporary hard-coded data
         transactionId = 10;
-        customerNo = 2;
+//        customerNo = 2;
         transactionMode = Transaction.MODE_DINE_IN;
-        cashier = new User("Bob", "bobthebuilder", "builder", null);
+//        cashier = new User("Bob", "bobthebuilder", "builder", null);
+
+        cashier = UserControl.getInstance().getCurrentUser();
 
         lineItems = new ArrayList<LineItem>();
         transactionBuilder = new TransactionBuilder(transactionId);
@@ -119,6 +126,10 @@ public class NewOrderController extends Controller
         spinnerCustNo.getValueFactory().setValue(1);
         vboxReceipt.getChildren().clear();
         labelSubtotal.setText("0.00");
+
+        // For inputting in either payment textfield or customer number spinner using numpad.
+        focusedNode = textfieldPayment;
+        focusedNode.requestFocus();
         
         transactionBuilder.setCustomerNo(customerNo)
                             .setMode(transactionMode)
@@ -127,37 +138,64 @@ public class NewOrderController extends Controller
 
         if(isFirstLoad())
         {
+            textfieldPayment.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+                if (newValue) {
+                    focusedNode = textfieldPayment;
+                }
+            });
+
+            spinnerCustNo.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+                if (newValue) {
+                    focusedNode = spinnerCustNo;
+                }
+            });
 
             textfieldPayment.setEditable(false);
+            spinnerCustNo.setEditable(false);
 
             // Attach event handlers for each button in the numpad
             for (Node n : gridpaneNumpad.getChildren()) {
                 Button b = (Button) n;
                 b.addEventHandler(ActionEvent.ACTION, e ->
                 {
-                    if (b.getText().equals(".")) {
-                        if (textfieldPayment.getText().contains("."))
+                    if (focusedNode == textfieldPayment) {
+                        if (b.getText().equals(".")) {
+                            if (textfieldPayment.getText().contains("."))
+                                return;
+                        }
+
+                        if (textfieldPayment.getText().length() >= 6)
                             return;
+
+                        if (textfieldPayment.getText().equals("0") && !b.getText().equals("."))
+                            textfieldPayment.setText("");
+
+                        textfieldPayment.setText(textfieldPayment.getText() + b.getText());
+
+                        if (Double.parseDouble(textfieldPayment.getText()) == 0)
+                            textfieldPayment.setText("0");
+
+                        double total = transactionBuilder.build().getTotal();
+
+                        if (checkboxSenior.isSelected())
+                            total -= total * 0.20;
+
+                        double change = Double.parseDouble(textfieldPayment.getText()) - total;
+                        labelChange.setText(df.format(change));
                     }
+                    else if (focusedNode == spinnerCustNo) {
+                        if (b.getText().equals(".") || b.getText().equals("00")) {
+                            return;
+                        }
 
-                    if (textfieldPayment.getText().length() >= 6)
-                        return;
+                        if (spinnerCustNo.getEditor().getText().length() >= 2)
+                            return;
 
-                    if (textfieldPayment.getText().equals("0") && !b.getText().equals("."))
-                        textfieldPayment.setText("");
-                    
-                    textfieldPayment.setText(textfieldPayment.getText() + b.getText());
+                        if (Integer.parseInt(spinnerCustNo.getEditor().getText() + b.getText()) > 40)
+                            return;
 
-                    if (Integer.parseInt(textfieldPayment.getText()) == 0)
-                        textfieldPayment.setText("0");
-
-                    double total = transactionBuilder.build().getTotal();
-
-                    if (checkboxSenior.isSelected())
-                        total -= total * 0.20;
-
-                    double change = Double.parseDouble(textfieldPayment.getText()) - total;
-                    labelChange.setText(df.format(change));
+                        spinnerCustNo.getEditor().setText(spinnerCustNo.getEditor().getText() + b.getText());
+                    }
                 });
             }
 
@@ -230,27 +268,29 @@ public class NewOrderController extends Controller
                 transactionBuilder.setChange(Double.parseDouble(labelChange.getText()));
 
                 // TODO: at this point papasok na sa DB dapat
+                Transaction transaction = transactionBuilder.build();
 
-                // dbm.addTransaction(transactionBuilder.build());
+                 DatabaseModel dbm = new DatabaseModel();
+                 dbm.addTransaction(transaction);
 
-                // Decrease the inventory stocks after the transaction.
-                // RawItem rawItem;
-                // for (LineItem li : transaction.getLineItems()) {
-                //     for (Ingredient i : li.getConsumable().getIngredients()) {
-                //         rawItem = dbm.searchRawItem(i.getRawItem().rawItemID);
-                //         rawItem.setQuantity(rawItem.getQuantity() - i.getQuantity());
-                //         dbm.updateRawItem(rawItem);
-                //     }
-                // }
+//                 Decrease the inventory stocks after the transaction.
+                 RawItem rawItem;
+                 for (LineItem li : transaction.getLineItems()) {
+                     for (Ingredient i : li.getConsumable().getIngredients()) {
+                         rawItem = dbm.searchRawItem(i.getRawItem().rawItemID);
+                         rawItem.setQuantity(rawItem.getQuantity() - i.getQuantity());
+                         dbm.updateRawItem(rawItem);
+                     }
+                 }
                 receiptBuilder.clear();
                 Receipt receipt = receiptBuilder.processTransaction(transactionBuilder.build()).build();
                 //System.out.println(receipt.customerReceipt());
                 //System.out.println(receipt.kitchenReceipt());
 
                 System.out.println(receipt.customerReceipt()+"\n"+receipt.kitchenReceipt());
-                ReceiptPrinter rp = new ReceiptPrinter();
+//                ReceiptPrinter rp = new ReceiptPrinter();
                 //rp.printReceipt(receipt.customerReceipt());
-                rp.printReceipt(receipt.customerReceipt()+"\n"+receipt.kitchenReceipt());
+//                rp.printReceipt(receipt.customerReceipt()+"\n"+receipt.kitchenReceipt());
 
 
 
@@ -259,7 +299,7 @@ public class NewOrderController extends Controller
                 borderpanePayment.setDisable(true);
                 borderpanePayment.setVisible(false);
                 splitpaneNewOrder.setDisable(false);
-                // spinnerCustNo.getEditor().clear(); // remove spinner content
+                 spinnerCustNo.getEditor().setText("1"); // remove spinner content
                 textfieldPayment.clear(); // remove textfield content
                 
                 viewManager.switchViews("MainMenuController");
@@ -270,21 +310,29 @@ public class NewOrderController extends Controller
             // Backspace for payment input.
             buttonBackspace.addEventHandler(ActionEvent.ACTION, e ->
             {
-                // Override backspace function with set text to 0 if the current text is 1 character.
-                if (textfieldPayment.getText().length() == 1)
-                    textfieldPayment.setText("0");
-                else
-                    textfieldPayment.setText(
-                        textfieldPayment.getText().substring(0, textfieldPayment.getText().length() - 1));
+                if (focusedNode == textfieldPayment) {
+                    // Override backspace function with set text to 0 if the current text is 1 character.
+                    if (textfieldPayment.getText().length() == 1)
+                        textfieldPayment.setText("0");
+                    else
+                        textfieldPayment.setText(
+                                textfieldPayment.getText().substring(0, textfieldPayment.getText().length() - 1));
 
-                // Get the current total of the transaction.
-                double total = transactionBuilder.build().getTotal();
-                if (checkboxSenior.isSelected())
-                    total -= total * 0.20;
-                
-                // Calculate the change given a payment and a total.
-                double change = Double.parseDouble(textfieldPayment.getText()) - total;
-                labelChange.setText(df.format(change) + "");
+                    // Get the current total of the transaction.
+                    double total = transactionBuilder.build().getTotal();
+                    if (checkboxSenior.isSelected())
+                        total -= total * 0.20;
+
+                    // Calculate the change given a payment and a total.
+                    double change = Double.parseDouble(textfieldPayment.getText()) - total;
+                    labelChange.setText(df.format(change) + "");
+                } else if (focusedNode == spinnerCustNo) {
+                    if (spinnerCustNo.getEditor().getText().length() == 1)
+                        spinnerCustNo.getEditor().setText("1");
+                    else
+                        spinnerCustNo.getEditor().setText(
+                                spinnerCustNo.getEditor().getText().substring(0, spinnerCustNo.getEditor().getText().length() - 1));
+                }
             });
 
             // Cancel payment input
