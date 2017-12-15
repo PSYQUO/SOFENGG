@@ -1,8 +1,10 @@
 package model;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 
 import model.food.*;
@@ -784,8 +786,13 @@ public class DatabaseModel
         try
         {
             dbc = DBConnection.getInstance();
-            dbc.prepareStatement("INSERT INTO transaction (Transaction_DateTime, User_ID, Customer_Number, Transaction_Type, Cash, Change, Subtotal, Senior_Discount, Total) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            dbc.prepareStatement("INSERT INTO transaction (Transaction_DateTime, User_ID, Customer_Number, Transaction_Type, Cash, transaction.Change, Subtotal, Senior_Discount, Total) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
             dbc.setTimestamp(1, Timestamp.valueOf(newTransaction.getDate()));
+
+//            long millis = newTransaction.getDate().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli();
+//            Date date = new Date(millis);
+//            dbc.setDate(1, date);
+
             dbc.setInt(2, newTransaction.getCashier().getUserID());
             dbc.setInt(3, newTransaction.getCustomerNo());
             dbc.setString(4, newTransaction.getMode().toString());

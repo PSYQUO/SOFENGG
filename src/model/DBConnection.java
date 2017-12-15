@@ -67,6 +67,10 @@ public class DBConnection
         preparedStatement.setTimestamp(p, t);
     }
 
+    public void setDate(int p, Date d) throws SQLException {
+        preparedStatement.setDate(p, d);
+    }
+
     public void setDouble(int p, double x) throws SQLException
     {
         preparedStatement.setDouble(p, x);
@@ -84,6 +88,7 @@ public class DBConnection
 
     public int executeUpdate() throws SQLException
     {
+        System.out.println(preparedStatement);
         return preparedStatement.executeUpdate();
     }
 
